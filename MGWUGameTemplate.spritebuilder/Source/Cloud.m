@@ -10,4 +10,9 @@
 
 @implementation Cloud
 
+
+- (void)didLoadFromCCB {
+    self.physicsBody.sensor = YES;
+}
+
 @end

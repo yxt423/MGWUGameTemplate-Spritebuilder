@@ -10,4 +10,9 @@
 
 @implementation Character
 
+- (void) jump {
+    CCLOG(@"jump");
+    [self.physicsBody applyImpulse:ccp(0.f, 200.f)];
+}
+
 @end

@@ -10,4 +10,6 @@
 
 @interface GamePlay : CCNode
 
+@property (nonatomic, assign) int score;
+
 @end

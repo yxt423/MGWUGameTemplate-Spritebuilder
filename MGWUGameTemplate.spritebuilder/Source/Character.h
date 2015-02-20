@@ -10,4 +10,6 @@
 
 @interface Character : CCSprite
 
+- (void)jump;
+
 @end
