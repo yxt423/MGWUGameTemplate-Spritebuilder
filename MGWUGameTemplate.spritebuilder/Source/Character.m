@@ -10,9 +10,14 @@
 
 @implementation Character
 
+- (void)didLoadFromCCB {
+    self.physicsBody.collisionType = @"character";
+}
+
+
 - (void) jump {
     CCLOG(@"jump");
-    [self.physicsBody applyImpulse:ccp(0.f, 200.f)];
+    [self.physicsBody applyImpulse:ccp(0.f, 3500.f)];
 }
 
 @end

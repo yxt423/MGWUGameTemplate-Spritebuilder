@@ -13,6 +13,9 @@
 
 - (void)didLoadFromCCB {
     self.physicsBody.sensor = YES;
+    
+    self.physicsBody.collisionType = @"cloud";
 }
+
 
 @end
