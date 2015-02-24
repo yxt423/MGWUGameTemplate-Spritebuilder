@@ -19,13 +19,11 @@
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
     
-    BOOL _gameStarted;
     int _cloudHit;
 }
 
 - (void)didLoadFromCCB {
     // init game play related varibles
-    _gameStarted = false;
     _score = 0;
     _cloudHit = 0;
     
@@ -43,6 +41,10 @@
     UISwipeGestureRecognizer * swipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRight];
+}
+
+- (void)update:(CCTime)delta {
+    
 }
 
 //- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
@@ -82,19 +84,6 @@
 
 - (void)swipeRight {
     [_character moveRight];
-}
-
-- (void)restart {
-    // resload gameplay scene
-    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay"]];
-    _gameStarted = false;
-}
-
-- (void)start {
-    if (!_gameStarted) {
-        _gameStarted = true;
-        [_character jump];
-    }
 }
 
 - (void)cloudRemoved:(CCNode *)cloud {
