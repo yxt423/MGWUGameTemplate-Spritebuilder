@@ -19,6 +19,8 @@
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
     
+    CCAction *_followCharacter;
+    
     int _cloudHit;
 }
 
@@ -41,15 +43,11 @@
     UISwipeGestureRecognizer * swipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRight];
-}
-
-- (void)update:(CCTime)delta {
     
 }
 
-//- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-//    [_character jump];
-//}
+- (void)update:(CCTime)delta {
+}
 
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
@@ -61,6 +59,13 @@
     _cloudHit += 1;
     _score += _cloudHit * 10;
     _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+    
+    // after hit one cloud, start to follow the character
+    // if start following in didLoadFromCCB, the GamePlay scene wouldn't show up correctly. ?
+    if (_cloudHit == 1) {
+        _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:self.boundingBox];
+        [_contentNode runAction:_followCharacter];
+    }
     
     return YES;
 }
