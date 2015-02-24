@@ -92,6 +92,15 @@
 }
 
 - (void)cloudRemoved:(CCNode *)cloud {
+    // load particle effect
+    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"CloudVanish"];
+    // make the particle effect clean itself up, once it is completed
+    explosion.autoRemoveOnFinish = TRUE;
+    // place the particle effect on the seals position
+    explosion.position = cloud.position;
+    // add the particle effect to the same node the seal is on
+    [cloud.parent addChild:explosion];
+    
     // remove a cloud from the scene
     [cloud removeFromParent];
 }
