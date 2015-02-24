@@ -11,6 +11,8 @@
 		B6350E001A97F81C00B4867C /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350DFF1A97F81C00B4867C /* GamePlay.m */; };
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
+		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
+		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -80,6 +82,10 @@
 		B6350E021A97F82B00B4867C /* Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cloud.m; path = Source/Cloud.m; sourceTree = "<group>"; };
 		B6350E041A97F83900B4867C /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
+		B6CBD67C1A9BF65100859D79 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOver.h; path = Source/GameOver.h; sourceTree = "<group>"; };
+		B6CBD67D1A9BF65100859D79 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOver.m; path = Source/GameOver.m; sourceTree = "<group>"; };
+		B6CBD67F1A9BF97200859D79 /* Groud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groud.h; path = Source/Groud.h; sourceTree = "<group>"; };
+		B6CBD6801A9BF97200859D79 /* Groud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Groud.m; path = Source/Groud.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -158,6 +164,10 @@
 				B6350E021A97F82B00B4867C /* Cloud.m */,
 				B6350E041A97F83900B4867C /* Character.h */,
 				B6350E051A97F83900B4867C /* Character.m */,
+				B6CBD67C1A9BF65100859D79 /* GameOver.h */,
+				B6CBD67D1A9BF65100859D79 /* GameOver.m */,
+				B6CBD67F1A9BF97200859D79 /* Groud.h */,
+				B6CBD6801A9BF97200859D79 /* Groud.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -388,6 +398,8 @@
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
+				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
+				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				B6350E061A97F83900B4867C /* Character.m in Sources */,

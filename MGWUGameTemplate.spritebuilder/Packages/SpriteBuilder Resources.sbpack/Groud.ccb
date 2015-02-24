@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -40,7 +40,7 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Cloud</string>
+		<string>Groud</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -50,9 +50,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
-			<false/>
+			<true/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -64,7 +64,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>200</real>
+			<real>1</real>
 			<key>dynamic</key>
 			<false/>
 			<key>elasticity</key>
@@ -74,19 +74,19 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>6.4037442207336426</real>
-					<real>0.7818867564201355</real>
+					<real>0.0</real>
+					<real>0.0</real>
 				</array>
 				<array>
-					<real>7.6219353675842285</real>
-					<real>7.8838167190551758</real>
+					<real>0.27290448546409607</real>
+					<real>24.21495246887207</real>
 				</array>
 				<array>
-					<real>48.5836181640625</real>
-					<real>8.4348287582397461</real>
+					<real>479.6240234375</real>
+					<real>24.847003936767578</real>
 				</array>
 				<array>
-					<real>50</real>
+					<real>480</real>
 					<real>0.0</real>
 				</array>
 			</array>
@@ -94,20 +94,20 @@
 			<array>
 				<array>
 					<array>
-						<real>50</real>
+						<real>480</real>
 						<real>0.0</real>
 					</array>
 					<array>
-						<real>48.5836181640625</real>
-						<real>8.4348287582397461</real>
+						<real>479.6240234375</real>
+						<real>24.847003936767578</real>
 					</array>
 					<array>
-						<real>7.6219353675842285</real>
-						<real>7.8838167190551758</real>
+						<real>0.27290448546409607</real>
+						<real>24.21495246887207</real>
 					</array>
 					<array>
-						<real>6.4037442207336426</real>
-						<real>0.7818867564201355</real>
+						<real>0.0</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</array>
@@ -144,7 +144,7 @@
 				<key>value</key>
 				<array>
 					<real>0.5</real>
-					<real>0.5</real>
+					<real>0.0</real>
 				</array>
 			</dict>
 			<dict>
@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/Cloud.png</string>
+					<string>Assets/ground.png</string>
 				</array>
 			</dict>
 			<dict>

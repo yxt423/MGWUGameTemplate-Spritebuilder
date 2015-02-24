@@ -16,7 +16,8 @@
 
 
 - (void)jump {
-    CCLOG(@"jump");
+    //CCLOG(@"jump");
+    
     //[self.physicsBody applyImpulse:ccp(0.f, 3500.f)];
     self.physicsBody.velocity = ccp(0.f, 150.f);
 }
