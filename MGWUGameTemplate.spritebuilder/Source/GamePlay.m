@@ -10,13 +10,13 @@
 #import "GameOver.h"
 #import "Character.h"
 #import "Cloud.h"
+#import "Star.h"
 #import "Groud.h"
 #import "ScoreAdd.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 @implementation GamePlay {
     Character *_character;
-    Character *_character_new;
     CCNode *_contentNode;
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
@@ -80,6 +80,18 @@
     return YES;
 }
 
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
+    //CCLOG(@"character collided with star!");
+    _score *= 2;
+    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+    
+    [_character jump];
+    [self starRemoved:nodeB];
+    
+    return YES;
+}
+
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     //CCLOG(@"character collided with groud!");
     
@@ -111,10 +123,6 @@
     [cloud.parent addChild:explosion];
     
     // show earned score for a short time
-//    CCLabelTTF * scoreAdded = [CCLabelTTF labelWithString:@"10" fontName:@"Marker Felt" fontSize:10];
-//    scoreAdded.position = cloud.position;
-//    [cloud.parent addChild:scoreAdded];
-    
     ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"ScoreAdd"];
     scoreAdd.position = cloud.position;
     [scoreAdd setScore:(_cloudHit * 10)];
@@ -122,6 +130,12 @@
     
     // remove a cloud from the scene
     [cloud removeFromParent];
+}
+
+- (void)starRemoved:(CCNode *)star {
+    
+    // remove the entire starSpinging object from parent, not just the star.
+    [star.parent removeFromParent];
 }
 
 - (void)endGame {
