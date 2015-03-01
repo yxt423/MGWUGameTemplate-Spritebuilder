@@ -13,6 +13,7 @@
 #import "Star.h"
 #import "Groud.h"
 #import "ScoreAdd.h"
+#import "ScoreDouble.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 @implementation GamePlay {
@@ -133,6 +134,11 @@
 }
 
 - (void)starRemoved:(CCNode *)star {
+    // show "score double" for a short time
+    // use star.parent as the whole object!
+    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];
+    scoreDouble.position = star.parent.position;
+    [star.parent.parent addChild:scoreDouble];
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];

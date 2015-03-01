@@ -15,6 +15,7 @@
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B231AA2E4230050F36E /* ScoreAdd.m */; };
 		B6F36B2A1AA3BB030050F36E /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B291AA3BB030050F36E /* Star.m */; };
+		B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -92,6 +93,8 @@
 		B6F36B231AA2E4230050F36E /* ScoreAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAdd.m; path = Source/ScoreAdd.m; sourceTree = "<group>"; };
 		B6F36B281AA3BB030050F36E /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
 		B6F36B291AA3BB030050F36E /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Star.m; path = Source/Star.m; sourceTree = "<group>"; };
+		B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreDouble.h; path = Source/ScoreDouble.h; sourceTree = "<group>"; };
+		B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreDouble.m; path = Source/ScoreDouble.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				B6F36B231AA2E4230050F36E /* ScoreAdd.m */,
 				B6F36B281AA3BB030050F36E /* Star.h */,
 				B6F36B291AA3BB030050F36E /* Star.m */,
+				B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */,
+				B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
+				B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */,
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
