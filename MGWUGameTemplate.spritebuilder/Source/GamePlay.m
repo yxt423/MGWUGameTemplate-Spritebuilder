@@ -11,6 +11,7 @@
 #import "Character.h"
 #import "Cloud.h"
 #import "Groud.h"
+#import "ScoreAdd.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 @implementation GamePlay {
@@ -22,17 +23,10 @@
     CCAction *_followCharacter;
     
     int _cloudHit;
-    
-//    int _screenLeft;
-//    int _screenRight;
 }
 
 - (void)didLoadFromCCB {
     // init game play related varibles
-    
-//    _screenLeft = self.boundingBox.origin.x;
-//    _screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
-    
     _score = 0;
     _cloudHit = 0;
     
@@ -67,24 +61,8 @@
     }
 }
 
-- (void)lunchCharacterAtPosition: (int)x {
-    // launch a new chatacter
-    CCNode *character = [CCBReader load:@"Character"];
-    character.position = ccp(x, _character.position.y);
-    character.physicsBody.velocity = _character.physicsBody.velocity;
-    
-    // replace the old one with the new one.
-    [_character removeFromParent];
-    _character = (Character *)character;
-    [_physicsNode addChild:_character];
-    [self followChatacter];
-}
-
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     //CCLOG(@"character collided with cloud!");
-    
-    [_character jump];
-    [self cloudRemoved:nodeB];
     
     _cloudHit += 1;
     _score += _cloudHit * 10;
@@ -96,10 +74,13 @@
         [self followChatacter];
     }
     
+    [_character jump];
+    [self cloudRemoved:nodeB];
+    
     return YES;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     //CCLOG(@"character collided with groud!");
     
     if (_cloudHit > 0) {
@@ -134,6 +115,11 @@
 //    scoreAdded.position = cloud.position;
 //    [cloud.parent addChild:scoreAdded];
     
+    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"ScoreAdd"];
+    scoreAdd.position = cloud.position;
+    [scoreAdd setScore:(_cloudHit * 10)];
+    [cloud.parent addChild:scoreAdd];
+    
     // remove a cloud from the scene
     [cloud removeFromParent];
 }
@@ -153,6 +139,19 @@
     }
     
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GameOver"]];
+}
+
+- (void)lunchCharacterAtPosition: (int)x {
+    // launch a new chatacter
+    CCNode *character = [CCBReader load:@"Character"];
+    character.position = ccp(x, _character.position.y);
+    character.physicsBody.velocity = _character.physicsBody.velocity;
+    
+    // replace the old one with the new one.
+    [_character removeFromParent];
+    _character = (Character *)character;
+    [_physicsNode addChild:_character];
+    [self followChatacter];
 }
 
 - (void)followChatacter {
