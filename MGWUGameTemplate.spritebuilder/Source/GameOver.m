@@ -25,7 +25,7 @@
 
 - (void)playAgain {
     // resload gameplay scene
-    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay2"]];
+    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay"]];
 }
 
 @end
