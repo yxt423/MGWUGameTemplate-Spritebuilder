@@ -24,6 +24,9 @@
     CCAction *_followCharacter;
     
     int _cloudHit;
+    
+    UISwipeGestureRecognizer * _swipeLeft;
+    UISwipeGestureRecognizer * _swipeRight;
 }
 
 - (void)didLoadFromCCB {
@@ -31,21 +34,9 @@
     _score = 0;
     _cloudHit = 0;
     
-    // tell this scene to accept touches
-    self.userInteractionEnabled = TRUE;
-    
     _physicsNode.collisionDelegate = self;
     
-    // listen for swipes to the left
-    UISwipeGestureRecognizer * swipeLeft= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLeft)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeLeft];
-    
-    // listen for swipes to the right
-    UISwipeGestureRecognizer * swipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRight];
-    
+    [self startUserInteraction];
 }
 
 - (void)update:(CCTime)delta {
@@ -61,6 +52,30 @@
         [self lunchCharacterAtPosition:screenLeft];
     }
 }
+
+- (void)startUserInteraction {
+    // tell this scene to accept touches
+    self.userInteractionEnabled = TRUE;
+    
+    // listen for swipes to the left
+    _swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLeft)];
+    _swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeLeft];
+    
+    // listen for swipes to the right
+    _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
+    _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeRight];
+}
+
+- (void)stopUserInteraction {
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeLeft];
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeRight];
+    
+    // stop accept touches.
+    self.userInteractionEnabled = false;
+}
+
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     //CCLOG(@"character collided with cloud!");
@@ -80,7 +95,6 @@
     
     return YES;
 }
-
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     //CCLOG(@"character collided with star!");
@@ -157,6 +171,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:highScore forKey:@"highscore"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    [self stopUserInteraction];
     
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GameOver"]];
 }
