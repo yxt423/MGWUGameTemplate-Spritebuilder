@@ -33,11 +33,10 @@
     
     
     int _cloudHit;
-    
     int _contentHeight;
-    CGRect _contentBoundingBox;
     
-    bool _tempFlag;
+    float _timeSinceNewContent;
+    bool _canLoadNewContent;
 }
 
 - (void)didLoadFromCCB {
@@ -45,6 +44,8 @@
     _score = 0;
     _cloudHit = 0;
     _contentHeight = 0;
+    _timeSinceNewContent = 0.0f;
+    _canLoadNewContent = false;
     
     _physicsNode.collisionDelegate = self;
     
@@ -59,29 +60,7 @@
     // load the first content
     [self loadNewContent];
     [self startUserInteraction];
-    //[self followChatacter];
     
-    _tempFlag = false;
-}
-
-- (void)loadNewContent {
-    CCNode *newContent = (CCNode *)[CCBReader load:@"Screen1"];
-    newContent.position = ccp(0, _contentHeight);
-    newContent.zOrder = -1;
-    [_objectsGroup addChild:newContent];
-    
-    CCLOG(@"load new content! at y: %d", _contentHeight);
-    
-    // update varibles for CCActionFollow
-    _contentHeight += newContent.boundingBox.size.height;
-}
-
-
-- (void)followChatacter {
-    CCLOG(@"follow character with height %d", _contentHeight);
-    _contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
-    _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:_contentBoundingBox];
-    [_contentNode runAction:_followCharacter];
 }
 
 - (void)update:(CCTime)delta {
@@ -98,8 +77,13 @@
         [self lunchCharacterAtPosition:screenLeft];
     }
     
+    _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
+    if (_timeSinceNewContent > 2.0f) {
+        _canLoadNewContent = true;
+    }
+    
     // if character reach top of the scene, load new content.
-    if(!_tempFlag) {
+    if(_canLoadNewContent) {
         int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
         //int screenTop = self.boundingBox.origin.y + self.boundingBox.size.height;
         int halfVerticalSize = [[UIScreen mainScreen] bounds].size.height / 2;
@@ -111,9 +95,28 @@
             [_contentNode stopAllActions];
             [self followChatacter];
             
-            _tempFlag = true;
+            _canLoadNewContent = false;
+            _timeSinceNewContent = 0.0f;
         }
     }
+}
+
+- (void)loadNewContent {
+    CCNode *newContent = (CCNode *)[CCBReader load:@"Screen1"];
+    newContent.position = ccp(0, _contentHeight);
+    newContent.zOrder = -1;
+    [_objectsGroup addChild:newContent];
+    
+    CCLOG(@"load new content! at y: %d", _contentHeight);
+    
+    // update varibles for CCActionFollow
+    _contentHeight += newContent.boundingBox.size.height;
+}
+
+- (void)followChatacter {
+    CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
+    _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:contentBoundingBox];
+    [_contentNode runAction:_followCharacter];
 }
 
 - (void)startUserInteraction {
@@ -132,13 +135,20 @@
     self.userInteractionEnabled = false;
 }
 
+- (void)swipeLeft {
+    [_character moveLeft];
+}
+
+- (void)swipeRight {
+    [_character moveRight];
+}
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     //CCLOG(@"character collided with cloud!");
     
     _cloudHit += 1;
     _score += _cloudHit * 10;
-    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+    [self updateScore];
     
     // after hit one cloud, start to follow the character
     // if start following in didLoadFromCCB, the GamePlay scene won't show up correctly. (why?)
@@ -155,7 +165,7 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     //CCLOG(@"character collided with star!");
     _score *= 2;
-    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+    [self updateScore];
     
     [_character jump];
     [self starRemoved:nodeB];
@@ -173,45 +183,6 @@
     }
     
     return YES;
-}
-
-- (void)swipeLeft {
-    [_character moveLeft];
-}
-
-- (void)swipeRight {
-    [_character moveRight];
-}
-
-- (void)cloudRemoved:(CCNode *)cloud {
-    // load particle effect
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"CloudVanish"];
-    // make the particle effect clean itself up, once it is completed
-    explosion.autoRemoveOnFinish = TRUE;
-    // place the particle effect on the cloud's position
-    explosion.position = cloud.position;
-    // add the particle effect to the same node the cloud is on
-    [cloud.parent addChild:explosion];
-    
-    // show earned score for a short time
-    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"ScoreAdd"];
-    scoreAdd.position = cloud.position;
-    [scoreAdd setScore:(_cloudHit * 10)];
-    [cloud.parent addChild:scoreAdd];
-    
-    // remove a cloud from the scene
-    [cloud removeFromParent];
-}
-
-- (void)starRemoved:(CCNode *)star {
-    // show "score double" for a short time
-    // use star.parent as the whole object!
-    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];
-    scoreDouble.position = star.parent.position;
-    [star.parent.parent addChild:scoreDouble];
-    
-    // remove the entire starSpinging object from parent, not just the star.
-    [star.parent removeFromParent];
 }
 
 - (void)endGame {
@@ -244,6 +215,42 @@
     _character = (Character *)character;
     [_physicsNode addChild:_character];
     [self followChatacter];
+}
+
+
+- (void)updateScore {
+    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+}
+
+- (void)cloudRemoved:(CCNode *)cloud {
+    // load particle effect
+    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"CloudVanish"];
+    // make the particle effect clean itself up, once it is completed
+    explosion.autoRemoveOnFinish = TRUE;
+    // place the particle effect on the cloud's position
+    explosion.position = cloud.position;
+    // add the particle effect to the same node the cloud is on
+    [cloud.parent addChild:explosion];
+    
+    // show earned score for a short time
+    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"ScoreAdd"];
+    scoreAdd.position = cloud.position;
+    [scoreAdd setScore:(_cloudHit * 10)];
+    [cloud.parent addChild:scoreAdd];
+    
+    // remove a cloud from the scene
+    [cloud removeFromParent];
+}
+
+- (void)starRemoved:(CCNode *)star {
+    // show "score double" for a short time
+    // use star.parent as the whole object!
+    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];
+    scoreDouble.position = star.parent.position;
+    [star.parent.parent addChild:scoreDouble];
+    
+    // remove the entire starSpinging object from parent, not just the star.
+    [star.parent removeFromParent];
 }
 
 @end
