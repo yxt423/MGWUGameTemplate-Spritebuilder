@@ -18,7 +18,7 @@
  
  */
 
-
+#include <stdlib.h>
 
 #import "GamePlay.h"
 #import "GameOver.h"
@@ -70,6 +70,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     _sharedObjectsGroup = _objectsGroup;
     
     // init varibles
+    
     // define the listener for swipes to the left
     _swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLeft)];
     _swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -77,7 +78,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
     _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     
-    // load the first content
+    // load game content
     [self loadNewContent];
     [self startUserInteraction];
 }
@@ -129,7 +130,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)loadNewContent {
-    CCNode *newContent = (CCNode *)[CCBReader load:@"Screen1"];
+    CCNode *newContent = (CCNode *)[CCBReader load:[self getNameOfContentFile]];
     newContent.position = ccp(0, _contentHeight);
     newContent.zOrder = -1;
     [_objectsGroup addChild:newContent];
@@ -138,6 +139,13 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     
     // update varibles for CCActionFollow
     _contentHeight += newContent.boundingBox.size.height;
+}
+
+// select a game content file: randomly.
+- (NSString*) getNameOfContentFile {
+    int fileNumber = arc4random_uniform(2) + 1;
+    NSString *fileName = [@"Screen" stringByAppendingString:[NSString stringWithFormat:@"%d", fileNumber]];
+    return fileName;
 }
 
 - (void)followCharacter {
