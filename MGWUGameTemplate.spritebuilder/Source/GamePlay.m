@@ -12,7 +12,8 @@
  
  
  == End game mechanism  ==
- 1. Remove the cloud when it's position is one screen lower than _characterHighest (the highest position the character ever been to).
+ 1. Remove the cloud when it's position is one screen lower than _characterHighest.
+    (A cloud can get it's relative position by calling the class method getPositionInObjectsGroup, which uses a static verible _sharedObjectsGroup, which equals to _objectsGroup)
  2. End the game when the character is two screens lower than _characterHighest.
  
  
@@ -34,7 +35,7 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 static int _characterHighest; //the highest position the character ever been to
-static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup. // Strategies for Accessing Other Nodes: http://www.learn-cocos2d.com/files/cocos2d-essential-reference-sample/Strategies_for_Accessing_Other_Nodes.html
 
 @implementation GamePlay {
     Character *_character;
@@ -115,7 +116,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         }
     }
     
-    
     _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
     if (_timeSinceNewContent > 2.0f) {
         _canLoadNewContent = true;
@@ -125,8 +125,8 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     if (_character.position.y > _characterHighest) {
         _characterHighest = _character.position.y;
     }
-    if (_character.position.y + screenHeight < _characterHighest) {
-        ///// [self endGame];
+    if (_character.position.y + screenHeight * 2 < _characterHighest) {
+        [self endGame];
     }
 }
 
@@ -143,6 +143,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)followCharacter {
+    // the height of boundingbox changes when new content is loaded.
     CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
     _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:contentBoundingBox];
     [_contentNode runAction:_followCharacter];
@@ -214,6 +215,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     return YES;
 }
 
+// store current score and highest score for later acess, stop user interaction on GamePlay, load GameOver scene.
 - (void)endGame {
     // store current score
     [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:_score] forKey:@"score"];
