@@ -16,8 +16,7 @@
 
 @implementation Cloud {
     float _timeSinceUpdate;
-    
-    int _screenHeight;
+    int _screenHeight; // height of the device screen
 }
 
 
@@ -26,7 +25,6 @@
     _screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
     self.physicsBody.sensor = YES;
-    
     self.physicsBody.collisionType = @"cloud";
 }
 

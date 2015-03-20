@@ -8,14 +8,13 @@
 /*
  
  == Load game content mechanism == 
- 
+ Start with an empty gameplay scene, load new content into _objectsGroup.
  
  
  == End game mechanism  ==
  1. Remove the cloud when it's position is one screen lower than _characterHighest.
-    (A cloud can get it's relative position by calling the class method getPositionInObjectsGroup, which uses a static verible _sharedObjectsGroup, which equals to _objectsGroup)
+    (A cloud can get it's relative position by calling the class method getPositionInObjectsGroup, which uses a static verible _sharedObjectsGroup, which equals to _objectsGroup. // Strategies for Accessing Other Nodes: http://www.learn-cocos2d.com/files/cocos2d-essential-reference-sample/Strategies_for_Accessing_Other_Nodes.html )
  2. End the game when the character is two screens lower than _characterHighest.
- 
  
  */
 
@@ -35,7 +34,7 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 static int _characterHighest; //the highest position the character ever been to
-static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup. // Strategies for Accessing Other Nodes: http://www.learn-cocos2d.com/files/cocos2d-essential-reference-sample/Strategies_for_Accessing_Other_Nodes.html
+static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 
 @implementation GamePlay {
     Character *_character;
@@ -81,7 +80,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // load the first content
     [self loadNewContent];
     [self startUserInteraction];
-    
 }
 
 - (void)update:(CCTime)delta {
@@ -105,10 +103,10 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         
         // determine when to load new content. (is there any built-in function for this?)
         if (yMax + screenHeight / 2 + 200 > _contentHeight) {
-            [self stopUserInteraction];
+            //[self stopUserInteraction];  // is this line necessary??
             [self loadNewContent];
             [self startUserInteraction];
-            [_contentNode stopAllActions];
+            //[_contentNode stopAllActions];
             [self followCharacter];
             
             _canLoadNewContent = false;
