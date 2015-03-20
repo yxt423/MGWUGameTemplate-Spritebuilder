@@ -7,15 +7,40 @@
 //
 
 #import "Cloud.h"
+#import "GamePlay.h"
 
-@implementation Cloud
+@implementation Cloud {
+    float _timeSinceUpdate;
+    
+    int _screenHeight;
+}
 
 
 - (void)didLoadFromCCB {
+    _timeSinceUpdate = 0;
+    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    
     self.physicsBody.sensor = YES;
     
     self.physicsBody.collisionType = @"cloud";
 }
 
+- (void)update:(CCTime)delta {
+    
+    _timeSinceUpdate += delta;
+    
+    if (_timeSinceUpdate > 1.0f) {
+        _timeSinceUpdate = 0;
+        
+        CGPoint cloudPosition = [self.parent convertToWorldSpace:self.position];
+        cloudPosition = [GamePlay getPositionInObjectsGroup:cloudPosition];
+        
+        if ((cloudPosition.y + _screenHeight) < [GamePlay getCharacterHighest]) {
+            CCLOG(@"cloudPosition %f, self.position.y %f, _screenHeight %d, CharacterHighest %d", cloudPosition.y, self.position.y, _screenHeight, [GamePlay getCharacterHighest]);
+            [self removeFromParent];
+        }
+    }
+
+}
 
 @end

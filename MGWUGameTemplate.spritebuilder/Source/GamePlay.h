@@ -13,4 +13,8 @@
 @property (nonatomic, assign) int score;
 @property (nonatomic, assign) int highScore;
 
++ (int)getCharacterHighest;
+
++ (CGPoint)getPositionInObjectsGroup: (CGPoint)point;
+
 @end

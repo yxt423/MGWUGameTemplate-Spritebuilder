@@ -5,6 +5,20 @@
 //  Created by Xintong Yu on 2/20/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
+/*
+ 
+ == Load game content mechanism == 
+ 
+ 
+ 
+ == End game mechanism  ==
+ 1. Remove the cloud when it's position is one screen lower than _characterHighest (the highest position the character ever been to).
+ 2. End the game when the character is two screens lower than _characterHighest.
+ 
+ 
+ */
+
+
 
 #import "GamePlay.h"
 #import "GameOver.h"
@@ -19,6 +33,9 @@
 
 #import "CCPhysics+ObjectiveChipmunk.h"
 
+static int _characterHighest; //the highest position the character ever been to
+static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+
 @implementation GamePlay {
     Character *_character;
     CCNode *_contentNode;
@@ -30,7 +47,6 @@
     // user interaction var
     UISwipeGestureRecognizer * _swipeLeft;
     UISwipeGestureRecognizer * _swipeRight;
-    
     
     int _cloudHit;
     int _contentHeight;
@@ -44,10 +60,14 @@
     _score = 0;
     _cloudHit = 0;
     _contentHeight = 0;
+    _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
     
     _physicsNode.collisionDelegate = self;
+    
+    //
+    _sharedObjectsGroup = _objectsGroup;
     
     // init varibles
     // define the listener for swipes to the left
@@ -69,6 +89,7 @@
     int xMax = xMin + _character.boundingBox.size.width;
     int screenLeft = self.boundingBox.origin.x;
     int screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
     // character jump out of the screen from left or right, launch a new character and remove the old one.
     if (xMax < screenLeft) {
@@ -77,27 +98,35 @@
         [self lunchCharacterAtPosition:screenLeft];
     }
     
+    // if character reach top of the scene, load new content.
+    if(_canLoadNewContent) {
+        int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
+        
+        // determine when to load new content. (is there any built-in function for this?)
+        if (yMax + screenHeight / 2 + 200 > _contentHeight) {
+            [self stopUserInteraction];
+            [self loadNewContent];
+            [self startUserInteraction];
+            [_contentNode stopAllActions];
+            [self followCharacter];
+            
+            _canLoadNewContent = false;
+            _timeSinceNewContent = 0.0f;
+        }
+    }
+    
+    
     _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
     if (_timeSinceNewContent > 2.0f) {
         _canLoadNewContent = true;
     }
     
-    // if character reach top of the scene, load new content.
-    if(_canLoadNewContent) {
-        int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
-        //int screenTop = self.boundingBox.origin.y + self.boundingBox.size.height;
-        int halfVerticalSize = [[UIScreen mainScreen] bounds].size.height / 2;
-        
-        if (yMax + halfVerticalSize > _contentHeight) {
-            [self stopUserInteraction];
-            [self loadNewContent];
-            [self startUserInteraction];
-            [_contentNode stopAllActions];
-            [self followChatacter];
-            
-            _canLoadNewContent = false;
-            _timeSinceNewContent = 0.0f;
-        }
+    // if the character starts to drop, end the game.
+    if (_character.position.y > _characterHighest) {
+        _characterHighest = _character.position.y;
+    }
+    if (_character.position.y + screenHeight < _characterHighest) {
+        ///// [self endGame];
     }
 }
 
@@ -113,7 +142,7 @@
     _contentHeight += newContent.boundingBox.size.height;
 }
 
-- (void)followChatacter {
+- (void)followCharacter {
     CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
     _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:contentBoundingBox];
     [_contentNode runAction:_followCharacter];
@@ -153,7 +182,7 @@
     // after hit one cloud, start to follow the character
     // if start following in didLoadFromCCB, the GamePlay scene won't show up correctly. (why?)
     if (_cloudHit == 1) {
-        [self followChatacter];
+        [self followCharacter];
     }
     
     [_character jump];
@@ -214,7 +243,7 @@
     [_character removeFromParent];
     _character = (Character *)character;
     [_physicsNode addChild:_character];
-    [self followChatacter];
+    [self followCharacter];
 }
 
 
@@ -251,6 +280,14 @@
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];
+}
+
++ (int)getCharacterHighest {
+    return _characterHighest;
+}
+
++ (CGPoint)getPositionInObjectsGroup: (CGPoint)point {
+    return [_sharedObjectsGroup convertToNodeSpace:point];
 }
 
 @end
