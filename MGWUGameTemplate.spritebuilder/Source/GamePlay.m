@@ -33,6 +33,8 @@
 
 #import "CCPhysics+ObjectiveChipmunk.h"
 
+static const float NUM_OF_CONTENT_FILE = 3;
+
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 
@@ -143,8 +145,9 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 
 // select a game content file: randomly.
 - (NSString*) getNameOfContentFile {
-    int fileNumber = arc4random_uniform(2) + 1;
+    int fileNumber = arc4random_uniform(NUM_OF_CONTENT_FILE);
     NSString *fileName = [@"Screen" stringByAppendingString:[NSString stringWithFormat:@"%d", fileNumber]];
+    CCLOG(@"%@", fileName);
     return fileName;
 }
 
