@@ -33,7 +33,7 @@
 
 #import "CCPhysics+ObjectiveChipmunk.h"
 
-static const float NUM_OF_CONTENT_FILE = 3;
+static const int NUM_OF_CONTENT_FILE = 3;
 
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -256,7 +256,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [_physicsNode addChild:_character];
     [self followCharacter];
 }
-
 
 - (void)updateScore {
     _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];

@@ -2,10 +2,12 @@
 Weekly Milestones ========
 
 Week 1. Mar 24
-Experiment with new game mechanics. Finalize game mechanism. 
+(Done.) Experiment with new game mechanics. Finalize game mechanism.  
 
 Week 2. Mar 31
-Create more types of monsters, change the size of monsters. 
+Different levels. 
+Harder types of obstacles. 
+Changing the physics. 
 
 Week 3. April 7.
 Have some power-ups. 
@@ -14,10 +16,11 @@ Week 4. April 14.
 Make a user tutorial. 
 
 Week 5. 
-Add time constrains that enables certain features in the game. 
+Play testing. 
+Make 2 versions: with/without time constrain. 
 
 Week 6.  
-Add a Fire / Freeze function. 
+Add collectables. 
 
 
 Optional features ========
