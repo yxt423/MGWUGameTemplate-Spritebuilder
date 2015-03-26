@@ -34,6 +34,7 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 static const int NUM_OF_CONTENT_FILE = 3;
+static const int USER_CONTROL = 3; // 1. swipe 2. long press 3. tap.
 
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -49,6 +50,8 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // user interaction var
     UISwipeGestureRecognizer * _swipeLeft;
     UISwipeGestureRecognizer * _swipeRight;
+    UILongPressGestureRecognizer *_longPress;
+    UITapGestureRecognizer *_tapGesture;
     
     int _cloudHit;
     int _contentHeight;
@@ -79,6 +82,15 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // define the listener for swipes to the right
     _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
     _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    // define the listener for long press
+    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    _longPress.numberOfTapsRequired = 0;      // The default number of taps is 0.
+    _longPress.minimumPressDuration = 0.1f;    // The default duration is is 0.5 seconds.
+    _longPress.numberOfTouchesRequired = 1;   // The default number of fingers is 1.
+    _longPress.allowableMovement = 10;        // The default distance is 10 pixels.
+    
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     
     // load game content
     [self loadNewContent];
@@ -161,14 +173,34 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 - (void)startUserInteraction {
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
-
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeLeft];
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeRight];
+    
+    switch (USER_CONTROL) {
+        case 1:
+            [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeLeft];
+            [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeRight];
+            break;
+        case 2:
+            [[[CCDirector sharedDirector] view] addGestureRecognizer:_longPress];
+            break;
+        case 3:
+            [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
+            break;
+    }
 }
 
 - (void)stopUserInteraction {
-    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeLeft];
-    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeRight];
+    switch (USER_CONTROL) {
+        case 1:
+            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeLeft];
+            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeRight];
+            break;
+        case 2:
+            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_longPress];
+            break;
+        case 3:
+            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
+            break;
+    }
     
     // stop accept touches.
     self.userInteractionEnabled = false;
@@ -180,6 +212,37 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 
 - (void)swipeRight {
     [_character moveRight];
+}
+
+- (void)longPress:(UIGestureRecognizer *)gestureRecognizer  {
+    //UIView *view = [gestureRecognizer view];
+    switch (gestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            int xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
+            
+            float xTap = [gestureRecognizer locationInView:nil].x;
+            if (xTap < xScreenMid) {
+                [_character longMoveLeft];
+            } else {
+                [_character longMoveRight];
+            }
+            break;
+        case UIGestureRecognizerStateEnded:
+            [_character cancelHoricentalSpeed];
+            break;
+    }
+}
+
+- (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
+    int xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
+    
+    float xTap = [gestureRecognizer locationInView:nil].x;
+    
+    if (xTap < xScreenMid) {
+        [_character moveLeft];
+    } else {
+        [_character moveRight];
+    }
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {

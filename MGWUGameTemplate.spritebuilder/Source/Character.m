@@ -27,14 +27,29 @@
 }
 
 - (void)moveLeft {
-    // to be modified
+    if (self.physicsBody.velocity.x > 0.f) {
+        self.physicsBody.velocity = ccp(0.f, self.physicsBody.velocity.y);
+    }
     [self.physicsBody applyImpulse:ccp(-150.f, 0.f)];
-    //self.physicsBody.velocity = ccp(-80.f, 0.f);
 }
 
 - (void)moveRight {
+    if (self.physicsBody.velocity.x < 0.f) {
+        self.physicsBody.velocity = ccp(0.f, self.physicsBody.velocity.y);
+    }
     [self.physicsBody applyImpulse:ccp(150.f, 0.f)];
-    //self.physicsBody.velocity = ccp(80.f, 0.f);
+}
+
+- (void)longMoveLeft {
+    self.physicsBody.velocity = ccp(-200.f, self.physicsBody.velocity.y);
+}
+
+- (void)longMoveRight {
+    self.physicsBody.velocity = ccp(200.f, self.physicsBody.velocity.y);
+}
+
+- (void)cancelHoricentalSpeed {
+    self.physicsBody.velocity = ccp(0.f, self.physicsBody.velocity.y);
 }
 
 @end
