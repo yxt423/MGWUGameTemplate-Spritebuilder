@@ -64,7 +64,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // init game play related varibles
     _score = 0;
     _cloudHit = 0;
-    _contentHeight = 0;
+    _contentHeight = 100;
     _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
@@ -143,7 +143,9 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     }
 }
 
+/*  // loadNewContent from pre-designed file.
 - (void)loadNewContent {
+    // load new content from file.
     CCNode *newContent = (CCNode *)[CCBReader load:[self getNameOfContentFile]];
     newContent.position = ccp(0, _contentHeight);
     newContent.zOrder = -1;
@@ -153,6 +155,47 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     
     // update varibles for CCActionFollow
     _contentHeight += newContent.boundingBox.size.height;
+}
+*/
+
+// loadNewContent by ramdomly generate game content.
+- (void)loadNewContent {
+    int interval;
+    float scale = 1.f;
+    
+    if (_contentHeight < 3000) {
+        interval = 40;
+    } else {
+        interval = 50;
+    }
+    
+    if (_contentHeight < 10000) {
+        scale = 1.f;
+    } else if (_contentHeight < 15000) {
+        scale = 0.9f;
+    } else if (_contentHeight < 20000) {
+        scale = 0.8f;
+    } else if (_contentHeight < 25000) {
+        scale = 0.7f;
+    } else {
+        scale = 0.6f;
+    }
+    
+    CCLOG(@"load new content at y: %d, interval %d, scale %f", _contentHeight, interval, scale);
+    
+    for (int i = 0; i < 20; i++) {
+        CCNode *cloud = [CCBReader load:@"Cloud"];
+        _contentHeight += interval;
+        cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);
+        cloud.zOrder = -1; // ??
+        cloud.scale = scale;
+        [_objectsGroup addChild:cloud];
+    }
+    
+    CCNode *star = [CCBReader load:@"StarSpining"];
+    star.position = ccp(arc4random_uniform(240) + 40, _contentHeight);
+    star.zOrder = -1; // ??
+    [_objectsGroup addChild:star];
 }
 
 // select a game content file: randomly.
@@ -215,10 +258,10 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)longPress:(UIGestureRecognizer *)gestureRecognizer  {
-    //UIView *view = [gestureRecognizer view];
+    int xScreenMid;
     switch (gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:
-            int xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
+            xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
             
             float xTap = [gestureRecognizer locationInView:nil].x;
             if (xTap < xScreenMid) {
@@ -235,9 +278,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
     int xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
-    
     float xTap = [gestureRecognizer locationInView:nil].x;
-    
     if (xTap < xScreenMid) {
         [_character moveLeft];
     } else {
