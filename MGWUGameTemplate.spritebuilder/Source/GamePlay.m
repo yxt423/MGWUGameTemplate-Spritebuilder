@@ -183,7 +183,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         scale = 0.6f;
     }
     
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 10; i++) {
         CCNode *cloud = [CCBReader load:@"Cloud"];
         _contentHeight += interval;
         cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);
@@ -398,6 +398,17 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)starRemoved:(CCNode *)star {
+    // load particle effect
+    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"StarVanish"];
+    // make the particle effect clean itself up, once it is completed
+    explosion.autoRemoveOnFinish = TRUE;
+    // place the particle effect on the cloud's position
+//    CGPoint starPosition = [star.parent convertToWorldSpace:star.position];
+//    explosion.position = [_physicsNode convertToNodeSpace:starPosition];
+    explosion.position = star.parent.position; // ????   CHANGE TO: Collision positio.
+    // add the particle effect to the same node the cloud is on
+    [star.parent.parent addChild:explosion];
+    
     // show "score double" for a short time
     // use star.parent as the whole object!
     ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];

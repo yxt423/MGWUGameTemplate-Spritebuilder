@@ -74,7 +74,7 @@
 									<key>name</key>
 									<string>visible</string>
 									<key>time</key>
-									<real>0.5</real>
+									<real>1</real>
 									<key>type</key>
 									<integer>1</integer>
 									<key>value</key>
@@ -110,7 +110,7 @@
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -455,13 +455,13 @@ Double</string>
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>1</real>
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>1</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
