@@ -33,7 +33,7 @@
 
 #import "CCPhysics+ObjectiveChipmunk.h"
 
-static const int NUM_OF_CONTENT_FILE = 3;
+//static const int NUM_OF_CONTENT_FILE = 3;
 static const int USER_CONTROL = 3; // 1. swipe 2. long press 3. tap.
 
 static int _characterHighest; //the highest position the character ever been to
@@ -54,6 +54,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     UITapGestureRecognizer *_tapGesture;
     
     int _cloudHit;
+    int _starHit;
     int _contentHeight;
     
     float _timeSinceNewContent;
@@ -64,6 +65,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // init game play related varibles
     _score = 0;
     _cloudHit = 0;
+    _starHit = 0;
     _contentHeight = 100;
     _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
@@ -161,7 +163,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 // loadNewContent by ramdomly generate game content.
 - (void)loadNewContent {
     int interval;
-    float scale = 1.f;
+    float scale;
     
     if (_contentHeight < 3000) {
         interval = 40;
@@ -181,30 +183,39 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         scale = 0.6f;
     }
     
-    CCLOG(@"load new content at y: %d, interval %d, scale %f", _contentHeight, interval, scale);
-    
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 30; i++) {
         CCNode *cloud = [CCBReader load:@"Cloud"];
         _contentHeight += interval;
         cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);
-        cloud.zOrder = -1; // ??
+        cloud.zOrder = -1;
         cloud.scale = scale;
         [_objectsGroup addChild:cloud];
     }
     
-    CCNode *star = [CCBReader load:@"StarSpining"];
+    CCNode *star;
+    if (_starHit < 3) {
+        star = [CCBReader load:@"StarStatic"];
+    } else if (_starHit < 8) {
+        star = [CCBReader load:@"StarSpining40"];
+    } else {
+        star = [CCBReader load:@"StarSpining80"];
+    }
+    _contentHeight += interval;
     star.position = ccp(arc4random_uniform(240) + 40, _contentHeight);
-    star.zOrder = -1; // ??
+    star.zOrder = -1;
     [_objectsGroup addChild:star];
+    
+    CCLOG(@"load new content at y: %d, interval %d, scale %f", _contentHeight, interval, scale);
 }
 
-// select a game content file: randomly.
+/*  // select a game content file: randomly.
 - (NSString*) getNameOfContentFile {
     int fileNumber = arc4random_uniform(NUM_OF_CONTENT_FILE);
     NSString *fileName = [@"Screen" stringByAppendingString:[NSString stringWithFormat:@"%d", fileNumber]];
     CCLOG(@"%@", fileName);
     return fileName;
 }
+ */
 
 - (void)followCharacter {
     // the height of boundingbox changes when new content is loaded.
@@ -307,6 +318,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     //CCLOG(@"character collided with star!");
+    _starHit += 1;
     _score *= 2;
     [self updateScore];
     

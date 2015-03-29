@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 /*
  Remove the cloud when it's position is one screen lower than _characterHighest
- 
- 
  */
 
 

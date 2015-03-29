@@ -78,7 +78,7 @@
 									<key>type</key>
 									<integer>2</integer>
 									<key>value</key>
-									<real>80</real>
+									<real>40</real>
 								</dict>
 								<dict>
 									<key>easing</key>
@@ -108,7 +108,7 @@
 									<key>type</key>
 									<integer>2</integer>
 									<key>value</key>
-									<real>-80</real>
+									<real>-40</real>
 								</dict>
 								<dict>
 									<key>easing</key>
@@ -190,7 +190,7 @@
 						<key>type</key>
 						<string>Degrees</string>
 						<key>value</key>
-						<real>0.0</real>
+						<real>-40</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -332,7 +332,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>4</real>
+			<real>3</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
