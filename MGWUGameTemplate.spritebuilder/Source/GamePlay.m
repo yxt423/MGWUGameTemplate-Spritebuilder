@@ -323,7 +323,9 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [self updateScore];
     
     [_character jump];
-    [self starRemoved:nodeB];
+    CGPoint collisionPoint = pair.contacts.points[0].pointA;
+    [self starRemoved:nodeB at:collisionPoint];
+    
     
     return YES;
 }
@@ -397,22 +399,19 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [cloud removeFromParent];
 }
 
-- (void)starRemoved:(CCNode *)star {
+- (void)starRemoved:(CCNode *)star at:(CGPoint)collisionPoint {
     // load particle effect
     CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"StarVanish"];
     // make the particle effect clean itself up, once it is completed
     explosion.autoRemoveOnFinish = TRUE;
-    // place the particle effect on the cloud's position
-//    CGPoint starPosition = [star.parent convertToWorldSpace:star.position];
-//    explosion.position = [_physicsNode convertToNodeSpace:starPosition];
-    explosion.position = star.parent.position; // ????   CHANGE TO: Collision positio.
+    // place the particle effect on the collision's position
+    explosion.position = collisionPoint;
     // add the particle effect to the same node the cloud is on
     [star.parent.parent addChild:explosion];
     
-    // show "score double" for a short time
-    // use star.parent as the whole object!
+    // show "score double" for a short time (use star.parent as the whole object!)
     ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];
-    scoreDouble.position = star.parent.position;
+    scoreDouble.position = collisionPoint;
     [star.parent.parent addChild:scoreDouble];
     
     // remove the entire starSpinging object from parent, not just the star.
