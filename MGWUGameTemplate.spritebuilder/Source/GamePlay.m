@@ -190,7 +190,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         scale = 0.6f;
     }
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
         CCNode *cloud = [CCBReader load:@"Cloud"];
         _contentHeight += interval;
         cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);

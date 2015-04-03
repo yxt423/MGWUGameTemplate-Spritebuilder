@@ -4,10 +4,12 @@
 <dict>
 	<key>filenames</key>
 	<dict>
-		<key>background1.wav</key>
-		<string>background1.caf</string>
-		<key>ding.wav</key>
-		<string>ding.caf</string>
+		<key>gind2.wav</key>
+		<string>gind2.caf</string>
+		<key>star_sound.wav</key>
+		<string>star_sound.caf</string>
+		<key>star_sound2.wav</key>
+		<string>star_sound2.caf</string>
 	</dict>
 	<key>metadata</key>
 	<dict>
