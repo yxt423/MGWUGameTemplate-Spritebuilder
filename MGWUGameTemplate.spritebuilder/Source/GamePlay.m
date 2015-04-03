@@ -97,6 +97,11 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     // load game content
     [self loadNewContent];
     [self startUserInteraction];
+    
+    // play background music
+//    OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
+//    bgMusic.bgVolume = 0.6;
+//    [bgMusic playBg:@"background1.mp3" loop:YES];
 }
 
 - (void)update:(CCTime)delta {
@@ -143,6 +148,8 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     if (_character.position.y + screenHeight * 2 < _characterHighest) {
         [self endGame];
     }
+    
+    CCLOG(@"velocity %f", _character.physicsBody.velocity.y);
 }
 
 /*  // loadNewContent from pre-designed file.
@@ -204,8 +211,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     star.position = ccp(arc4random_uniform(240) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
-    
-    CCLOG(@"load new content at y: %d, interval %d, scale %f", _contentHeight, interval, scale);
 }
 
 /*  // select a game content file: randomly.
@@ -325,7 +330,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [_character jump];
     CGPoint collisionPoint = pair.contacts.points[0].pointA;
     [self starRemoved:nodeB at:collisionPoint];
-    
     
     return YES;
 }

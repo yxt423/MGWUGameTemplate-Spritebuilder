@@ -3,7 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>filenames</key>
-	<dict/>
+	<dict>
+		<key>background1.wav</key>
+		<string>background1.caf</string>
+		<key>ding.wav</key>
+		<string>ding.caf</string>
+	</dict>
 	<key>metadata</key>
 	<dict>
 		<key>version</key>

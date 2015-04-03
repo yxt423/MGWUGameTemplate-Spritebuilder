@@ -14,7 +14,6 @@
     self.physicsBody.collisionType = @"character";
 }
 
-
 - (void)update:(CCTime)delta {
     [self.physicsBody applyImpulse:ccp(0.f, -5.f)];
 }
@@ -22,8 +21,9 @@
 - (void)jump {
     //CCLOG(@"jump");
     
-    //[self.physicsBody applyImpulse:ccp(0.f, 3500.f)];
-    self.physicsBody.velocity = ccp(0.f, 300.f);
+    self.physicsBody.velocity = ccp(0.f, 0.f);
+    [self.physicsBody applyImpulse:ccp(0.f, 300.f)];
+    //self.physicsBody.velocity = ccp(0.f, 300.f);
 }
 
 - (void)moveLeft {
