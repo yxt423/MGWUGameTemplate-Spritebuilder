@@ -149,7 +149,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
         [self endGame];
     }
     
-    CCLOG(@"velocity %f", _character.physicsBody.velocity.y);
+    //CCLOG(@"velocity %f", _character.physicsBody.velocity.y);
 }
 
 /*  // loadNewContent from pre-designed file.
