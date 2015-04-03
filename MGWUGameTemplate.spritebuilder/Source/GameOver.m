@@ -20,15 +20,13 @@
     NSNumber *score = [[NSUserDefaults standardUserDefaults] objectForKey:@"score"];
     NSNumber *highScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"highscore"];
     
-//    _scoreLabel.string = [NSString stringWithFormat:@"%d", [score intValue]];
-//    _highScoreLabel.string = [NSString stringWithFormat:@"%d", [highScore intValue]];
     _scoreLabel.string = [self scoreWithComma:score];
     _highScoreLabel.string = [self scoreWithComma:highScore];
 }
 
 - (void)playAgain {
     // resload gameplay scene
-    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay2"]];
+    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay"]];
 }
 
 - (NSString *)scoreWithComma: (NSNumber *)score{

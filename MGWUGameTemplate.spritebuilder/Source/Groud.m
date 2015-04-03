@@ -10,7 +10,6 @@
 
 @implementation Groud
 
-
 - (void)didLoadFromCCB {
     self.physicsBody.collisionType = @"groud";
 }

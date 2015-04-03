@@ -14,8 +14,4 @@
 - (void)moveLeft;
 - (void)moveRight;
 
-- (void)longMoveLeft;
-- (void)longMoveRight;
-- (void)cancelHoricentalSpeed;
-
 @end

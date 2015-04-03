@@ -33,9 +33,6 @@
 
 #import "CCPhysics+ObjectiveChipmunk.h"
 
-//static const int NUM_OF_CONTENT_FILE = 3;
-static const int USER_CONTROL = 3; // 1. swipe 2. long press 3. tap.
-
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 
@@ -72,26 +69,9 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     _canLoadNewContent = false;
     
     _physicsNode.collisionDelegate = self;
-    
-    //
+
     _sharedObjectsGroup = _objectsGroup;
-    
-    // init varibles
-    
-    // define the listener for swipes to the left
-    _swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLeft)];
-    _swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    // define the listener for swipes to the right
-    _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight)];
-    _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    
-    // define the listener for long press
-    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    _longPress.numberOfTapsRequired = 0;      // The default number of taps is 0.
-    _longPress.minimumPressDuration = 0.1f;    // The default duration is is 0.5 seconds.
-    _longPress.numberOfTouchesRequired = 1;   // The default number of fingers is 1.
-    _longPress.allowableMovement = 10;        // The default distance is 10 pixels.
-    
+
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     
     // load game content
@@ -99,9 +79,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [self startUserInteraction];
     
     // play background music
-//    OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
-//    bgMusic.bgVolume = 0.6;
-//    [bgMusic playBg:@"background1.mp3" loop:YES];
+    //[self playBackGroundMusic];
 }
 
 - (void)update:(CCTime)delta {
@@ -152,21 +130,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     //CCLOG(@"velocity %f", _character.physicsBody.velocity.y);
 }
 
-/*  // loadNewContent from pre-designed file.
-- (void)loadNewContent {
-    // load new content from file.
-    CCNode *newContent = (CCNode *)[CCBReader load:[self getNameOfContentFile]];
-    newContent.position = ccp(0, _contentHeight);
-    newContent.zOrder = -1;
-    [_objectsGroup addChild:newContent];
-    
-    CCLOG(@"load new content! at y: %d", _contentHeight);
-    
-    // update varibles for CCActionFollow
-    _contentHeight += newContent.boundingBox.size.height;
-}
-*/
-
 // loadNewContent by ramdomly generate game content.
 - (void)loadNewContent {
     int interval;
@@ -213,15 +176,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     [_objectsGroup addChild:star];
 }
 
-/*  // select a game content file: randomly.
-- (NSString*) getNameOfContentFile {
-    int fileNumber = arc4random_uniform(NUM_OF_CONTENT_FILE);
-    NSString *fileName = [@"Screen" stringByAppendingString:[NSString stringWithFormat:@"%d", fileNumber]];
-    CCLOG(@"%@", fileName);
-    return fileName;
-}
- */
-
 - (void)followCharacter {
     // the height of boundingbox changes when new content is loaded.
     CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
@@ -232,64 +186,12 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 - (void)startUserInteraction {
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
-    
-    switch (USER_CONTROL) {
-        case 1:
-            [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeLeft];
-            [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeRight];
-            break;
-        case 2:
-            [[[CCDirector sharedDirector] view] addGestureRecognizer:_longPress];
-            break;
-        case 3:
-            [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
-            break;
-    }
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
 }
 
 - (void)stopUserInteraction {
-    switch (USER_CONTROL) {
-        case 1:
-            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeLeft];
-            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeRight];
-            break;
-        case 2:
-            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_longPress];
-            break;
-        case 3:
-            [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
-            break;
-    }
-    
-    // stop accept touches.
-    self.userInteractionEnabled = false;
-}
-
-- (void)swipeLeft {
-    [_character moveLeft];
-}
-
-- (void)swipeRight {
-    [_character moveRight];
-}
-
-- (void)longPress:(UIGestureRecognizer *)gestureRecognizer  {
-    int xScreenMid;
-    switch (gestureRecognizer.state) {
-        case UIGestureRecognizerStateBegan:
-            xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
-            
-            float xTap = [gestureRecognizer locationInView:nil].x;
-            if (xTap < xScreenMid) {
-                [_character longMoveLeft];
-            } else {
-                [_character longMoveRight];
-            }
-            break;
-        case UIGestureRecognizerStateEnded:
-            [_character cancelHoricentalSpeed];
-            break;
-    }
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
+    self.userInteractionEnabled = false;  // stop accept touches.
 }
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
@@ -420,6 +322,12 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];
+}
+
+- (void)playBackGroundMusic {
+    OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
+    bgMusic.bgVolume = 1;
+    [bgMusic playBg:@"High Mario.mp3" loop:YES];
 }
 
 + (int)getCharacterHighest {
