@@ -398,7 +398,7 @@
 						<integer>11</integer>
 						<key>value</key>
 						<array>
-							<string>gind2.wav</string>
+							<string>Sound/sound_cloud.wav</string>
 							<real>1</real>
 							<real>0.0</real>
 							<real>1</real>

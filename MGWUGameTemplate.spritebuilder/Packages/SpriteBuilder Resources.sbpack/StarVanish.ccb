@@ -398,7 +398,7 @@
 						<integer>11</integer>
 						<key>value</key>
 						<array>
-							<string>star_sound2.wav</string>
+							<string>Sound/sound_star.wav</string>
 							<real>1</real>
 							<real>0.0</real>
 							<real>1</real>
