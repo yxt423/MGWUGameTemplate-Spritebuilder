@@ -35,6 +35,8 @@
 
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+static int _screenHeight;
+static int _screenWidth;
 
 @implementation GamePlay {
     Character *_character;
@@ -42,23 +44,27 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     CCNode *_objectsGroup;
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
+    CCControl *_buttonPause;
     CCAction *_followCharacter;
     
     // user interaction var
-    UISwipeGestureRecognizer * _swipeLeft;
-    UISwipeGestureRecognizer * _swipeRight;
-    UILongPressGestureRecognizer *_longPress;
     UITapGestureRecognizer *_tapGesture;
     
+    // stats
     int _cloudHit;
     int _starHit;
     int _contentHeight;
     
+    // flags.
     float _timeSinceNewContent;
     bool _canLoadNewContent;
+    bool _gamePaused;
 }
 
 - (void)didLoadFromCCB {
+    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    _screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    
     // init game play related varibles
     _score = 0;
     _cloudHit = 0;
@@ -67,12 +73,13 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
+    _gamePaused = false;
     
     _physicsNode.collisionDelegate = self;
-
     _sharedObjectsGroup = _objectsGroup;
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
     
     // load game content
     [self loadNewContent];
@@ -88,7 +95,7 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     int xMax = xMin + _character.boundingBox.size.width;
     int screenLeft = self.boundingBox.origin.x;
     int screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
-    int screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    int screenHeight = [[UIScreen mainScreen] bounds].size.height;  // ????????? can I replace it? in onEnter?
     
     // character jump out of the screen from left or right, launch a new character and remove the old one.
     if (xMax < screenLeft) {
@@ -126,8 +133,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     if (_character.position.y + screenHeight * 2 < _characterHighest) {
         [self endGame];
     }
-    
-    //CCLOG(@"velocity %f", _character.physicsBody.velocity.y);
 }
 
 // loadNewContent by ramdomly generate game content.
@@ -184,7 +189,6 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)startUserInteraction {
-    // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
 }
@@ -195,8 +199,15 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
 }
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
-    int xScreenMid = [[UIScreen mainScreen] bounds].size.width / 2;
-    float xTap = [gestureRecognizer locationInView:nil].x;
+    CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+    CGPoint convertedPoint = [self convertToNodeSpace:[self convertToWorldSpace:point]];
+    convertedPoint.y = _screenHeight - convertedPoint.y; // the convertedPoint has different reference corner.
+    if (CGRectContainsPoint(_buttonPause.boundingBox, convertedPoint)) {
+        return;
+    }
+    
+    int xScreenMid = _screenWidth / 2;
+    float xTap = point.x;
     if (xTap < xScreenMid) {
         [_character moveLeft];
     } else {
@@ -322,6 +333,18 @@ static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clou
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];
+}
+
+- (void)pause {
+    if (_gamePaused) {
+        [[CCDirector sharedDirector] resume];
+        [[CCDirector sharedDirector] startAnimation];
+        _gamePaused = false;
+    } else {
+        [[CCDirector sharedDirector] stopAnimation];
+        [[CCDirector sharedDirector] pause];
+        _gamePaused = true;
+    }
 }
 
 - (void)playBackGroundMusic {
