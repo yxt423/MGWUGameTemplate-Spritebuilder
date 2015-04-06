@@ -1093,7 +1093,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/button_play_again.png</string>
+							<string>Assets/Button/button_play_again_normal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1104,7 +1104,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/button_play_again.png</string>
+							<string>Assets/Button/button_play_again_highlighted.png</string>
 						</array>
 					</dict>
 					<dict>

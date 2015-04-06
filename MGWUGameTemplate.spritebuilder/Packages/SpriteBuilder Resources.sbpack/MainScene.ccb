@@ -267,7 +267,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/button_play.png</string>
+							<string>Assets/Button/button_play_normal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -278,7 +278,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/button_play.png</string>
+							<string>Assets/Button/button_play_highlighted.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -465,6 +465,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
