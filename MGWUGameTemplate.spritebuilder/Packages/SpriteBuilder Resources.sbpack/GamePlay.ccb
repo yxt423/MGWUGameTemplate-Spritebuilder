@@ -432,7 +432,7 @@
 								<key>value</key>
 								<array>
 									<real>0.0</real>
-									<real>-100</real>
+									<real>-400</real>
 								</array>
 							</dict>
 							<dict>
@@ -444,6 +444,8 @@
 								<real>0.5</real>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
@@ -516,8 +518,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -758,8 +758,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>15</real>
-							<real>15</real>
+							<real>30</real>
+							<real>30</real>
 							<integer>1</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -772,8 +772,8 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>1</real>
+							<real>0.5</real>
+							<real>0.5</real>
 						</array>
 					</dict>
 					<dict>
@@ -807,8 +807,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
-							<real>40</real>
+							<real>60</real>
+							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -841,9 +841,17 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Pause</string>
+							<string></string>
 							<false/>
 						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>zoomWhenHighlighted</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -853,7 +861,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>Assets/Button/Button_pause_2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -864,7 +872,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>Assets/Button/Button_pause_2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1058,7 +1066,7 @@
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
-		<string></string>
+		<string>_gamePlay</string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
 		<key>properties</key>

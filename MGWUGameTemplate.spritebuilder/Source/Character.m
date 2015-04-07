@@ -15,7 +15,7 @@
 }
 
 - (void)update:(CCTime)delta {
-    [self.physicsBody applyImpulse:ccp(0.f, -5.f)];
+//    [self.physicsBody applyImpulse:ccp(0.f, -5.f)];
 }
 
 - (void)jump {

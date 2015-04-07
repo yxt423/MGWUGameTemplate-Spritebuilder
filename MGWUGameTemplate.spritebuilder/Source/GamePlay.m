@@ -22,6 +22,7 @@
 
 #import "GamePlay.h"
 #import "GameOver.h"
+#import "PausePopUp.h"
 
 #import "Character.h"
 #import "Cloud.h"
@@ -40,12 +41,14 @@ static int _screenWidth;
 
 @implementation GamePlay {
     Character *_character;
+    CCNode *_gamePlay;
     CCNode *_contentNode;
     CCNode *_objectsGroup;
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
     CCControl *_buttonPause;
     CCAction *_followCharacter;
+    //CCNode *_popUp;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -133,6 +136,11 @@ static int _screenWidth;
     if (_character.position.y + screenHeight * 2 < _characterHighest) {
         [self endGame];
     }
+}
+
+- (void)onEnter {
+    [super onEnter];
+    [self startUserInteraction];
 }
 
 // loadNewContent by ramdomly generate game content.
@@ -336,15 +344,27 @@ static int _screenWidth;
 }
 
 - (void)pause {
-    if (_gamePaused) {
-        [[CCDirector sharedDirector] resume];
-        [[CCDirector sharedDirector] startAnimation];
-        _gamePaused = false;
-    } else {
-        [[CCDirector sharedDirector] stopAnimation];
-        [[CCDirector sharedDirector] pause];
-        _gamePaused = true;
-    }
+    [self stopUserInteraction];
+    [[CCDirector sharedDirector] pushScene:[CCBReader loadAsScene:@"PausePopUp2"]];
+//    if (_gamePaused) {
+////        [[CCDirector sharedDirector] resume];
+////        [[CCDirector sharedDirector] startAnimation];
+//        _gamePaused = false;
+//        
+//        [_popUp removeFromParent];
+//    } else {
+////        [[CCDirector sharedDirector] stopAnimation];
+////        [[CCDirector sharedDirector] pause];
+//        _gamePaused = true;
+//        
+//        [[CCDirector sharedDirector] pushScene:[PausePopUp node]];
+//        
+////        _popUp = [CCBReader load:@"PausePopUp"];
+////        _popUp.position = [_gamePlay convertToNodeSpace:[_gamePlay convertToWorldSpace:_buttonPause.position]];
+////        [_gamePlay addChild:_popUp];
+////        CCLOG(@"_popUp.position %f, %f", _popUp.position.x, _popUp.position.y);
+//        
+//    }
 }
 
 - (void)playBackGroundMusic {
