@@ -19,16 +19,12 @@
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
         
-        muted = [[NSUserDefaults standardUserDefaults] objectForKey:@"muted"];
+        muted = [[NSUserDefaults standardUserDefaults] boolForKey:@"muted"];
         if (!muted) {
             muted = false;
         }
     }
     return self;
-}
-
-- (void)dealloc {
-    // Should never be called
 }
 
 + (id)getGameManager {

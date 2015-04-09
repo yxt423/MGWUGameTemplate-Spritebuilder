@@ -12,6 +12,9 @@
 #import "PausePopUp.h"
 #import "GameManager.h"
 
+static NSString * const buttonMusic = @"Assets/Button/Button_music_240.png";
+static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
+
 @implementation PausePopUp {
     GameManager *_gameManager;
     CCButton *_buttonMuted; // refers to 2 different buttons in 2 ccb files.
@@ -19,13 +22,7 @@
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
-    
-    // if the game is muted, show the muted image in setting.
-    if (_gameManager.muted) {
-        CCSpriteFrame *mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_240.png"];
-        [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
-        [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
-    }
+    [self updateMuteButton];
 }
 
 - (void)resume {
@@ -42,35 +39,30 @@
 
 - (void)muteGamePlay {
     CCLOG(@"PausePopUp - muteGamePlay");
-    _gameManager.muted = !_gameManager.muted;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:_gameManager.muted] forKey:@"muted"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    CCSpriteFrame *mutedImage;
-    if (!_gameManager.muted) {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_music_240.png"];
-    } else {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_240.png"];
-    }
-    [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
-    [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
-    
+    [self mute];
     _gameManager.gamePlayState = 4;
 }
 
 - (void)muteMainMenu {
     CCLOG(@"PausePopUp - muteMainMenu");
+    [self mute];
+}
+
+- (void)mute {
     _gameManager.muted = !_gameManager.muted;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:_gameManager.muted] forKey:@"muted"];
+    [[NSUserDefaults standardUserDefaults] setBool:_gameManager.muted forKey:@"muted"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    [self updateMuteButton];
+}
+
+- (void)updateMuteButton {
     CCSpriteFrame *mutedImage;
     if (!_gameManager.muted) {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_music_240.png"];
+        mutedImage = [CCSpriteFrame frameWithImageNamed:buttonMusic];
     } else {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_240.png"];
+        mutedImage = [CCSpriteFrame frameWithImageNamed:buttonMuted];
     }
+    // _buttonMuted refers to 2 different buttons in 2 ccb files: PausePopUp & SettingPopUp
     [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
     [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
 }

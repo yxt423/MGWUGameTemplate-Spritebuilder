@@ -190,7 +190,7 @@ static int _screenWidth;
     }
     
     for (int i = 0; i < 20; i++) {
-        CCNode *cloud = [CCBReader load:@"Cloud"];
+        CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
         _contentHeight += interval;
         cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);
         cloud.zOrder = -1;
@@ -200,11 +200,11 @@ static int _screenWidth;
     
     CCNode *star;
     if (_starHit < 3) {
-        star = [CCBReader load:@"StarStatic"];
+        star = [CCBReader load:@"Objects/StarStatic"];
     } else if (_starHit < 8) {
-        star = [CCBReader load:@"StarSpining40"];
+        star = [CCBReader load:@"Objects/StarSpining40"];
     } else {
-        star = [CCBReader load:@"StarSpining80"];
+        star = [CCBReader load:@"Objects/StarSpining80"];
     }
     _contentHeight += interval;
     star.position = ccp(arc4random_uniform(240) + 40, _contentHeight);
@@ -329,13 +329,13 @@ static int _screenWidth;
 }
 
 - (void)cloudRemoved:(CCNode *)cloud {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"CloudVanish"];
+    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/CloudVanish"];
     explosion.autoRemoveOnFinish = TRUE;
     explosion.position = cloud.position;
     [cloud.parent addChild:explosion];
     
     // show earned score for a short time
-    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"ScoreAdd"];
+    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"Effects/ScoreAdd"];
     scoreAdd.position = cloud.position;
     [scoreAdd setScore:(_cloudHit * 10)];
     [cloud.parent addChild:scoreAdd];
@@ -348,13 +348,13 @@ static int _screenWidth;
 }
 
 - (void)starRemoved:(CCNode *)star at:(CGPoint)collisionPoint {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"StarVanish"];
+    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
     explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
     explosion.position = collisionPoint;
     [star.parent.parent addChild:explosion];
     
     // show "score double" for a short time (use star.parent as the whole object!)
-    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"ScoreDouble"];
+    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"Effects/ScoreDouble"];
     scoreDouble.position = collisionPoint;
     [star.parent.parent addChild:scoreDouble];
     
