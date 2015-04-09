@@ -8,12 +8,28 @@
 
 #import "MainScene.h"
 #import "GamePlay.h"
+#import "GameManager.h"
 
-@implementation MainScene
+static int _screenHeight;
+
+@implementation MainScene {
+    CCButton *_buttonSetting;
+}
+
+- (void)didLoadFromCCB {
+    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
+}
 
 - (void)play {
     CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
     [[CCDirector sharedDirector] replaceScene:gameplayScene];
+}
+
+- (void)setting {
+    CCLOG(@"setting");
+    CCNode *_popUp = [CCBReader load:@"SettingPopUp"];
+    _popUp.position = _buttonSetting.position;
+    [self addChild:_popUp];
 }
 
 @end

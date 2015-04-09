@@ -369,7 +369,8 @@ static int _screenWidth;
     CCLOG(@"pause");
     if (_gameManager.gamePlayState == 0) {
         _popUp = [CCBReader load:@"PausePopUp"];
-        _popUp.position = ccp(_buttonPause.position.x, 480 - _buttonPause.position.y);
+        // ButtonPause and _popUp has difference reference corner, use _screenHeight - y
+        _popUp.position = ccp(_buttonPause.position.x, _screenHeight - _buttonPause.position.y);
         [_gamePlay addChild:_popUp];
         
         _physicsNode.paused = YES;

@@ -1087,13 +1087,21 @@
 					</dict>
 					<dict>
 						<key>name</key>
+						<string>zoomWhenHighlighted</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>backgroundSpriteFrame|Normal</string>
 						<key>type</key>
 						<string>SpriteFrame</string>
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/button_play_again_normal.png</string>
+							<string>Assets/Button/button_play_again.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1104,7 +1112,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/button_play_again_highlighted.png</string>
+							<string>Assets/Button/button_play_again.png</string>
 						</array>
 					</dict>
 					<dict>
