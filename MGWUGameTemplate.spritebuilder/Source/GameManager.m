@@ -12,11 +12,17 @@
 @implementation GameManager
 
 @synthesize gamePlayState;
+@synthesize muted;
 
 - (id)init {
     if (self = [super init]) {
-        // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted.
+        // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
+        
+        muted = [[NSUserDefaults standardUserDefaults] objectForKey:@"muted"];
+        if (!muted) {
+            muted = false;
+        }
     }
     return self;
 }

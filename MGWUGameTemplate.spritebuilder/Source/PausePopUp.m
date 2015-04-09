@@ -11,10 +11,17 @@
 
 @implementation PausePopUp {
     GameManager *_gameManager;
+    CCButton *_buttonMuted;
 }
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
+    
+    if (_gameManager.muted) {
+        CCSpriteFrame *mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_120.png"];
+        [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
+        [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
+    }
 }
 
 - (void)resume {
@@ -31,7 +38,21 @@
 
 - (void)mute {
     CCLOG(@"PausePopUp - mute");
+    _gameManager.muted = !_gameManager.muted;
     
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:_gameManager.muted] forKey:@"muted"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    CCSpriteFrame *mutedImage;
+    if (!_gameManager.muted) {
+        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_music_120.png"];
+    } else {
+        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_120.png"];
+    }
+    [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
+    [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
+    
+    _gameManager.gamePlayState = 4;
 }
 
 @end

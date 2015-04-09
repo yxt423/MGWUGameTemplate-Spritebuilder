@@ -6,10 +6,6 @@
 	<dict>
 		<key>Sound/sound_cloud.wav</key>
 		<string>Sound/sound_cloud.caf</string>
-		<key>Sound/sound_cloud2.wav</key>
-		<string>Sound/sound_cloud2.caf</string>
-		<key>Sound/sound_cloud3.wav</key>
-		<string>Sound/sound_cloud3.caf</string>
 		<key>Sound/sound_star.wav</key>
 		<string>Sound/sound_star.caf</string>
 	</dict>

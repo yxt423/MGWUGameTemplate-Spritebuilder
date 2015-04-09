@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>9</integer>
+	<integer>18</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -143,7 +143,7 @@
 				<key>displayName</key>
 				<string>ButtonMute</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_buttonMuted</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -284,7 +284,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_muted_120.png</string>
+							<string>Assets/Button/Button_music_120.png</string>
 						</array>
 					</dict>
 					<dict>

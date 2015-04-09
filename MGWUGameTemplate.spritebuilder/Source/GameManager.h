@@ -10,9 +10,11 @@
 
 @interface GameManager : NSObject {
     int gamePlayState;
+    bool muted;
 }
 
 @property (nonatomic, assign) int gamePlayState;
+@property (nonatomic, assign) bool muted;
 
 + (id)getGameManager;
 

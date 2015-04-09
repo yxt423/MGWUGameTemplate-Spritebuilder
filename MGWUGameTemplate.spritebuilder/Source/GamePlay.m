@@ -41,6 +41,7 @@ static int _screenWidth;
     CCControl *_buttonPause;
     CCAction *_followCharacter;
     CCNode *_popUp;
+    OALSimpleAudio *_audio;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -67,6 +68,9 @@ static int _screenWidth;
     _screenHeight = [[UIScreen mainScreen] bounds].size.height;
     _screenWidth = [[UIScreen mainScreen] bounds].size.width;
     _gameManager = [GameManager getGameManager];
+    _audio = [OALSimpleAudio sharedInstance];
+    _audio.effectsVolume = 1;
+    _audio.muted = _gameManager.muted;
     
     // init game play related varibles
     _score = 0;
@@ -143,6 +147,10 @@ static int _screenWidth;
         [[CCDirector sharedDirector] replaceScene:gameplayScene];
         _gameManager.gamePlayState = 0;
         CCLOG(@"restarted!");
+    }
+    else if (_gameManager.gamePlayState == 4) { // soumd setting to be reversed
+        _audio.muted = _gameManager.muted;
+        _gameManager.gamePlayState = 1;
     }
 }
 
@@ -300,7 +308,6 @@ static int _screenWidth;
     }
     
     [self stopUserInteraction];
-    
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GameOver"]];
 }
 
@@ -322,13 +329,9 @@ static int _screenWidth;
 }
 
 - (void)cloudRemoved:(CCNode *)cloud {
-    // load particle effect
     CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"CloudVanish"];
-    // make the particle effect clean itself up, once it is completed
     explosion.autoRemoveOnFinish = TRUE;
-    // place the particle effect on the cloud's position
     explosion.position = cloud.position;
-    // add the particle effect to the same node the cloud is on
     [cloud.parent addChild:explosion];
     
     // show earned score for a short time
@@ -339,16 +342,15 @@ static int _screenWidth;
     
     // remove a cloud from the scene
     [cloud removeFromParent];
+    
+    // play sound effect
+    [_audio playEffect:@"sound_cloud.wav"];
 }
 
 - (void)starRemoved:(CCNode *)star at:(CGPoint)collisionPoint {
-    // load particle effect
     CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"StarVanish"];
-    // make the particle effect clean itself up, once it is completed
-    explosion.autoRemoveOnFinish = TRUE;
-    // place the particle effect on the collision's position
+    explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
     explosion.position = collisionPoint;
-    // add the particle effect to the same node the cloud is on
     [star.parent.parent addChild:explosion];
     
     // show "score double" for a short time (use star.parent as the whole object!)
@@ -358,6 +360,9 @@ static int _screenWidth;
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];
+    
+    // play sound effect
+    [_audio playEffect:@"star_sound.wav"];
 }
 
 - (void)pause {
