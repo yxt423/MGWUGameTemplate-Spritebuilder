@@ -37,6 +37,12 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
     [self removeFromParent];
 }
 
+- (void)backToMainScene {
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainScene];
+    _gameManager.gamePlayState = 0;
+}
+
 - (void)muteGamePlay {
     CCLOG(@"PausePopUp - muteGamePlay");
     [self mute];

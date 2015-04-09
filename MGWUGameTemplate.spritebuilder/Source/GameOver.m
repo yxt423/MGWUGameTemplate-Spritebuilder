@@ -51,4 +51,9 @@
     return result;
 }
 
+- (void)backToMainScene {
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainScene];
+}
+
 @end
