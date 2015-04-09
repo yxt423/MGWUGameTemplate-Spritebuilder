@@ -27,7 +27,7 @@ static int _screenHeight;
 }
 
 - (void)setting {
-    CCLOG(@"setting");
+    CCLOG(@"Main - setting");
     CCNode *_popUp = [CCBReader load:@"SettingPopUp"];
     _popUp.position = _buttonSetting.position;
     [self addChild:_popUp];

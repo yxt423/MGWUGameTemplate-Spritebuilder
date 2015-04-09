@@ -17,6 +17,7 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 
 @implementation PausePopUp {
     GameManager *_gameManager;
+    CCNode *_popUp;
     CCButton *_buttonMuted; // refers to 2 different buttons in 2 ccb files.
 }
 
@@ -74,7 +75,14 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)setting {
-    [self removeFromParent];
+    CCLOG(@"popUp - setting");
+    CCAnimationManager* animationManager = _popUp.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"Collapse"];
+    
+    // remove the popUp from mainScene after finish.
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [_popUp removeFromParentAndCleanup:YES];
+    }];
 }
 
 - (void)info {
