@@ -17,10 +17,21 @@
     _gameManager = [GameManager getGameManager];
 }
 
-- (void)buttonContinue {
-    CCLOG(@"PausePopUp - buttonContinue");
+- (void)resume {
+    CCLOG(@"PausePopUp - resume");
     _gameManager.gamePlayState = 2;
     [self removeFromParent];
+}
+
+- (void)restart {
+    CCLOG(@"PausePopUp - restart");
+    _gameManager.gamePlayState = 3;
+    [self removeFromParent];
+}
+
+- (void)mute {
+    CCLOG(@"PausePopUp - mute");
+    
 }
 
 @end

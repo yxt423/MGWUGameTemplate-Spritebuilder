@@ -138,6 +138,12 @@ static int _screenWidth;
         [self followCharacter];
         _gameManager.gamePlayState = 0;
     }
+    else if (_gameManager.gamePlayState == 3) { // to be restarted.
+        CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
+        [[CCDirector sharedDirector] replaceScene:gameplayScene];
+        _gameManager.gamePlayState = 0;
+        CCLOG(@"restarted!");
+    }
 }
 
 - (void)onEnter {
