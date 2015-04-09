@@ -7,13 +7,20 @@
 //
 
 #import "PausePopUp.h"
+#import "GameManager.h"
 
 @implementation PausePopUp {
-    
+    GameManager *_gameManager;
+}
+
+- (void)didLoadFromCCB {
+    _gameManager = [GameManager getGameManager];
 }
 
 - (void)buttonContinue {
-    [[CCDirector sharedDirector] popScene];
+    CCLOG(@"PausePopUp - buttonContinue");
+    _gameManager.gamePlayState = 2;
+    [self removeFromParent];
 }
 
 @end

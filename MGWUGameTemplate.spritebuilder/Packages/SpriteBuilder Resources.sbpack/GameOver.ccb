@@ -1128,7 +1128,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/button_cloud.png</string>
+							<string>ccbResources/ccbButtonNormal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1291,6 +1291,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

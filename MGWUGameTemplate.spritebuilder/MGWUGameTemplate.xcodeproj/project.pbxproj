@@ -14,6 +14,7 @@
 		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211D21AD3A304001055DE /* PausePopUp.m */; };
+		B6D211E21AD61418001055DE /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211E11AD61418001055DE /* GameManager.m */; };
 		B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B231AA2E4230050F36E /* ScoreAdd.m */; };
 		B6F36B2A1AA3BB030050F36E /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B291AA3BB030050F36E /* Star.m */; };
 		B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */; };
@@ -92,6 +93,8 @@
 		B6CBD6801A9BF97200859D79 /* Groud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Groud.m; path = Source/Groud.m; sourceTree = "<group>"; };
 		B6D211D11AD3A304001055DE /* PausePopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PausePopUp.h; path = Source/PausePopUp.h; sourceTree = "<group>"; };
 		B6D211D21AD3A304001055DE /* PausePopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PausePopUp.m; path = Source/PausePopUp.m; sourceTree = "<group>"; };
+		B6D211E01AD61418001055DE /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameManager.h; path = Source/GameManager.h; sourceTree = "<group>"; };
+		B6D211E11AD61418001055DE /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameManager.m; path = Source/GameManager.m; sourceTree = "<group>"; };
 		B6F36B221AA2E4230050F36E /* ScoreAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreAdd.h; path = Source/ScoreAdd.h; sourceTree = "<group>"; };
 		B6F36B231AA2E4230050F36E /* ScoreAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAdd.m; path = Source/ScoreAdd.m; sourceTree = "<group>"; };
 		B6F36B281AA3BB030050F36E /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */,
 				B6D211D11AD3A304001055DE /* PausePopUp.h */,
 				B6D211D21AD3A304001055DE /* PausePopUp.m */,
+				B6D211E01AD61418001055DE /* GameManager.h */,
+				B6D211E11AD61418001055DE /* GameManager.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
+				B6D211E21AD61418001055DE /* GameManager.m in Sources */,
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				B6350E061A97F83900B4867C /* Character.m in Sources */,

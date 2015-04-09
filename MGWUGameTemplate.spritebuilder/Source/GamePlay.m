@@ -1,15 +1,10 @@
-//
 //  GamePlay.m
 //  MGWUGameTemplate
-//
 //  Created by Xintong Yu on 2/20/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
-//
 /*
- 
  == Load game content mechanism == 
  Start with an empty gameplay scene, load new content into _objectsGroup.
- 
  
  == End game mechanism  ==
  1. Remove the cloud when it's position is one screen lower than _characterHighest.
@@ -19,20 +14,17 @@
  */
 
 #include <stdlib.h>
-
 #import "GamePlay.h"
 #import "GameOver.h"
 #import "PausePopUp.h"
-
 #import "Character.h"
 #import "Cloud.h"
 #import "Star.h"
 #import "Groud.h"
-
 #import "ScoreAdd.h"
 #import "ScoreDouble.h"
-
 #import "CCPhysics+ObjectiveChipmunk.h"
+#import "GameManager.h"
 
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -48,7 +40,7 @@ static int _screenWidth;
     CCLabelTTF *_scoreLabel;
     CCControl *_buttonPause;
     CCAction *_followCharacter;
-    //CCNode *_popUp;
+    CCNode *_popUp;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -61,12 +53,20 @@ static int _screenWidth;
     // flags.
     float _timeSinceNewContent;
     bool _canLoadNewContent;
-    bool _gamePaused;
+    GameManager *_gameManager;
+}
+
+- (id)init {
+    self = [super init];
+    if (!self) return(nil);
+    return self;
 }
 
 - (void)didLoadFromCCB {
+    CCLOG(@"didLoadFromCCB");
     _screenHeight = [[UIScreen mainScreen] bounds].size.height;
     _screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    _gameManager = [GameManager getGameManager];
     
     // init game play related varibles
     _score = 0;
@@ -76,7 +76,6 @@ static int _screenWidth;
     _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
-    _gamePaused = false;
     
     _physicsNode.collisionDelegate = self;
     _sharedObjectsGroup = _objectsGroup;
@@ -86,61 +85,71 @@ static int _screenWidth;
     
     // load game content
     [self loadNewContent];
-    [self startUserInteraction];
-    
-    // play background music
-    //[self playBackGroundMusic];
 }
 
 - (void)update:(CCTime)delta {
-    //TODO: optimize
-    int xMin = _character.boundingBox.origin.x;
-    int xMax = xMin + _character.boundingBox.size.width;
-    int screenLeft = self.boundingBox.origin.x;
-    int screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
-    int screenHeight = [[UIScreen mainScreen] bounds].size.height;  // ????????? can I replace it? in onEnter?
-    
-    // character jump out of the screen from left or right, launch a new character and remove the old one.
-    if (xMax < screenLeft) {
-        [self lunchCharacterAtPosition:screenRight];
-    } else if (xMin > screenRight) {
-        [self lunchCharacterAtPosition:screenLeft];
-    }
-    
-    // if character reach top of the scene, load new content.
-    if(_canLoadNewContent) {
-        int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
+    if (_gameManager.gamePlayState == 0) { // game on going.
+        //TODO: optimize
+        int xMin = _character.boundingBox.origin.x;
+        int xMax = xMin + _character.boundingBox.size.width;
+        int screenLeft = self.boundingBox.origin.x;
+        int screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
+        int screenHeight = [[UIScreen mainScreen] bounds].size.height;  // ????????? can I replace it? in onEnter?
         
-        // determine when to load new content. (is there any built-in function for this?)
-        if (yMax + screenHeight / 2 + 200 > _contentHeight) {
-            //[self stopUserInteraction];  // is this line necessary??
-            [self loadNewContent];
-            [self startUserInteraction];
-            //[_contentNode stopAllActions];
-            [self followCharacter];
+        // character jump out of the screen from left or right, launch a new character and remove the old one.
+        if (xMax < screenLeft) {
+            [self lunchCharacterAtPosition:screenRight];
+        } else if (xMin > screenRight) {
+            [self lunchCharacterAtPosition:screenLeft];
+        }
+        
+        // if character reach top of the scene, load new content.
+        if(_canLoadNewContent) {
+            int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
             
-            _canLoadNewContent = false;
-            _timeSinceNewContent = 0.0f;
+            // determine when to load new content. (is there any built-in function for this?)
+            if (yMax + screenHeight / 2 + 200 > _contentHeight) {
+                [self stopUserInteraction];  // is this line necessary??
+                [self loadNewContent];
+                [self startUserInteraction];
+                [self followCharacter];
+                
+                _canLoadNewContent = false;
+                _timeSinceNewContent = 0.0f;
+            }
+        }
+        
+        _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
+        if (_timeSinceNewContent > 2.0f) {
+            _canLoadNewContent = true;
+        }
+        
+        // if the character starts to drop, end the game.
+        if (_character.position.y > _characterHighest) {
+            _characterHighest = _character.position.y;
+        }
+        if (_character.position.y + screenHeight * 2 < _characterHighest) {
+            [self endGame];
         }
     }
-    
-    _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
-    if (_timeSinceNewContent > 2.0f) {
-        _canLoadNewContent = true;
-    }
-    
-    // if the character starts to drop, end the game.
-    if (_character.position.y > _characterHighest) {
-        _characterHighest = _character.position.y;
-    }
-    if (_character.position.y + screenHeight * 2 < _characterHighest) {
-        [self endGame];
+    else if (_gameManager.gamePlayState == 2) { // to be resumed
+        _physicsNode.paused = NO;
+        [self startUserInteraction];
+        [self followCharacter];
+        _gameManager.gamePlayState = 0;
     }
 }
 
 - (void)onEnter {
+    CCLOG(@"onEnter");
     [super onEnter];
     [self startUserInteraction];
+}
+
+- (void)onExit {
+    CCLOG(@"onExit");
+    [super onExit];
+    [self stopUserInteraction];
 }
 
 // loadNewContent by ramdomly generate game content.
@@ -199,11 +208,13 @@ static int _screenWidth;
 - (void)startUserInteraction {
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
+    CCLOG(@"addGestureRecognizer");
 }
 
 - (void)stopUserInteraction {
     [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
     self.userInteractionEnabled = false;  // stop accept touches.
+    CCLOG(@"removeGestureRecognizer");
 }
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
@@ -344,27 +355,16 @@ static int _screenWidth;
 }
 
 - (void)pause {
-    [self stopUserInteraction];
-    [[CCDirector sharedDirector] pushScene:[CCBReader loadAsScene:@"PausePopUp2"]];
-//    if (_gamePaused) {
-////        [[CCDirector sharedDirector] resume];
-////        [[CCDirector sharedDirector] startAnimation];
-//        _gamePaused = false;
-//        
-//        [_popUp removeFromParent];
-//    } else {
-////        [[CCDirector sharedDirector] stopAnimation];
-////        [[CCDirector sharedDirector] pause];
-//        _gamePaused = true;
-//        
-//        [[CCDirector sharedDirector] pushScene:[PausePopUp node]];
-//        
-////        _popUp = [CCBReader load:@"PausePopUp"];
-////        _popUp.position = [_gamePlay convertToNodeSpace:[_gamePlay convertToWorldSpace:_buttonPause.position]];
-////        [_gamePlay addChild:_popUp];
-////        CCLOG(@"_popUp.position %f, %f", _popUp.position.x, _popUp.position.y);
-//        
-//    }
+    CCLOG(@"pause");
+    if (_gameManager.gamePlayState == 0) {
+        _popUp = [CCBReader load:@"PausePopUp"];
+        _popUp.position = ccp(_buttonPause.position.x, 480 - _buttonPause.position.y);
+        [_gamePlay addChild:_popUp];
+        
+        _physicsNode.paused = YES;
+        [self stopUserInteraction];
+        _gameManager.gamePlayState = 1;
+    }
 }
 
 - (void)playBackGroundMusic {
