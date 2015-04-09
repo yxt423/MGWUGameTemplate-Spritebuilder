@@ -227,8 +227,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>30</real>
-							<real>30</real>
+							<real>60</real>
+							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -273,7 +273,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_music_120.png</string>
+							<string>Assets/Button/Button_music_240.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -284,7 +284,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_music_120.png</string>
+							<string>Assets/Button/Button_music_240.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -471,8 +471,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
@@ -664,8 +662,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>30</real>
-							<real>30</real>
+							<real>60</real>
+							<real>60</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -710,7 +708,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_restart_120.png</string>
+							<string>Assets/Button/Button_restart_240.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -721,7 +719,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_restart_120.png</string>
+							<string>Assets/Button/Button_restart_240.png</string>
 						</array>
 					</dict>
 					<dict>

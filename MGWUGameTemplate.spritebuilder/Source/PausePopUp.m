@@ -17,8 +17,9 @@
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
     
+    // if the game is muted, show the muted image in setting.
     if (_gameManager.muted) {
-        CCSpriteFrame *mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_120.png"];
+        CCSpriteFrame *mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_240.png"];
         [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
         [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
     }
@@ -45,9 +46,9 @@
     
     CCSpriteFrame *mutedImage;
     if (!_gameManager.muted) {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_music_120.png"];
+        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_music_240.png"];
     } else {
-        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_120.png"];
+        mutedImage = [CCSpriteFrame frameWithImageNamed:@"Button_muted_240.png"];
     }
     [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateNormal];
     [_buttonMuted setBackgroundSpriteFrame:mutedImage forState:CCControlStateHighlighted];
