@@ -72,7 +72,8 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)info {
-    
+    CCScene *infoScene = [CCBReader loadAsScene:@"InfoScene"];
+    [[CCDirector sharedDirector] pushScene:infoScene];
 }
 
 @end

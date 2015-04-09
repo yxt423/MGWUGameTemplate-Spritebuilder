@@ -18,6 +18,7 @@
 		B6D211EF1AD63AC0001055DE /* High Mario.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6D211EE1AD63AC0001055DE /* High Mario.mp3 */; };
 		B6D211F11AD63C83001055DE /* star_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B6D211F01AD63C83001055DE /* star_sound.wav */; };
 		B6D211F31AD63C9F001055DE /* sound_cloud.wav in Resources */ = {isa = PBXBuildFile; fileRef = B6D211F21AD63C9F001055DE /* sound_cloud.wav */; };
+		B6D211F91AD72479001055DE /* InfoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211F81AD72479001055DE /* InfoScene.m */; };
 		B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B231AA2E4230050F36E /* ScoreAdd.m */; };
 		B6F36B2A1AA3BB030050F36E /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B291AA3BB030050F36E /* Star.m */; };
 		B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */; };
@@ -101,6 +102,8 @@
 		B6D211EE1AD63AC0001055DE /* High Mario.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "High Mario.mp3"; sourceTree = "<group>"; };
 		B6D211F01AD63C83001055DE /* star_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = star_sound.wav; sourceTree = "<group>"; };
 		B6D211F21AD63C9F001055DE /* sound_cloud.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sound_cloud.wav; sourceTree = "<group>"; };
+		B6D211F71AD72479001055DE /* InfoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoScene.h; path = Source/InfoScene.h; sourceTree = "<group>"; };
+		B6D211F81AD72479001055DE /* InfoScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoScene.m; path = Source/InfoScene.m; sourceTree = "<group>"; };
 		B6F36B221AA2E4230050F36E /* ScoreAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreAdd.h; path = Source/ScoreAdd.h; sourceTree = "<group>"; };
 		B6F36B231AA2E4230050F36E /* ScoreAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAdd.m; path = Source/ScoreAdd.m; sourceTree = "<group>"; };
 		B6F36B281AA3BB030050F36E /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				B6D211D21AD3A304001055DE /* PausePopUp.m */,
 				B6D211E01AD61418001055DE /* GameManager.h */,
 				B6D211E11AD61418001055DE /* GameManager.m */,
+				B6D211F71AD72479001055DE /* InfoScene.h */,
+				B6D211F81AD72479001055DE /* InfoScene.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6D211F91AD72479001055DE /* InfoScene.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,

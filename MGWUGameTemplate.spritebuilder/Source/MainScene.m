@@ -9,6 +9,7 @@
 #import "MainScene.h"
 #import "GamePlay.h"
 #import "GameManager.h"
+#import "InfoScene.h"
 
 static int _screenHeight;
 
