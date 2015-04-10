@@ -10,6 +10,7 @@
 #import "GamePlay.h"
 #import "GameManager.h"
 #import "InfoScene.h"
+#import "Mixpanel.h"
 
 static int _screenHeight;
 
@@ -19,11 +20,19 @@ static int _screenHeight;
 
 - (void)didLoadFromCCB {
     _screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    
 }
 
 - (void)play {
     CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
     [[CCDirector sharedDirector] replaceScene:gameplayScene];
+    
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Plan Selected" properties:@{
+                                                  @"Gender": @"Female",
+                                                  @"Plan": @"Premium"
+                                                  }];
 }
 
 - (void)setting {

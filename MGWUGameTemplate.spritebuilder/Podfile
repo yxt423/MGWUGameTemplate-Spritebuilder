@@ -1,0 +1,1 @@
+pod 'Mixpanel', '< 2.1.1'
