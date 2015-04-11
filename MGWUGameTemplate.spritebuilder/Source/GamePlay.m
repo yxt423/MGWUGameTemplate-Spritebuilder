@@ -25,6 +25,7 @@
 #import "ScoreDouble.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "GameManager.h"
+#import "Mixpanel.h"
 
 static int _characterHighest; //the highest position the character ever been to
 static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -55,6 +56,7 @@ static int _screenWidth;
     float _timeSinceNewContent;
     bool _canLoadNewContent;
     GameManager *_gameManager;
+    Mixpanel *_mixpanel;
 }
 
 - (id)init {
@@ -68,9 +70,12 @@ static int _screenWidth;
     _screenHeight = [[UIScreen mainScreen] bounds].size.height;
     _screenWidth = [[UIScreen mainScreen] bounds].size.width;
     _gameManager = [GameManager getGameManager];
+    _mixpanel = [Mixpanel sharedInstance];
+    
     _audio = [OALSimpleAudio sharedInstance];
     _audio.effectsVolume = 1;
     _audio.muted = _gameManager.muted;
+    
     
     // init game play related varibles
     _score = 0;
@@ -292,19 +297,11 @@ static int _screenWidth;
     return YES;
 }
 
-// store current score and highest score for later acess, stop user interaction on GamePlay, load GameOver scene.
+// update current score and highest score, stop user interaction on GamePlay, load GameOver scene.
 - (void)endGame {
-    // store current score
-    [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInt:_score] forKey:@"score"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    // update high score
-    NSNumber *highScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"highscore"];
-    if (_score > [highScore intValue]) {
-        // new highscore!
-        highScore = [NSNumber numberWithInt:_score];
-        [[NSUserDefaults standardUserDefaults] setObject:highScore forKey:@"highscore"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    _gameManager.currentScore = _score;
+    if (_score > _gameManager.highestScore) {
+        _gameManager.highestScore = _score;
     }
     
     [self stopUserInteraction];
@@ -325,7 +322,7 @@ static int _screenWidth;
 }
 
 - (void)updateScore {
-    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_score];
+    _scoreLabel.string = [GameManager scoreWithComma:_score];
 }
 
 - (void)cloudRemoved:(CCNode *)cloud {

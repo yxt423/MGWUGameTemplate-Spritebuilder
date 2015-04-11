@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GameManager : NSObject {
-    int gamePlayState;
-    bool muted;
-}
+@interface GameManager : NSObject
 
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) bool muted;
+@property (nonatomic, assign) int currentScore;
+@property (nonatomic, assign) int highestScore;
 
 + (id)getGameManager;
+
++ (NSString *)scoreWithComma: (int)s;
 
 @end

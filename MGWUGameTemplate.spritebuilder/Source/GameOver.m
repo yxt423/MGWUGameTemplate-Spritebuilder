@@ -8,47 +8,27 @@
 
 #import "GameOver.h"
 #import "GamePlay.h"
+#import "GameManager.h"
 
 @implementation GameOver {
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highScoreLabel;
+    GameManager *_gameManager;
 }
 
-
 - (void)didLoadFromCCB {
+    _gameManager = [GameManager getGameManager];
     // show scores
-    NSNumber *score = [[NSUserDefaults standardUserDefaults] objectForKey:@"score"];
-    NSNumber *highScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"highscore"];
+    int score = _gameManager.currentScore;
+    int highScore = _gameManager.highestScore;
     
-    _scoreLabel.string = [self scoreWithComma:score];
-    _highScoreLabel.string = [self scoreWithComma:highScore];
+    _scoreLabel.string = [GameManager scoreWithComma:score];
+    _highScoreLabel.string = [GameManager scoreWithComma:highScore];
 }
 
 - (void)playAgain {
     // resload gameplay scene
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay"]];
-}
-
-- (NSString *)scoreWithComma: (NSNumber *)score{
-    NSString * result = @"";
-    int s = [score intValue]; // use int s = score will cause problem!
-    int counter = 0;
-    
-    while (true) {
-        int lastDigit = s % 10;
-        s /= 10;
-        result = [[NSString stringWithFormat:@"%d", lastDigit] stringByAppendingString:result];
-        if (s == 0) {
-            return result;
-        }
-        counter++;
-        if (counter == 3) {
-            result = [@"," stringByAppendingString:result];
-            counter = 0;
-        }
-    }
-    
-    return result;
 }
 
 - (void)backToMainScene {
