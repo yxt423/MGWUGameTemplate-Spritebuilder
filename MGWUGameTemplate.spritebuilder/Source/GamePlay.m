@@ -7,9 +7,8 @@
  Start with an empty gameplay scene, load new content into _objectsGroup.
  
  == End game mechanism  ==
- 1. Remove the cloud when it's position is one screen lower than _characterHighest.
-    (A cloud can get it's relative position by calling the class method getPositionInObjectsGroup, which uses a static verible _sharedObjectsGroup, which equals to _objectsGroup. // Strategies for Accessing Other Nodes: http://www.learn-cocos2d.com/files/cocos2d-essential-reference-sample/Strategies_for_Accessing_Other_Nodes.html )
- 2. End the game when the character is two screens lower than _characterHighest.
+ 1. Remove the cloud when it's position is one screen lower than characterHighest.
+ 2. End the game when the character is two screens lower than characterHighest.
  
  */
 
@@ -26,11 +25,6 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "GameManager.h"
 #import "Mixpanel.h"
-
-static int _characterHighest; //the highest position the character ever been to
-static CCNode *_sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
-static int _screenHeight;
-static int _screenWidth;
 
 @implementation GamePlay {
     Character *_character;
@@ -67,8 +61,6 @@ static int _screenWidth;
 
 - (void)didLoadFromCCB {
     CCLOG(@"didLoadFromCCB");
-    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    _screenWidth = [[UIScreen mainScreen] bounds].size.width;
     _gameManager = [GameManager getGameManager];
     _mixpanel = [Mixpanel sharedInstance];
     
@@ -76,18 +68,16 @@ static int _screenWidth;
     _audio.effectsVolume = 1;
     _audio.muted = _gameManager.muted;
     
-    
-    // init game play related varibles
     _score = 0;
     _cloudHit = 0;
     _starHit = 0;
     _contentHeight = 100;
-    _characterHighest = 0;
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
+    _gameManager.characterHighest = 0;
     
     _physicsNode.collisionDelegate = self;
-    _sharedObjectsGroup = _objectsGroup;
+    _gameManager.objectsGroup = _objectsGroup;
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
@@ -98,26 +88,22 @@ static int _screenWidth;
 
 - (void)update:(CCTime)delta {
     if (_gameManager.gamePlayState == 0) { // game on going.
-        //TODO: optimize
         int xMin = _character.boundingBox.origin.x;
         int xMax = xMin + _character.boundingBox.size.width;
-        int screenLeft = self.boundingBox.origin.x;
-        int screenRight = self.boundingBox.origin.x + self.boundingBox.size.width;
-        int screenHeight = [[UIScreen mainScreen] bounds].size.height;  // ????????? can I replace it? in onEnter?
         
         // character jump out of the screen from left or right, launch a new character and remove the old one.
-        if (xMax < screenLeft) {
-            [self lunchCharacterAtPosition:screenRight];
-        } else if (xMin > screenRight) {
-            [self lunchCharacterAtPosition:screenLeft];
+        if (xMax < _gameManager.screenLeft) {
+            [self lunchCharacterAtPosition:_gameManager.screenRight];
+        } else if (xMin > _gameManager.screenRight) {
+            [self lunchCharacterAtPosition:_gameManager.screenLeft];
         }
         
         // if character reach top of the scene, load new content.
         if(_canLoadNewContent) {
             int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
             
-            // determine when to load new content. (is there any built-in function for this?)
-            if (yMax + screenHeight / 2 + 200 > _contentHeight) {
+            // determine when to load new content.
+            if (yMax + _gameManager.screenHeight / 2 + 200 > _contentHeight) {
                 [self stopUserInteraction];  // is this line necessary??
                 [self loadNewContent];
                 [self startUserInteraction];
@@ -133,11 +119,11 @@ static int _screenWidth;
             _canLoadNewContent = true;
         }
         
-        // if the character starts to drop, end the game.
-        if (_character.position.y > _characterHighest) {
-            _characterHighest = _character.position.y;
+        if (_character.position.y > _gameManager.characterHighest) {
+            _gameManager.characterHighest = _character.position.y;
         }
-        if (_character.position.y + screenHeight * 2 < _characterHighest) {
+        // if the character starts to drop, end the game.
+        if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
             [self endGame];
         }
     }
@@ -227,24 +213,22 @@ static int _screenWidth;
 - (void)startUserInteraction {
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
-    CCLOG(@"addGestureRecognizer");
 }
 
 - (void)stopUserInteraction {
     [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
     self.userInteractionEnabled = false;  // stop accept touches.
-    CCLOG(@"removeGestureRecognizer");
 }
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
     CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
     CGPoint convertedPoint = [self convertToNodeSpace:[self convertToWorldSpace:point]];
-    convertedPoint.y = _screenHeight - convertedPoint.y; // the convertedPoint has different reference corner.
+    convertedPoint.y = _gameManager.screenHeight - convertedPoint.y; // the convertedPoint has different reference corner.
     if (CGRectContainsPoint(_buttonPause.boundingBox, convertedPoint)) {
         return;
     }
     
-    int xScreenMid = _screenWidth / 2;
+    int xScreenMid = _gameManager.screenWidth / 2;
     float xTap = point.x;
     if (xTap < xScreenMid) {
         [_character moveLeft];
@@ -254,8 +238,6 @@ static int _screenWidth;
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
-    //CCLOG(@"character collided with cloud!");
-    
     _cloudHit += 1;
     _score += _cloudHit * 10;
     [self updateScore];
@@ -273,7 +255,6 @@ static int _screenWidth;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
-    //CCLOG(@"character collided with star!");
     _starHit += 1;
     _score *= 2;
     [self updateScore];
@@ -286,8 +267,6 @@ static int _screenWidth;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
-    //CCLOG(@"character collided with groud!");
-    
     if (_cloudHit > 0) {
         [self endGame];
     } else {
@@ -363,31 +342,16 @@ static int _screenWidth;
 }
 
 - (void)pause {
-    CCLOG(@"pause");
     if (_gameManager.gamePlayState == 0) {
         _popUp = [CCBReader load:@"PausePopUp"];
         // ButtonPause and _popUp has difference reference corner, use _screenHeight - y
-        _popUp.position = ccp(_buttonPause.position.x, _screenHeight - _buttonPause.position.y);
+        _popUp.position = ccp(_buttonPause.position.x, _gameManager.screenHeight - _buttonPause.position.y);
         [_gamePlay addChild:_popUp];
         
         _physicsNode.paused = YES;
         [self stopUserInteraction];
         _gameManager.gamePlayState = 1;
     }
-}
-
-- (void)playBackGroundMusic {
-    OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
-    bgMusic.bgVolume = 1;
-    [bgMusic playBg:@"High Mario.mp3" loop:YES];
-}
-
-+ (int)getCharacterHighest {
-    return _characterHighest;
-}
-
-+ (CGPoint)getPositionInObjectsGroup: (CGPoint)point {
-    return [_sharedObjectsGroup convertToNodeSpace:point];
 }
 
 @end

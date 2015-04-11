@@ -11,16 +11,17 @@
 
 #import "Cloud.h"
 #import "GamePlay.h"
+#import "GameManager.h"
 
 @implementation Cloud {
     float _timeSinceUpdate;
-    int _screenHeight; // height of the device screen
+    GameManager *_gameManager;
 }
 
 
 - (void)didLoadFromCCB {
+    _gameManager = [GameManager getGameManager];
     _timeSinceUpdate = 0;
-    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
     self.physicsBody.sensor = YES;
     self.physicsBody.collisionType = @"cloud";
@@ -36,9 +37,9 @@
         
         // Remove the cloud when it's position is one screen lower than _characterHighest
         CGPoint cloudPosition = [self.parent convertToWorldSpace:self.position];
-        cloudPosition = [GamePlay getPositionInObjectsGroup:cloudPosition];
+        cloudPosition = [_gameManager.objectsGroup convertToNodeSpace:cloudPosition];
         
-        if ((cloudPosition.y + _screenHeight) < [GamePlay getCharacterHighest]) {
+        if ((cloudPosition.y + _gameManager.screenHeight) < _gameManager.characterHighest) {
             //CCLOG(@"cloudPosition %f, self.position.y %f, _screenHeight %d, CharacterHighest %d", cloudPosition.y, self.position.y, _screenHeight, [GamePlay getCharacterHighest]);
             [self removeFromParent];
         }

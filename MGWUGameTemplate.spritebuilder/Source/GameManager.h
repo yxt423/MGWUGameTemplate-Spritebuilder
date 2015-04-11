@@ -10,10 +10,17 @@
 
 @interface GameManager : NSObject
 
+@property (nonatomic, assign) int screenHeight, screenWidth;
+@property (nonatomic, assign) int screenLeft, screenRight;
+
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) bool muted;
+
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
+
+@property (nonatomic, assign) int characterHighest;
+@property (nonatomic, assign) CCNode *objectsGroup;
 
 + (id)getGameManager;
 
