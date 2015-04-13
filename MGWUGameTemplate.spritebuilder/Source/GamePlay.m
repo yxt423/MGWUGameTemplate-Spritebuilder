@@ -75,9 +75,8 @@
     _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
     _gameManager.characterHighest = 0;
-    
     _physicsNode.collisionDelegate = self;
-    _gameManager.objectsGroup = _objectsGroup;
+    _gameManager.sharedObjectsGroup = _objectsGroup;
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
@@ -122,24 +121,28 @@
         if (_character.position.y > _gameManager.characterHighest) {
             _gameManager.characterHighest = _character.position.y;
         }
+        
         // if the character starts to drop, end the game.
         if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
             [self endGame];
         }
     }
+    
     else if (_gameManager.gamePlayState == 2) { // to be resumed
         _physicsNode.paused = NO;
         [self startUserInteraction];
         [self followCharacter];
         _gameManager.gamePlayState = 0;
     }
+    
     else if (_gameManager.gamePlayState == 3) { // to be restarted.
         CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
         [[CCDirector sharedDirector] replaceScene:gameplayScene];
         _gameManager.gamePlayState = 0;
         CCLOG(@"restarted!");
     }
-    else if (_gameManager.gamePlayState == 4) { // soumd setting to be reversed
+    
+    else if (_gameManager.gamePlayState == 4) { // sound setting to be reversed
         _audio.muted = _gameManager.muted;
         _gameManager.gamePlayState = 1;
     }
@@ -183,7 +186,7 @@
     for (int i = 0; i < 20; i++) {
         CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
         _contentHeight += interval;
-        cloud.position = ccp(arc4random_uniform(280) + 20, _contentHeight);
+        cloud.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
         cloud.zOrder = -1;
         cloud.scale = scale;
         [_objectsGroup addChild:cloud];
@@ -198,7 +201,7 @@
         star = [CCBReader load:@"Objects/StarSpining80"];
     }
     _contentHeight += interval;
-    star.position = ccp(arc4random_uniform(240) + 40, _contentHeight);
+    star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
 }
@@ -284,7 +287,17 @@
     }
     
     [self stopUserInteraction];
+    [self trackGameEnd];
     [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GameOver"]];
+}
+
+- (void)trackGameEnd {
+    _gameManager.gamePlayTimes += 1;
+    [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:_score],
+                                              @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
+                                              @"StarHit": [NSNumber numberWithInt:_starHit],
+                                              @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes]
+                                              }];
 }
 
 - (void)lunchCharacterAtPosition: (int)x {
@@ -344,8 +357,8 @@
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {
         _popUp = [CCBReader load:@"PausePopUp"];
-        // ButtonPause and _popUp has difference reference corner, use _screenHeight - y
-        _popUp.position = ccp(_buttonPause.position.x, _gameManager.screenHeight - _buttonPause.position.y);
+        _popUp.position = _buttonPause.position;
+        _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
         [_gamePlay addChild:_popUp];
         
         _physicsNode.paused = YES;

@@ -11,6 +11,7 @@
 		B6350E001A97F81C00B4867C /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350DFF1A97F81C00B4867C /* GamePlay.m */; };
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
+		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
 		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211D21AD3A304001055DE /* PausePopUp.m */; };
@@ -94,6 +95,8 @@
 		B6350E021A97F82B00B4867C /* Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cloud.m; path = Source/Cloud.m; sourceTree = "<group>"; };
 		B6350E041A97F83900B4867C /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
+		B6A555321AD9F9F100E3FC7C /* BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicObject.h; path = Source/BasicObject.h; sourceTree = "<group>"; };
+		B6A555331AD9F9F100E3FC7C /* BasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicObject.m; path = Source/BasicObject.m; sourceTree = "<group>"; };
 		B6CBD67C1A9BF65100859D79 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOver.h; path = Source/GameOver.h; sourceTree = "<group>"; };
 		B6CBD67D1A9BF65100859D79 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOver.m; path = Source/GameOver.m; sourceTree = "<group>"; };
 		B6CBD67F1A9BF97200859D79 /* Groud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groud.h; path = Source/Groud.h; sourceTree = "<group>"; };
@@ -199,29 +202,47 @@
 			name = audio;
 			sourceTree = "<group>";
 		};
+		B6A555301AD9F7D500E3FC7C /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				B6CBD67F1A9BF97200859D79 /* Groud.h */,
+				B6CBD6801A9BF97200859D79 /* Groud.m */,
+				B6F36B281AA3BB030050F36E /* Star.h */,
+				B6F36B291AA3BB030050F36E /* Star.m */,
+				B6350E011A97F82B00B4867C /* Cloud.h */,
+				B6350E021A97F82B00B4867C /* Cloud.m */,
+				B6350E041A97F83900B4867C /* Character.h */,
+				B6350E051A97F83900B4867C /* Character.m */,
+				B6A555321AD9F9F100E3FC7C /* BasicObject.h */,
+				B6A555331AD9F9F100E3FC7C /* BasicObject.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		B6A555311AD9F94300E3FC7C /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				B6F36B221AA2E4230050F36E /* ScoreAdd.h */,
+				B6F36B231AA2E4230050F36E /* ScoreAdd.m */,
+				B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */,
+				B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */,
+			);
+			name = Effects;
+			sourceTree = "<group>";
+		};
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B6A555311AD9F94300E3FC7C /* Effects */,
+				B6A555301AD9F7D500E3FC7C /* Objects */,
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
 				B6350DFE1A97F81C00B4867C /* GamePlay.h */,
 				B6350DFF1A97F81C00B4867C /* GamePlay.m */,
-				B6350E011A97F82B00B4867C /* Cloud.h */,
-				B6350E021A97F82B00B4867C /* Cloud.m */,
-				B6350E041A97F83900B4867C /* Character.h */,
-				B6350E051A97F83900B4867C /* Character.m */,
 				B6CBD67C1A9BF65100859D79 /* GameOver.h */,
 				B6CBD67D1A9BF65100859D79 /* GameOver.m */,
-				B6CBD67F1A9BF97200859D79 /* Groud.h */,
-				B6CBD6801A9BF97200859D79 /* Groud.m */,
-				B6F36B221AA2E4230050F36E /* ScoreAdd.h */,
-				B6F36B231AA2E4230050F36E /* ScoreAdd.m */,
-				B6F36B281AA3BB030050F36E /* Star.h */,
-				B6F36B291AA3BB030050F36E /* Star.m */,
-				B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */,
-				B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */,
 				B6D211D11AD3A304001055DE /* PausePopUp.h */,
 				B6D211D21AD3A304001055DE /* PausePopUp.m */,
 				B6D211E01AD61418001055DE /* GameManager.h */,
@@ -503,6 +524,7 @@
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
+				B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */,
 				B6D211E21AD61418001055DE /* GameManager.m in Sources */,
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,

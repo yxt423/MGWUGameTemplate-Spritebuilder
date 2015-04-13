@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "CCSprite.h"
+#import "BasicObject.h"
 
-@interface Cloud : CCSprite
+@interface Cloud : BasicObject
 
 @end

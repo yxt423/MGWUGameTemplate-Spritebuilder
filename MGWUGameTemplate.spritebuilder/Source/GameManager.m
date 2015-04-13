@@ -12,9 +12,13 @@
  */
 
 #import "GameManager.h"
+#import "Mixpanel.h"
+#import "MainScene.h"
 
 
-@implementation GameManager
+@implementation GameManager {
+    Mixpanel *_mixpanel;
+}
 
 @synthesize screenHeight, screenWidth;
 @synthesize screenLeft, screenRight;
@@ -22,28 +26,27 @@
 @synthesize gamePlayState;
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
-@synthesize objectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+@synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+@synthesize gamePlayTimes;
 
 - (id)init {
     if (self = [super init]) {
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
+        characterHighest = 0;
         
+        // init veriables from local
+        highestScore = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];  // long to int, loss
+        gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
+        if (!gamePlayTimes) {
+            gamePlayTimes = 0;
+        }
         muted = [[NSUserDefaults standardUserDefaults] boolForKey:@"muted"];
         if (!muted) {
             muted = false;
         }
         
-        // init highest score
-        highestScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];
-        
-        // init devide parameters.
-        screenHeight = [[UIScreen mainScreen] bounds].size.height;
-        screenWidth = [[UIScreen mainScreen] bounds].size.width;
-        screenLeft = [[UIScreen mainScreen] bounds].origin.x;
-        screenRight = screenLeft + screenWidth;
-        
-        characterHighest = 0;
+        _mixpanel = [Mixpanel sharedInstance];
     }
     return self;
 }
@@ -56,6 +59,18 @@
     });
     return gameManager;
 }
+
+- (void)initDeviceParam: (MainScene *)mainScene {
+    // init devide screen related parameters.
+    screenHeight = mainScene.boundingBox.size.height;
+    screenWidth = mainScene.boundingBox.size.width;
+    screenLeft = mainScene.boundingBox.origin.x;
+    screenRight = screenLeft + screenWidth;
+    CCLOG(@"screenHeight %d", screenHeight);
+    CCLOG(@"screenWidth %d", screenWidth);
+}
+
+/* scoring functions */
 
 - (void)setHighestScore: (int)score {
     CCLOG(@"new high score!");

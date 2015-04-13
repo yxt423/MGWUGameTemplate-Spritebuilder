@@ -7,8 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MainScene.h"
 
-@interface GameManager : NSObject
+@interface GameManager : NSObject {
+    
+    int screenHeight, screenWidth;
+    int screenLeft, screenRight;
+    
+    int gamePlayState;
+    bool muted;
+    
+    int currentScore;
+    int highestScore;
+    
+    int characterHighest;
+    CCNode *sharedObjectsGroup;
+    
+    int gamePlayTimes;
+}
 
 @property (nonatomic, assign) int screenHeight, screenWidth;
 @property (nonatomic, assign) int screenLeft, screenRight;
@@ -20,10 +36,14 @@
 @property (nonatomic, assign) int highestScore;
 
 @property (nonatomic, assign) int characterHighest;
-@property (nonatomic, assign) CCNode *objectsGroup;
+@property (nonatomic, retain) CCNode *sharedObjectsGroup;
+
+@property (nonatomic, assign) int gamePlayTimes;
 
 + (id)getGameManager;
 
 + (NSString *)scoreWithComma: (int)s;
+
+- (void)initDeviceParam: (MainScene *)mainScene;
 
 @end

@@ -606,9 +606,9 @@ April 2015</string>
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>290</real>
+							<real>30</real>
 							<real>54</real>
-							<integer>0</integer>
+							<integer>3</integer>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>

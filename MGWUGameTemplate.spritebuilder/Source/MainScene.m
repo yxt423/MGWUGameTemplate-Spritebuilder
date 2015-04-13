@@ -12,33 +12,29 @@
 #import "InfoScene.h"
 #import "Mixpanel.h"
 
-static int _screenHeight;
-
 @implementation MainScene {
     CCButton *_buttonSetting;
+    GameManager *_gameManager;
 }
 
 - (void)didLoadFromCCB {
-    _screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    
+    _gameManager = [GameManager getGameManager];
 }
 
 - (void)play {
+    // init devide parameters.
+    [_gameManager initDeviceParam:self];
+    
     CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
     [[CCDirector sharedDirector] replaceScene:gameplayScene];
-    
-    
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    [mixpanel track:@"Plan Selected" properties:@{
-                                                  @"Gender": @"Female",
-                                                  @"Plan": @"Premium"
-                                                  }];
 }
 
 - (void)setting {
     CCLOG(@"Main - setting");
     CCNode *_popUp = [CCBReader load:@"SettingPopUp"];
     _popUp.position = _buttonSetting.position;
+    _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerBottomRight);
+
     [self addChild:_popUp];
 }
 
