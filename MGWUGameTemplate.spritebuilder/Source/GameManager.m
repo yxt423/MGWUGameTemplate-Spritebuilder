@@ -85,9 +85,15 @@
     while (true) {
         int last3Digits = s % 1000;
         s /= 1000;
-        result = [[NSString stringWithFormat:@"%d", last3Digits] stringByAppendingString:result];
+        NSString * newStr = [NSString stringWithFormat:@"%d", last3Digits];
+        result = [newStr stringByAppendingString:result];
         if (s == 0) {
             return result;
+        }
+        if (newStr.length == 2) {
+            result = [@"0" stringByAppendingString:result];
+        } else if (newStr.length == 1) {
+            result = [@"00" stringByAppendingString:result];
         }
         result = [@"," stringByAppendingString:result];
     }
