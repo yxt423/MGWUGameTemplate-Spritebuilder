@@ -33,7 +33,8 @@
     CCNode *_objectsGroup;
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
-    CCControl *_buttonPause;
+    CCButton *_buttonPause;
+    CCButton *_buttonBubble;
     CCAction *_followCharacter;
     CCNode *_popUp;
     OALSimpleAudio *_audio;
@@ -193,9 +194,9 @@
     }
     
     CCNode *star;
-    if (_starHit < 3) {
+    if (_starHit < 2) {
         star = [CCBReader load:@"Objects/StarStatic"];
-    } else if (_starHit < 8) {
+    } else if (_starHit < 4) {
         star = [CCBReader load:@"Objects/StarSpining40"];
     } else {
         star = [CCBReader load:@"Objects/StarSpining80"];
@@ -227,7 +228,7 @@
     CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
     CGPoint convertedPoint = [self convertToNodeSpace:[self convertToWorldSpace:point]];
     convertedPoint.y = _gameManager.screenHeight - convertedPoint.y; // the convertedPoint has different reference corner.
-    if (CGRectContainsPoint(_buttonPause.boundingBox, convertedPoint)) {
+    if (CGRectContainsPoint(_buttonPause.boundingBox, convertedPoint) || CGRectContainsPoint(_buttonBubble.boundingBox, convertedPoint)) {
         return;
     }
     
@@ -326,7 +327,7 @@
     // show earned score for a short time
     ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"Effects/ScoreAdd"];
     scoreAdd.position = cloud.position;
-    [scoreAdd setScore:(_cloudHit * 10)];
+    [scoreAdd setScore:(_cloudHit * 10)]; // new score added: _cloudHit * 10
     [cloud.parent addChild:scoreAdd];
     
     // remove a cloud from the scene
@@ -366,5 +367,15 @@
         _gameManager.gamePlayState = 1;
     }
 }
+
+//- (void)buttonBubble {
+//    CCLOG(@"buttonBubble");
+//    CCNode *bubble = [CCBReader load:@"Objects/Bubble"];
+//    bubble.position = ccp(_character.boundingBox.size.width / 2,_character.boundingBox.size.height / 2);
+//    [_character addChild:bubble];
+//    
+////    [_character bubbleUp];
+//    // no collition for a while ??
+//}
 
 @end

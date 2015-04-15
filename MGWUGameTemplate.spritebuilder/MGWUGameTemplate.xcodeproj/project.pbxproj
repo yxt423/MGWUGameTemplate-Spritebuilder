@@ -12,6 +12,7 @@
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
+		B6A5553A1ADC8F6B00E3FC7C /* Bubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555391ADC8F6B00E3FC7C /* Bubble.m */; };
 		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211D21AD3A304001055DE /* PausePopUp.m */; };
@@ -97,6 +98,8 @@
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		B6A555321AD9F9F100E3FC7C /* BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicObject.h; path = Source/BasicObject.h; sourceTree = "<group>"; };
 		B6A555331AD9F9F100E3FC7C /* BasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicObject.m; path = Source/BasicObject.m; sourceTree = "<group>"; };
+		B6A555381ADC8F6B00E3FC7C /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bubble.h; path = Source/Bubble.h; sourceTree = "<group>"; };
+		B6A555391ADC8F6B00E3FC7C /* Bubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bubble.m; path = Source/Bubble.m; sourceTree = "<group>"; };
 		B6CBD67C1A9BF65100859D79 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOver.h; path = Source/GameOver.h; sourceTree = "<group>"; };
 		B6CBD67D1A9BF65100859D79 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOver.m; path = Source/GameOver.m; sourceTree = "<group>"; };
 		B6CBD67F1A9BF97200859D79 /* Groud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groud.h; path = Source/Groud.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				B6350E051A97F83900B4867C /* Character.m */,
 				B6A555321AD9F9F100E3FC7C /* BasicObject.h */,
 				B6A555331AD9F9F100E3FC7C /* BasicObject.m */,
+				B6A555381ADC8F6B00E3FC7C /* Bubble.h */,
+				B6A555391ADC8F6B00E3FC7C /* Bubble.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				B6350E061A97F83900B4867C /* Character.m in Sources */,
+				B6A5553A1ADC8F6B00E3FC7C /* Bubble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

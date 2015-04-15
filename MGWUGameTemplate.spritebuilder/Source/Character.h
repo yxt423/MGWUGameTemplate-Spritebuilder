@@ -13,5 +13,6 @@
 - (void)jump;
 - (void)moveLeft;
 - (void)moveRight;
+- (void)bubbleUp;
 
 @end

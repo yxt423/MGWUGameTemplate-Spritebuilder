@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -40,7 +40,7 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Cloud</string>
+		<string>Star</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -50,9 +50,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
-			<false/>
+			<true/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -64,7 +64,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>200</real>
+			<real>1</real>
 			<key>dynamic</key>
 			<false/>
 			<key>elasticity</key>
@@ -74,40 +74,48 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>1.726030707359314</real>
-					<real>0.96333068609237671</real>
+					<real>8.3899354934692383</real>
+					<real>5.3066353797912598</real>
 				</array>
 				<array>
-					<real>5.4743733406066895</real>
-					<real>6.9228863716125488</real>
+					<real>5.4570951461791992</real>
+					<real>13.455601692199707</real>
 				</array>
 				<array>
-					<real>33.636001586914062</real>
-					<real>6.6903185844421387</real>
+					<real>12.45154857635498</real>
+					<real>19.55824089050293</real>
 				</array>
 				<array>
-					<real>37.349819183349609</real>
-					<real>0.96333068609237671</real>
+					<real>19.816202163696289</real>
+					<real>13.744040489196777</real>
+				</array>
+				<array>
+					<real>16.576753616333008</real>
+					<real>5.3005790710449219</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>37.349819183349609</real>
-						<real>0.96333068609237671</real>
+						<real>16.576753616333008</real>
+						<real>5.3005790710449219</real>
 					</array>
 					<array>
-						<real>33.636001586914062</real>
-						<real>6.6903185844421387</real>
+						<real>19.816202163696289</real>
+						<real>13.744040489196777</real>
 					</array>
 					<array>
-						<real>5.4743733406066895</real>
-						<real>6.9228863716125488</real>
+						<real>12.45154857635498</real>
+						<real>19.55824089050293</real>
 					</array>
 					<array>
-						<real>1.726030707359314</real>
-						<real>0.96333068609237671</real>
+						<real>5.4570951461791992</real>
+						<real>13.455601692199707</real>
+					</array>
+					<array>
+						<real>8.3899354934692383</real>
+						<real>5.3066353797912598</real>
 					</array>
 				</array>
 			</array>
@@ -144,7 +152,7 @@
 				<key>value</key>
 				<array>
 					<real>0.5</real>
-					<real>0.5</real>
+					<real>1</real>
 				</array>
 			</dict>
 			<dict>
@@ -168,7 +176,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/Cloud.png</string>
+					<string>Assets/StarWithRope.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -204,8 +212,6 @@
 				<array/>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
