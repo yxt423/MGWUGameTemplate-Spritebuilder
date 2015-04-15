@@ -24,6 +24,8 @@
     CCNode *sharedObjectsGroup;
     
     int gamePlayTimes;
+    
+    int bubbleNum;
 }
 
 @property (nonatomic, assign) int screenHeight, screenWidth;
@@ -39,6 +41,8 @@
 @property (nonatomic, retain) CCNode *sharedObjectsGroup;
 
 @property (nonatomic, assign) int gamePlayTimes;
+
+@property (nonatomic, assign) int bubbleNum;
 
 + (id)getGameManager;
 

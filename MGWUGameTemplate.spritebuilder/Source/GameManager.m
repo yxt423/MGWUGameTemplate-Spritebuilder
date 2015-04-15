@@ -28,6 +28,7 @@
 @synthesize characterHighest;  //the highest position the character ever been to
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 @synthesize gamePlayTimes;
+@synthesize bubbleNum;
 
 - (id)init {
     if (self = [super init]) {
@@ -45,6 +46,14 @@
         if (!muted) {
             muted = false;
         }
+        bubbleNum = [[NSUserDefaults standardUserDefaults] integerForKey:@"bubbleNum"];
+        if (!bubbleNum) {
+            bubbleNum = 0;
+        }
+        // for testing.
+        bubbleNum += 5;
+        [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         _mixpanel = [Mixpanel sharedInstance];
     }

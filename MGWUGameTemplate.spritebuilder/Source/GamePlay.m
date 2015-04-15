@@ -20,6 +20,7 @@
 #import "Cloud.h"
 #import "Star.h"
 #import "Groud.h"
+#import "Bubble.h"
 #import "ScoreAdd.h"
 #import "ScoreDouble.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
@@ -38,6 +39,7 @@
     CCPhysicsNode *_physicsNode;
     CCAction *_followCharacter;
     CCLabelTTF *_scoreLabel;
+    CCLabelTTF *_bubbleNumLabel;
     CCNode *_bubble;
     OALSimpleAudio *_audio;
     GameManager *_gameManager;
@@ -87,6 +89,7 @@
     _gameManager.characterHighest = 0;
     _physicsNode.collisionDelegate = self;
     _gameManager.sharedObjectsGroup = _objectsGroup;
+    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
@@ -309,10 +312,6 @@
                                               }];
 }
 
-- (void)updateScore {
-    _scoreLabel.string = [GameManager scoreWithComma:_score];
-}
-
 - (void)cloudRemoved:(CCNode *)cloud {
     CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/CloudVanish"];
     explosion.autoRemoveOnFinish = TRUE;
@@ -365,15 +364,24 @@
 
 - (void)buttonBubble {
     CCLOG(@"buttonBubble");
-    if (!_inBubble) {
+    if (!_inBubble && _gameManager.bubbleNum > 0) {
+        // in game.
         _inBubble = true;
         _bubbleUsed += 1;
         _bubble = [CCBReader load:@"Objects/Bubble"];
         _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
         [_character addChild:_bubble];
-        
         [_character bubbleUp];
+        
+        _gameManager.bubbleNum -= 1;
+        _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+        [[NSUserDefaults standardUserDefaults] setInteger:_gameManager.bubbleNum forKey:@"bubbleNum"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)updateScore {
+    _scoreLabel.string = [GameManager scoreWithComma:_score];
 }
 
 @end
