@@ -35,6 +35,7 @@
     CCLabelTTF *_scoreLabel;
     CCButton *_buttonPause;
     CCButton *_buttonBubble;
+    CCNode *_walls;
     CCAction *_followCharacter;
     CCNode *_popUp;
     OALSimpleAudio *_audio;
@@ -127,6 +128,9 @@
         if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
             [self endGame];
         }
+        
+        // the wall goes with the character.
+        _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
     }
     
     else if (_gameManager.gamePlayState == 2) { // to be resumed
