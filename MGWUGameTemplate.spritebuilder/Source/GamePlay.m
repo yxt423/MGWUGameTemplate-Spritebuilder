@@ -58,6 +58,7 @@
     bool _canLoadNewContent;
     float _timeInBubble;
     bool _inBubble;
+    int _bubbleUsed;
 }
 
 - (id)init {
@@ -81,6 +82,7 @@
     _timeSinceNewContent = 0.0f;
     _inBubble = false;
     _timeInBubble = 0.0f;
+    _bubbleUsed = 0;
     
     _gameManager.characterHighest = 0;
     _physicsNode.collisionDelegate = self;
@@ -159,6 +161,7 @@
 
 - (void)onEnter {
     [super onEnter];
+    [self followCharacter];
     [self startUserInteraction];
 }
 
@@ -251,13 +254,6 @@
         _cloudHit += 1;
         _score += _cloudHit * 10;
         [self updateScore];
-        
-        // after hit one cloud, start to follow the character
-        // if start following in didLoadFromCCB, the GamePlay scene won't show up correctly. (why?)
-        if (_cloudHit == 1) {
-            [self followCharacter];
-        }
-        
         [_character jump];
         [self cloudRemoved:nodeB];
     }
@@ -291,6 +287,7 @@
 
 // update current score and highest score, stop user interaction on GamePlay, load GameOver scene.
 - (void)endGame {
+    _gameManager.gamePlayTimes += 1;
     _gameManager.currentScore = _score;
     if (_score > _gameManager.highestScore) {
         _gameManager.highestScore = _score;
@@ -302,13 +299,13 @@
 }
 
 - (void)trackGameEnd {
-    _gameManager.gamePlayTimes += 1;
     [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:_score],
                                               @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
                                               @"StarHit": [NSNumber numberWithInt:_starHit],
                                               @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes],
                                               @"CloudInterval": [NSNumber numberWithInt:_cloudInterval],
-                                              @"CloudScale": [NSNumber numberWithFloat:_cloudScale]
+                                              @"CloudScale": [NSNumber numberWithFloat:_cloudScale],
+                                              @"Bubble Used": [NSNumber numberWithInt:_bubbleUsed]
                                               }];
 }
 
@@ -370,6 +367,7 @@
     CCLOG(@"buttonBubble");
     if (!_inBubble) {
         _inBubble = true;
+        _bubbleUsed += 1;
         _bubble = [CCBReader load:@"Objects/Bubble"];
         _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
         [_character addChild:_bubble];
