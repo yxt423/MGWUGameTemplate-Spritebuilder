@@ -15,10 +15,13 @@
 @implementation MainScene {
     CCButton *_buttonSetting;
     GameManager *_gameManager;
+    Mixpanel *_mixpanel;
 }
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
+    _mixpanel = [Mixpanel sharedInstance];
+    [_mixpanel track:@"Game Open"];
 }
 
 - (void)play {

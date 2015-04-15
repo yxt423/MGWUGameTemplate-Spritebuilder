@@ -47,6 +47,8 @@
     int _cloudHit;
     int _starHit;
     int _contentHeight;
+    int _cloudInterval;
+    float _cloudScale;
     
     // flags.
     float _timeSinceNewContent;
@@ -62,7 +64,6 @@
 }
 
 - (void)didLoadFromCCB {
-    CCLOG(@"didLoadFromCCB");
     _gameManager = [GameManager getGameManager];
     _mixpanel = [Mixpanel sharedInstance];
     
@@ -85,26 +86,15 @@
     
     // load game content
     [self loadNewContent];
+    [_mixpanel track:@"Game Start"];
 }
 
 - (void)update:(CCTime)delta {
     if (_gameManager.gamePlayState == 0) { // game on going.
-        int xMin = _character.boundingBox.origin.x;
-        int xMax = xMin + _character.boundingBox.size.width;
-        
-        // character jump out of the screen from left or right, launch a new character and remove the old one.
-        if (xMax < _gameManager.screenLeft) {
-            [self lunchCharacterAtPosition:_gameManager.screenRight];
-        } else if (xMin > _gameManager.screenRight) {
-            [self lunchCharacterAtPosition:_gameManager.screenLeft];
-        }
-        
-        // if character reach top of the scene, load new content.
+        // if character reach top of the current content, load new content.
         if(_canLoadNewContent) {
             int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
-            
-            // determine when to load new content.
-            if (yMax + _gameManager.screenHeight / 2 + 200 > _contentHeight) {
+            if (yMax + _gameManager.screenHeight / 2 + 200 > _contentHeight) { // determine when to load new content.
                 [self stopUserInteraction];  // is this line necessary??
                 [self loadNewContent];
                 [self startUserInteraction];
@@ -154,46 +144,42 @@
 }
 
 - (void)onEnter {
-    CCLOG(@"onEnter");
     [super onEnter];
     [self startUserInteraction];
 }
 
 - (void)onExit {
-    CCLOG(@"onExit");
     [super onExit];
     [self stopUserInteraction];
 }
 
 // loadNewContent by ramdomly generate game content.
 - (void)loadNewContent {
-    int interval;
-    float scale;
     
     if (_contentHeight < 3000) {
-        interval = 40;
+        _cloudInterval = 40;
     } else {
-        interval = 50;
+        _cloudInterval = 50;
     }
     
     if (_contentHeight < 10000) {
-        scale = 1.f;
+        _cloudScale = 1.f;
     } else if (_contentHeight < 15000) {
-        scale = 0.9f;
+        _cloudScale = 0.9f;
     } else if (_contentHeight < 20000) {
-        scale = 0.8f;
+        _cloudScale = 0.8f;
     } else if (_contentHeight < 25000) {
-        scale = 0.7f;
+        _cloudScale = 0.7f;
     } else {
-        scale = 0.6f;
+        _cloudScale = 0.6f;
     }
     
     for (int i = 0; i < 20; i++) {
         CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-        _contentHeight += interval;
+        _contentHeight += _cloudInterval;
         cloud.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
         cloud.zOrder = -1;
-        cloud.scale = scale;
+        cloud.scale = _cloudScale;
         [_objectsGroup addChild:cloud];
     }
     
@@ -205,7 +191,7 @@
     } else {
         star = [CCBReader load:@"Objects/StarSpining80"];
     }
-    _contentHeight += interval;
+    _contentHeight += _cloudInterval;
     star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
@@ -236,9 +222,8 @@
         return;
     }
     
-    int xScreenMid = _gameManager.screenWidth / 2;
-    float xTap = point.x;
-    if (xTap < xScreenMid) {
+    // if tap on left side of character, jump left, otherwise jump right.
+    if (point.x < _character.position.x) {
         [_character moveLeft];
     } else {
         [_character moveRight];
@@ -301,21 +286,10 @@
     [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:_score],
                                               @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
                                               @"StarHit": [NSNumber numberWithInt:_starHit],
-                                              @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes]
+                                              @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes],
+                                              @"CloudInterval": [NSNumber numberWithInt:_cloudInterval],
+                                              @"CloudScale": [NSNumber numberWithFloat:_cloudScale]
                                               }];
-}
-
-- (void)lunchCharacterAtPosition: (int)x {
-    // launch a new chatacter
-    CCNode *character = [CCBReader load:@"Character"];
-    character.position = ccp(x, _character.position.y);
-    character.physicsBody.velocity = _character.physicsBody.velocity;
-    
-    // replace the old one with the new one.
-    [_character removeFromParent];
-    _character = (Character *)character;
-    [_physicsNode addChild:_character];
-    [self followCharacter];
 }
 
 - (void)updateScore {
