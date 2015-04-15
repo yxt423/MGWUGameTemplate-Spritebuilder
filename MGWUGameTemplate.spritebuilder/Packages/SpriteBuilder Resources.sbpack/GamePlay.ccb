@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>71</integer>
+	<integer>73</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -722,7 +722,7 @@
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>70</integer>
+				<integer>71</integer>
 				<key>baseClass</key>
 				<string>CCNodeColor</string>
 				<key>children</key>
@@ -767,7 +767,7 @@
 						<key>value</key>
 						<array>
 							<real>1</real>
-							<real>60</real>
+							<real>40</real>
 							<integer>2</integer>
 							<integer>0</integer>
 						</array>
@@ -803,10 +803,10 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
+							<real>0.047776870429515839</real>
+							<real>0.12742334604263306</real>
+							<real>0.39647537469863892</real>
 							<real>1</real>
-							<real>1</real>
-							<real>1</real>
-							<real>0.30000001192092896</real>
 						</array>
 					</dict>
 					<dict>
@@ -815,11 +815,9 @@
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>0.30000001192092896</real>
+						<real>1</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -853,10 +851,10 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>15</real>
-							<real>15</real>
+							<real>0.5</real>
+							<real>10</real>
+							<integer>1</integer>
 							<integer>2</integer>
-							<integer>0</integer>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -1060,9 +1058,9 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>90</real>
-							<real>30</real>
-							<integer>1</integer>
+							<real>20</real>
+							<real>20</real>
+							<integer>2</integer>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1109,8 +1107,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>60</real>
-							<real>60</real>
+							<real>40</real>
+							<real>40</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1163,7 +1161,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/bubble_120.png</string>
+							<string>Assets/bubble_160.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1394,8 +1392,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>30</real>
-							<real>30</real>
+							<real>20</real>
+							<real>20</real>
 							<integer>1</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -1443,8 +1441,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>60</real>
-							<real>60</real>
+							<real>40</real>
+							<real>40</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1497,7 +1495,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_pause.png</string>
+							<string>Assets/Button/Button_pause_160.png</string>
 						</array>
 					</dict>
 					<dict>
