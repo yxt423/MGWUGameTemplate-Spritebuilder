@@ -31,14 +31,17 @@
     CCNode *_gamePlay;
     CCNode *_contentNode;
     CCNode *_objectsGroup;
-    CCPhysicsNode *_physicsNode;
-    CCLabelTTF *_scoreLabel;
+    CCNode *_popUp;
+    CCNode *_walls;
     CCButton *_buttonPause;
     CCButton *_buttonBubble;
-    CCNode *_walls;
+    CCPhysicsNode *_physicsNode;
     CCAction *_followCharacter;
-    CCNode *_popUp;
+    CCLabelTTF *_scoreLabel;
+    CCNode *_bubble;
     OALSimpleAudio *_audio;
+    GameManager *_gameManager;
+    Mixpanel *_mixpanel;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -50,11 +53,11 @@
     int _cloudInterval;
     float _cloudScale;
     
-    // flags.
+    // game state flags.
     float _timeSinceNewContent;
     bool _canLoadNewContent;
-    GameManager *_gameManager;
-    Mixpanel *_mixpanel;
+    float _timeInBubble;
+    bool _inBubble;
 }
 
 - (id)init {
@@ -66,7 +69,6 @@
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
     _mixpanel = [Mixpanel sharedInstance];
-    
     _audio = [OALSimpleAudio sharedInstance];
     _audio.effectsVolume = 1;
     _audio.muted = _gameManager.muted;
@@ -75,8 +77,11 @@
     _cloudHit = 0;
     _starHit = 0;
     _contentHeight = 100;
-    _timeSinceNewContent = 0.0f;
     _canLoadNewContent = false;
+    _timeSinceNewContent = 0.0f;
+    _inBubble = false;
+    _timeInBubble = 0.0f;
+    
     _gameManager.characterHighest = 0;
     _physicsNode.collisionDelegate = self;
     _gameManager.sharedObjectsGroup = _objectsGroup;
@@ -121,6 +126,15 @@
         
         // the wall goes with the character.
         _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
+        
+        if (_inBubble) {
+            _timeInBubble += delta;
+            if (_timeInBubble > 2.0f) {
+                _inBubble = false;
+                _timeInBubble = 0.0f;
+                [_bubble removeFromParent];
+            }
+        }
     }
     
     else if (_gameManager.gamePlayState == 2) { // to be resumed
@@ -157,9 +171,11 @@
 - (void)loadNewContent {
     
     if (_contentHeight < 3000) {
+        _cloudInterval = 35;
+    } else if (_contentHeight < 6000) {
         _cloudInterval = 40;
     } else {
-        _cloudInterval = 50;
+        _cloudInterval = 45;
     }
     
     if (_contentHeight < 10000) {
@@ -231,30 +247,34 @@
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
-    _cloudHit += 1;
-    _score += _cloudHit * 10;
-    [self updateScore];
-    
-    // after hit one cloud, start to follow the character
-    // if start following in didLoadFromCCB, the GamePlay scene won't show up correctly. (why?)
-    if (_cloudHit == 1) {
-        [self followCharacter];
+    if (!_inBubble) {
+        _cloudHit += 1;
+        _score += _cloudHit * 10;
+        [self updateScore];
+        
+        // after hit one cloud, start to follow the character
+        // if start following in didLoadFromCCB, the GamePlay scene won't show up correctly. (why?)
+        if (_cloudHit == 1) {
+            [self followCharacter];
+        }
+        
+        [_character jump];
+        [self cloudRemoved:nodeB];
     }
-    
-    [_character jump];
-    [self cloudRemoved:nodeB];
     
     return YES;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
-    _starHit += 1;
-    _score *= 2;
-    [self updateScore];
-    
-    [_character jump];
-    CGPoint collisionPoint = pair.contacts.points[0].pointA;
-    [self starRemoved:nodeB at:collisionPoint];
+    if (!_inBubble) {
+        _starHit += 1;
+        _score *= 2;
+        [self updateScore];
+        
+        [_character jump];
+        CGPoint collisionPoint = pair.contacts.points[0].pointA;
+        [self starRemoved:nodeB at:collisionPoint];
+    }
     
     return YES;
 }
@@ -346,14 +366,16 @@
     }
 }
 
-//- (void)buttonBubble {
-//    CCLOG(@"buttonBubble");
-//    CCNode *bubble = [CCBReader load:@"Objects/Bubble"];
-//    bubble.position = ccp(_character.boundingBox.size.width / 2,_character.boundingBox.size.height / 2);
-//    [_character addChild:bubble];
-//    
-////    [_character bubbleUp];
-//    // no collition for a while ??
-//}
+- (void)buttonBubble {
+    CCLOG(@"buttonBubble");
+    if (!_inBubble) {
+        _inBubble = true;
+        _bubble = [CCBReader load:@"Objects/Bubble"];
+        _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
+        [_character addChild:_bubble];
+        
+        [_character bubbleUp];
+    }
+}
 
 @end

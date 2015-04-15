@@ -36,9 +36,4 @@
     [self.physicsBody applyImpulse:ccp(0.f, 1000.f)];
 }
 
-
-//- (void)cancelHoricentalSpeed {
-//    self.physicsBody.velocity = ccp(0.f, self.physicsBody.velocity.y);
-//}
-
 @end
