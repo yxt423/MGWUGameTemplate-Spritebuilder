@@ -398,12 +398,6 @@
     }
 }
 
-- (void)buttonBubbleInvisible {
-    CCLOG(@".....just add more bubbles.");
-    [_gameManager addBubble:5];
-    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
-}
-
 - (void)updateScore {
     _scoreLabel.string = [GameManager scoreWithComma:_score];
 }

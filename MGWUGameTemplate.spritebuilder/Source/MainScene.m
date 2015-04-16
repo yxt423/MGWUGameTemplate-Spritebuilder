@@ -58,4 +58,14 @@
     [self addChild:_popUp];
 }
 
+- (void)buttonAddBubble {
+    CCLOG(@".....just add more bubbles.");
+    [_gameManager addBubble:5];
+}
+
+- (void)resetHighestScore {
+    CCLOG(@".....just reset highest score.");
+    [_gameManager setHighestScore:0];
+}
+
 @end
