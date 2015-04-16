@@ -46,7 +46,7 @@
         if (!muted) {
             muted = false;
         }
-        bubbleNum = [[NSUserDefaults standardUserDefaults] integerForKey:@"bubbleNum"];
+        bubbleNum = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"bubbleNum"];
         if (!bubbleNum) {
             bubbleNum = 0;
         }
@@ -56,6 +56,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         _mixpanel = [Mixpanel sharedInstance];
+        [_mixpanel track:@"Game Open"];
     }
     return self;
 }

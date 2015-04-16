@@ -1232,8 +1232,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1381,7 +1379,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/bubble_120.png</string>
+							<string>Assets/bubble_160.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1568,6 +1566,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

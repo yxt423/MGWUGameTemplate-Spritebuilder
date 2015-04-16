@@ -244,8 +244,12 @@
         return;
     }
     
-    // if tap on left side of character, jump left, otherwise jump right.
-    if (point.x < _character.position.x) {
+    // if tap on left side of character, or very left of the screen, jump left. 
+    if (point.x < 70) {
+        [_character moveLeft];
+    } else if (_gameManager.screenWidth - point.x < 70 ) {
+        [_character moveRight];
+    } else if (point.x < _character.position.x) {
         [_character moveLeft];
     } else {
         [_character moveRight];
