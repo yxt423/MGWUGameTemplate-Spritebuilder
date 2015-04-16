@@ -12,11 +12,16 @@
 #import "InfoScene.h"
 #import "Mixpanel.h"
 #import "Bubble.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @implementation MainScene {
     CCButton *_buttonSetting;
+    CCButton *_buttonFB;
     GameManager *_gameManager;
     Mixpanel *_mixpanel;
+    
 }
 
 - (void)didLoadFromCCB {
@@ -56,6 +61,41 @@
     _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerBottomRight);
 
     [self addChild:_popUp];
+}
+
+- (void)facebook {
+    // TODO: change the sharing content!!!!
+    // Bug: game freeze after FB finish !!!
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:@"http://developers.facebook.com"];
+    [FBSDKShareDialog showFromViewController:[CCDirector sharedDirector]
+                                  withContent:content
+                                     delegate:nil];
+    
+    //    FBSDKLikeControl *button = [[FBSDKLikeControl alloc] init];
+    //    button.objectID = @"https://www.facebook.com/FacebookDevelopers";
+    //    button.center = ccp(160, 240);
+    //    [[CCDirector sharedDirector].view addSubview:button];
+    
+    
+    // facebook lonin works.
+    //    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    //    loginButton.center = ccp(160, 240);
+    //    [[CCDirector sharedDirector].view addSubview:loginButton];
+    
+    // facebook sharing works.
+    //    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    //    content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
+    //
+    //    FBSDKShareButton *button = [[FBSDKShareButton alloc] init];
+    //    button.shareContent = content;
+    //    button.center = ccp(160, 240);
+    //    [[CCDirector sharedDirector].view addSubview:button];
+    
+    //    FBSDKLikeControl *button = [[FBSDKLikeControl alloc] init];
+    //    button.objectID = @"https://www.facebook.com/FacebookDevelopers";
+    //    button.center = ccp(160, 240);
+    //    [[CCDirector sharedDirector].view addSubview:button];
 }
 
 - (void)buttonAddBubble {

@@ -1713,7 +1713,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Button/Button_pause.png</string>
+							<string>Assets/Button/Button_pause_160.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1900,6 +1900,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

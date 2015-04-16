@@ -9,6 +9,9 @@
 #import "GameOver.h"
 #import "GamePlay.h"
 #import "GameManager.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @implementation GameOver {
     CCLabelTTF *_scoreLabel;
@@ -34,6 +37,16 @@
 - (void)backToMainScene {
     CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
     [[CCDirector sharedDirector] replaceScene:mainScene];
+}
+
+- (void)facebookShare {
+    // TODO: change the sharing content!!!!
+    // Bug: game freeze after FB finish !!!
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentTitle = @"I've got a 1,000 score in Sky Jumper, come play with me!";
+    [FBSDKShareDialog showFromViewController:[CCDirector sharedDirector]
+                                 withContent:content
+                                    delegate:nil];
 }
 
 @end
