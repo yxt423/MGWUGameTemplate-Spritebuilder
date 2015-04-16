@@ -32,6 +32,7 @@
 
 - (id)init {
     if (self = [super init]) {
+        CCLOG(@"Game Maneger Init.");
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
         characterHighest = 0;
@@ -50,10 +51,6 @@
         if (!bubbleNum) {
             bubbleNum = 0;
         }
-        // for testing.
-        bubbleNum += 5;
-        [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
         _mixpanel = [Mixpanel sharedInstance];
         [_mixpanel track:@"Game Open"];

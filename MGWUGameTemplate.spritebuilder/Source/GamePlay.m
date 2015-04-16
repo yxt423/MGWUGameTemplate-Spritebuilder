@@ -355,7 +355,7 @@
 
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {
-        _popUp = [CCBReader load:@"PausePopUp"];
+        _popUp = [CCBReader load:@"PopUp/PausePopUp"];
         _popUp.position = _buttonPause.position;
         _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
         [_gamePlay addChild:_popUp];
@@ -377,10 +377,8 @@
         [_character addChild:_bubble];
         [_character bubbleUp];
         
-        _gameManager.bubbleNum -= 1;
+        [Bubble addBubble:-1];
         _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
-        [[NSUserDefaults standardUserDefaults] setInteger:_gameManager.bubbleNum forKey:@"bubbleNum"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
