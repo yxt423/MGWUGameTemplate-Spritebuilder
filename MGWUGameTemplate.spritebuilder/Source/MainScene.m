@@ -35,12 +35,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"lastOpenDate"];
     CCLOG(@"newDate %@", newDate);
     CCLOG(@"oldDate %@", oldDate);
-    if ( !oldDate || [[oldDate dateByAddingTimeInterval:60*60*24*1] compare: newDate] == NSOrderedAscending) {
+    if (oldDate && [[oldDate dateByAddingTimeInterval:60*60*24*1] compare: newDate] == NSOrderedAscending) {
         CCLOG(@"new 10 bubbles!");
         CCNode *_newBubblePopUp = [CCBReader load:@"PopUp/NewBubblePopUp"];
         _newBubblePopUp.position = ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight / 2);
         [self addChild:_newBubblePopUp];
-        [Bubble addBubble:10];
+        [_gameManager addBubble:10];
     }
 }
 

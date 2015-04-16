@@ -10,7 +10,4 @@
 
 @interface Bubble : CCSprite
 
-
-+ (void)addBubble: (int)num;
-
 @end

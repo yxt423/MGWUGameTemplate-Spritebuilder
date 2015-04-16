@@ -50,4 +50,6 @@
 
 - (void)initDeviceParam: (MainScene *)mainScene;
 
+- (void)addBubble: (int)num;
+
 @end

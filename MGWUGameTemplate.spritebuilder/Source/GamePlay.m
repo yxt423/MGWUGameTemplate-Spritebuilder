@@ -369,17 +369,39 @@
 - (void)buttonBubble {
     CCLOG(@"buttonBubble");
     if (!_inBubble && _gameManager.bubbleNum > 0) {
-        // in game.
-        _inBubble = true;
-        _bubbleUsed += 1;
-        _bubble = [CCBReader load:@"Objects/Bubble"];
-        _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
-        [_character addChild:_bubble];
-        [_character bubbleUp];
-        
-        [Bubble addBubble:-1];
-        _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+        if (_bubbleUsed >= 3) {
+            // you can use at most 3 bubbles in one game.
+            CCNode * _bubbleLimitPopUp = [CCBReader load:@"PopUp/BubbleLimitPopUp"];
+            _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+            _bubbleLimitPopUp.position = ccp(0.5, 0.3);
+            [self addChild:_bubbleLimitPopUp];
+            
+            CCAnimationManager* animationManager = _bubbleLimitPopUp.userObject;
+            [animationManager runAnimationsForSequenceNamed:@"Show"];
+            // remove the popUp from mainScene after finish.
+            [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+                [_bubbleLimitPopUp removeFromParentAndCleanup:YES];
+            }];
+            
+        } else {
+            _inBubble = true;
+            _bubbleUsed += 1;
+            _bubble = [CCBReader load:@"Objects/Bubble"];
+            _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
+            [_character addChild:_bubble];
+            [_character bubbleUp];
+            
+            [_gameManager addBubble:-1];
+            _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+            
+        }
     }
+}
+
+- (void)buttonBubbleInvisible {
+    CCLOG(@".....just add more bubbles.");
+    [_gameManager addBubble:5];
+    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
 }
 
 - (void)updateScore {

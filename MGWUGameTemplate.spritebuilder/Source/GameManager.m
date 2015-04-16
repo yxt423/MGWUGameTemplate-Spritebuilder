@@ -108,6 +108,13 @@
     return result;
 }
 
+
+- (void)addBubble: (int)num {
+    bubbleNum += num;
+    [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 /*
 - (void)playBackGroundMusic {
     OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
