@@ -1244,8 +1244,6 @@
 				<string></string>
 				<key>displayName</key>
 				<string>ButtonBubbleInsivible</string>
-				<key>hidden</key>
-				<true/>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -1370,7 +1368,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/bubble_160.png</string>
+							<string>Assets/Button/InvisibleButton.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1381,7 +1379,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/bubble_160.png</string>
+							<string>Assets/Button/InvisibleButton.png</string>
 						</array>
 					</dict>
 					<dict>

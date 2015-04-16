@@ -208,7 +208,7 @@
     CCNode *star;
     if (_starHit < 2) {
         star = [CCBReader load:@"Objects/StarStatic"];
-    } else if (_starHit < 4) {
+    } else if (_starHit < 5) {
         star = [CCBReader load:@"Objects/StarSpining40"];
     } else {
         star = [CCBReader load:@"Objects/StarSpining80"];
