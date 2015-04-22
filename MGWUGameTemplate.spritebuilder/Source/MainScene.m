@@ -34,18 +34,22 @@
     // init devide parameters.
     [_gameManager initDeviceParam:self];
     
-    // get 10 bubbles everyday. Is there a better place to do this?
-    NSDate *newDate = [NSDate date];
-    NSDate *oldDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastOpenDate"];
-    [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"lastOpenDate"];
-    CCLOG(@"newDate %@", newDate);
-    CCLOG(@"oldDate %@", oldDate);
-    if (oldDate && [[oldDate dateByAddingTimeInterval:60*60*24*1] compare: newDate] == NSOrderedAscending) {
-        CCLOG(@"new 10 bubbles!");
-        CCNode *_newBubblePopUp = [CCBReader load:@"PopUp/NewBubblePopUp"];
-        _newBubblePopUp.position = ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight / 2);
-        [self addChild:_newBubblePopUp];
-        [_gameManager addBubble:10];
+    // get 10 bubbles everyday.
+    NSDate *newTime = [NSDate date];
+    NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
+    CCLOG(@"newTime %@", newTime);
+    CCLOG(@"oldTime %@", oldTime);
+    
+    if (oldTime) {
+        if ([[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+            CCLOG(@"new 10 bubbles!");
+            CCNode *_newBubblePopUp = [CCBReader load:@"PopUp/NewBubblePopUp"];
+            _newBubblePopUp.position = ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight / 2);
+            [self addChild:_newBubblePopUp];
+            [_gameManager addBubble:10];
+        }
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
     }
 }
 

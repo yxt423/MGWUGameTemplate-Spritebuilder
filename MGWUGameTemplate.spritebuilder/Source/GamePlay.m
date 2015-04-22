@@ -97,6 +97,8 @@
     // load game content
     [self loadNewContent];
     [_mixpanel track:@"Game Start"];
+    
+    CCLOG(@"Game Start.");
 }
 
 - (void)update:(CCTime)delta {
@@ -104,12 +106,8 @@
         // if character reach top of the current content, load new content.
         if(_canLoadNewContent) {
             int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
-            if (yMax + _gameManager.screenHeight / 2 + 200 > _contentHeight) { // determine when to load new content.
-                [self stopUserInteraction];  // is this line necessary??
+            if (yMax + _gameManager.screenHeight / 2 + 1000 > _contentHeight) { // determine when to load new content.
                 [self loadNewContent];
-                [self startUserInteraction];
-                [self followCharacter];
-                
                 _canLoadNewContent = false;
                 _timeSinceNewContent = 0.0f;
             }
@@ -217,13 +215,16 @@
     star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
+    CCLOG(@"_contentHeight %d", _contentHeight);
 }
 
 - (void)followCharacter {
-    // the height of boundingbox changes when new content is loaded.
-    CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, _contentHeight);
+    // do not set a bound for cintent height. 
+    CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, NSIntegerMax);
     _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:contentBoundingBox];
     [_contentNode runAction:_followCharacter];
+    
+    CCLOG(@"followCharacter ");
 }
 
 - (void)startUserInteraction {
@@ -370,7 +371,7 @@
     CCLOG(@"buttonBubble");
     if (!_inBubble && _gameManager.bubbleNum > 0) {
         if (_bubbleUsed >= 3) {
-            // you can use at most 3 bubbles in one game.
+            // show: you can use at most 3 bubbles in one game.
             CCNode * _bubbleLimitPopUp = [CCBReader load:@"PopUp/BubbleLimitPopUp"];
             _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
             _bubbleLimitPopUp.position = ccp(0.5, 0.3);
