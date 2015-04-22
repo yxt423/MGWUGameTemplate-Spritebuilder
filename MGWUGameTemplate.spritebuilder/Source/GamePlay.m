@@ -336,6 +336,12 @@
     scoreAdd.position = cloud.position;
     [scoreAdd setScore:(_cloudHit * 10)]; // new score added: _cloudHit * 10
     [cloud.parent addChild:scoreAdd];
+    // remove when finish.
+    CCAnimationManager* animationManager = scoreAdd.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [scoreAdd removeFromParentAndCleanup:YES];
+    }];
     
     // remove a cloud from the scene
     [cloud removeFromParent];
@@ -354,6 +360,12 @@
     CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
     scoreDouble.position = collisionPoint;
     [star.parent.parent addChild:scoreDouble];
+    // remove when finish.
+    CCAnimationManager* animationManager = scoreDouble.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [scoreDouble removeFromParentAndCleanup:YES];
+    }];
     
     // remove the entire starSpinging object from parent, not just the star.
     [star.parent removeFromParent];

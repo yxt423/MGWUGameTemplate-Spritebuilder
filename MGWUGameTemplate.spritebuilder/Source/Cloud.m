@@ -20,8 +20,8 @@
 - (void)didLoadFromCCB {
     self.physicsBody.sensor = YES;
     self.physicsBody.collisionType = @"cloud";
-    
-//    CCLOG(@"cloud width %f", self.boundingBox.size.width);
 }
+
+
 
 @end
