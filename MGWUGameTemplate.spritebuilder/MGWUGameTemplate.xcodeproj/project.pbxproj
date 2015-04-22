@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
+		B61CE7311AE8537F00FF99CB /* NewHighScore.m in Sources */ = {isa = PBXBuildFile; fileRef = B61CE7301AE8537F00FF99CB /* NewHighScore.m */; };
 		B6350E001A97F81C00B4867C /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350DFF1A97F81C00B4867C /* GamePlay.m */; };
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
@@ -25,7 +26,6 @@
 		B6D211F91AD72479001055DE /* InfoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211F81AD72479001055DE /* InfoScene.m */; };
 		B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B231AA2E4230050F36E /* ScoreAdd.m */; };
 		B6F36B2A1AA3BB030050F36E /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B291AA3BB030050F36E /* Star.m */; };
-		B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */; };
 		B6FDE02D1ADF842500C7396A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */; };
 		B6FDE02E1ADF842500C7396A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02C1ADF842500C7396A /* FBSDKLoginKit.framework */; };
 		B6FDE0301ADF843000C7396A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02F1ADF843000C7396A /* FBSDKShareKit.framework */; };
@@ -95,6 +95,8 @@
 		2FAEA92FE8D6AE4F7D23610F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		610F9E1F982D58334C6A6AFE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B61CE72F1AE8537F00FF99CB /* NewHighScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewHighScore.h; path = Source/NewHighScore.h; sourceTree = "<group>"; };
+		B61CE7301AE8537F00FF99CB /* NewHighScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewHighScore.m; path = Source/NewHighScore.m; sourceTree = "<group>"; };
 		B6350DFE1A97F81C00B4867C /* GamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePlay.h; path = Source/GamePlay.h; sourceTree = "<group>"; };
 		B6350DFF1A97F81C00B4867C /* GamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GamePlay.m; path = Source/GamePlay.m; sourceTree = "<group>"; };
 		B6350E011A97F82B00B4867C /* Cloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cloud.h; path = Source/Cloud.h; sourceTree = "<group>"; };
@@ -126,8 +128,6 @@
 		B6F36B231AA2E4230050F36E /* ScoreAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAdd.m; path = Source/ScoreAdd.m; sourceTree = "<group>"; };
 		B6F36B281AA3BB030050F36E /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
 		B6F36B291AA3BB030050F36E /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Star.m; path = Source/Star.m; sourceTree = "<group>"; };
-		B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreDouble.h; path = Source/ScoreDouble.h; sourceTree = "<group>"; };
-		B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreDouble.m; path = Source/ScoreDouble.m; sourceTree = "<group>"; };
 		B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B6FDE02C1ADF842500C7396A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B6FDE02F1ADF843000C7396A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -244,8 +244,8 @@
 			children = (
 				B6F36B221AA2E4230050F36E /* ScoreAdd.h */,
 				B6F36B231AA2E4230050F36E /* ScoreAdd.m */,
-				B6F36B2B1AA3D6310050F36E /* ScoreDouble.h */,
-				B6F36B2C1AA3D6310050F36E /* ScoreDouble.m */,
+				B61CE72F1AE8537F00FF99CB /* NewHighScore.h */,
+				B61CE7301AE8537F00FF99CB /* NewHighScore.m */,
 			);
 			name = Effects;
 			sourceTree = "<group>";
@@ -555,12 +555,12 @@
 				B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
-				B6F36B2D1AA3D6310050F36E /* ScoreDouble.m in Sources */,
 				B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */,
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
 				B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */,
+				B61CE7311AE8537F00FF99CB /* NewHighScore.m in Sources */,
 				B6A5554A1ADF6BC600E3FC7C /* BubbleLimitPopUp.m in Sources */,
 				B6D211E21AD61418001055DE /* GameManager.m in Sources */,
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,

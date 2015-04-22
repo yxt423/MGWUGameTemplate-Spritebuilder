@@ -23,6 +23,7 @@
 @synthesize screenHeight, screenWidth;
 @synthesize screenLeft, screenRight;
 @synthesize currentScore, highestScore;
+@synthesize newHighScore;
 @synthesize gamePlayState;
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to

@@ -10,21 +10,23 @@
 #import "MainScene.h"
 
 @interface GameManager : NSObject {
-    
+    // device params.
     int screenHeight, screenWidth;
     int screenLeft, screenRight;
     
+    // for game play scene.
     int gamePlayState;
     bool muted;
-    
-    int currentScore;
-    int highestScore;
-    
     int characterHighest;
     CCNode *sharedObjectsGroup;
     
-    int gamePlayTimes;
+    // for game over scene.
+    int currentScore;
+    int highestScore;
+    bool newHighScore;
     
+    // stats, objects count.
+    int gamePlayTimes;
     int bubbleNum;
 }
 
@@ -36,6 +38,7 @@
 
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
+@property (nonatomic, assign) bool newHighScore;
 
 @property (nonatomic, assign) int characterHighest;
 @property (nonatomic, retain) CCNode *sharedObjectsGroup;

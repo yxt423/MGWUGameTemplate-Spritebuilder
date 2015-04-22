@@ -22,7 +22,6 @@
 #import "Groud.h"
 #import "Bubble.h"
 #import "ScoreAdd.h"
-#import "ScoreDouble.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "GameManager.h"
 #import "Mixpanel.h"
@@ -90,6 +89,7 @@
     _physicsNode.collisionDelegate = self;
     _gameManager.sharedObjectsGroup = _objectsGroup;
     _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+    _gameManager.newHighScore = false;
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
@@ -136,6 +136,13 @@
                 _inBubble = false;
                 _timeInBubble = 0.0f;
                 [_bubble removeFromParent];
+                
+                // show remove bubble animation.
+                CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/BubbleVanish"];
+                explosion.autoRemoveOnFinish = TRUE;
+                explosion.position = ccp(0.5, 0.2);
+                explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+                [_character addChild:explosion];
             }
         }
     }
@@ -299,6 +306,7 @@
     _gameManager.currentScore = _score;
     if (_score > _gameManager.highestScore) {
         _gameManager.highestScore = _score;
+        _gameManager.newHighScore = true;
     }
     
     [self stopUserInteraction];
@@ -343,9 +351,8 @@
     [star.parent.parent addChild:explosion];
     
     // show "score double" for a short time (use star.parent as the whole object!)
-    ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"Effects/ScoreDouble"];
+    CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
     scoreDouble.position = collisionPoint;
-    
     [star.parent.parent addChild:scoreDouble];
     
     // remove the entire starSpinging object from parent, not just the star.
