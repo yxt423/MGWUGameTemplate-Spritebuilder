@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/NewGround.png</string>
+					<string>Assets/ground.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -204,8 +204,6 @@
 				<array/>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

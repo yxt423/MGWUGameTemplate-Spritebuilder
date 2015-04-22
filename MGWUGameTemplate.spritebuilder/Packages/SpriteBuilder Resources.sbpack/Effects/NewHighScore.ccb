@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>3</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -110,8 +110,8 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>100</real>
+					<real>50</real>
 				</array>
 			</dict>
 			<dict>
@@ -120,7 +120,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>100000</real>
+				<real>270</real>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -128,7 +128,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>0.0099999997764825821</real>
+				<real>-1</real>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -136,7 +136,7 @@
 				<key>type</key>
 				<string>Integer</string>
 				<key>value</key>
-				<integer>90</integer>
+				<integer>250</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -146,7 +146,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>1.5</real>
+					<real>2</real>
 				</array>
 			</dict>
 			<dict>
@@ -156,8 +156,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>10</real>
+					<real>10</real>
 				</array>
 			</dict>
 			<dict>
@@ -167,8 +167,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>15</real>
-					<real>0.0</real>
+					<real>10</real>
+					<real>4</real>
 				</array>
 			</dict>
 			<dict>
@@ -179,7 +179,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>0.0</real>
+					<real>90</real>
 				</array>
 			</dict>
 			<dict>
@@ -190,7 +190,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>0.0</real>
+					<real>90</real>
 				</array>
 			</dict>
 			<dict>
@@ -200,8 +200,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>360</real>
+					<real>273</real>
+					<real>27</real>
 				</array>
 			</dict>
 			<dict>
@@ -212,16 +212,16 @@
 				<key>value</key>
 				<array>
 					<array>
+						<real>0.99990993738174438</real>
 						<real>1</real>
-						<real>1</real>
-						<real>1</real>
+						<real>0.99987798929214478</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.092235274612903595</real>
-						<real>0.09087032824754715</real>
-						<real>0.091442413628101349</real>
-						<real>0.5</real>
+						<real>0.0</real>
+						<real>0.0</real>
+						<real>0.0</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</dict>
@@ -233,16 +233,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>1</real>
+						<real>0.97381943464279175</real>
+						<real>0.99834984540939331</real>
+						<real>0.9627642035484314</real>
+						<real>0.039999999105930328</real>
 					</array>
 					<array>
 						<real>0.0</real>
 						<real>0.0</real>
 						<real>0.0</real>
-						<real>1</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</dict>
@@ -254,7 +254,7 @@
 				<key>value</key>
 				<array>
 					<integer>1</integer>
-					<integer>1</integer>
+					<integer>771</integer>
 				</array>
 			</dict>
 			<dict>
@@ -273,7 +273,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>0.0</real>
+					<real>-150</real>
 				</array>
 			</dict>
 			<dict>
@@ -283,8 +283,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>24</real>
-					<real>0.0</real>
+					<real>10</real>
+					<real>60</real>
 				</array>
 			</dict>
 			<dict>
@@ -315,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>Assets/EffectTexture/BubbleVanishTexture.png</string>
+				<string>ccbResources/ccbParticleSnow.png</string>
 			</dict>
 		</array>
 		<key>selected</key>
@@ -369,7 +369,7 @@
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.3333333432674408</real>
+			<real>10</real>
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
