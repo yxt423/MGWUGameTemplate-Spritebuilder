@@ -345,6 +345,7 @@
     // show "score double" for a short time (use star.parent as the whole object!)
     ScoreDouble *scoreDouble = (ScoreDouble *) [CCBReader load:@"Effects/ScoreDouble"];
     scoreDouble.position = collisionPoint;
+    
     [star.parent.parent addChild:scoreDouble];
     
     // remove the entire starSpinging object from parent, not just the star.
