@@ -10,4 +10,7 @@
 
 @interface Cloud : BasicObject
 
+
+- (void)removeAndPlayAnimation;
+
 @end

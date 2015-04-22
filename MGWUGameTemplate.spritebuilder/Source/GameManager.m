@@ -30,6 +30,8 @@
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 @synthesize gamePlayTimes;
 @synthesize bubbleNum;
+@synthesize cloudHit;
+@synthesize audio;
 
 - (id)init {
     if (self = [super init]) {
@@ -52,6 +54,10 @@
         if (!bubbleNum) {
             bubbleNum = 0;
         }
+        
+        audio = [OALSimpleAudio sharedInstance];
+        audio.effectsVolume = 1;
+        audio.muted = muted;
         
         _mixpanel = [Mixpanel sharedInstance];
         [_mixpanel track:@"Game Open"];

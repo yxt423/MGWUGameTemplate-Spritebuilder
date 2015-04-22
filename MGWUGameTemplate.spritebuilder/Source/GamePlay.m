@@ -40,7 +40,6 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_bubbleNumLabel;
     CCNode *_bubble;
-    OALSimpleAudio *_audio;
     GameManager *_gameManager;
     Mixpanel *_mixpanel;
     
@@ -48,7 +47,6 @@
     UITapGestureRecognizer *_tapGesture;
     
     // stats
-    int _cloudHit;
     int _starHit;
     int _contentHeight;
     int _cloudInterval;
@@ -71,12 +69,8 @@
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
     _mixpanel = [Mixpanel sharedInstance];
-    _audio = [OALSimpleAudio sharedInstance];
-    _audio.effectsVolume = 1;
-    _audio.muted = _gameManager.muted;
     
     _score = 0;
-    _cloudHit = 0;
     _starHit = 0;
     _contentHeight = 100;
     _canLoadNewContent = false;
@@ -86,10 +80,12 @@
     _bubbleUsed = 0;
     
     _gameManager.characterHighest = 0;
-    _physicsNode.collisionDelegate = self;
     _gameManager.sharedObjectsGroup = _objectsGroup;
-    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
     _gameManager.newHighScore = false;
+    _gameManager.cloudHit = 0;
+    
+    _physicsNode.collisionDelegate = self;
+    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
@@ -162,7 +158,7 @@
     }
     
     else if (_gameManager.gamePlayState == 4) { // sound setting to be reversed
-        _audio.muted = _gameManager.muted;
+        _gameManager.audio.muted = _gameManager.muted;
         _gameManager.gamePlayState = 1;
     }
 }
@@ -266,11 +262,11 @@
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     if (!_inBubble) {
-        _cloudHit += 1;
-        _score += _cloudHit * 10;
+        _gameManager.cloudHit += 1;
+        _score += _gameManager.cloudHit * 10;
         [self updateScore];
         [_character jump];
-        [self cloudRemoved:nodeB];
+        [(Cloud *)nodeB removeAndPlayAnimation];
     }
     
     return YES;
@@ -284,14 +280,14 @@
         
         [_character jump];
         CGPoint collisionPoint = pair.contacts.points[0].pointA;
-        [self starRemoved:nodeB at:collisionPoint];
+        [(Star *)nodeB removeAndPlayAnimationAt:(CGPoint)collisionPoint];
     }
     
     return YES;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
-    if (_cloudHit > 0) {
+    if (_gameManager.cloudHit > 0) {
         [self endGame];
     } else {
         [_character jump];
@@ -325,54 +321,54 @@
                                               }];
 }
 
-- (void)cloudRemoved:(CCNode *)cloud {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/CloudVanish"];
-    explosion.autoRemoveOnFinish = TRUE;
-    explosion.position = cloud.position;
-    [cloud.parent addChild:explosion];
-    
-    // show earned score for a short time
-    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"Effects/ScoreAdd"];
-    scoreAdd.position = cloud.position;
-    [scoreAdd setScore:(_cloudHit * 10)]; // new score added: _cloudHit * 10
-    [cloud.parent addChild:scoreAdd];
-    // remove when finish.
-    CCAnimationManager* animationManager = scoreAdd.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [scoreAdd removeFromParentAndCleanup:YES];
-    }];
-    
-    // remove a cloud from the scene
-    [cloud removeFromParent];
-    
-    // play sound effect
-    [_audio playEffect:@"sound_cloud.wav"];
-}
-
-- (void)starRemoved:(CCNode *)star at:(CGPoint)collisionPoint {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
-    explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
-    explosion.position = collisionPoint;
-    [star.parent.parent addChild:explosion];
-    
-    // show "score double" for a short time (use star.parent as the whole object!)
-    CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
-    scoreDouble.position = collisionPoint;
-    [star.parent.parent addChild:scoreDouble];
-    // remove when finish.
-    CCAnimationManager* animationManager = scoreDouble.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [scoreDouble removeFromParentAndCleanup:YES];
-    }];
-    
-    // remove the entire starSpinging object from parent, not just the star.
-    [star.parent removeFromParent];
-    
-    // play sound effect
-    [_audio playEffect:@"star_sound.wav"];
-}
+//- (void)cloudRemoved:(CCNode *)cloud {
+//    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/CloudVanish"];
+//    explosion.autoRemoveOnFinish = TRUE;
+//    explosion.position = cloud.position;
+//    [cloud.parent addChild:explosion];
+//    
+//    // show earned score for a short time
+//    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"Effects/ScoreAdd"];
+//    scoreAdd.position = cloud.position;
+//    [scoreAdd setScore:(_gameManager.cloudHit * 10)]; // new score added: _gameManager.cloudHit * 10
+//    [cloud.parent addChild:scoreAdd];
+//    // remove when finish.
+//    CCAnimationManager* animationManager = scoreAdd.userObject;
+//    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
+//    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+//        [scoreAdd removeFromParentAndCleanup:YES];
+//    }];
+//    
+//    // remove a cloud from the scene
+//    [cloud removeFromParent];
+//    
+//    // play sound effect
+//    [_gameManager.audio playEffect:@"sound_cloud.wav"];
+//}
+//
+//- (void)starRemoved:(CCNode *)star at:(CGPoint)collisionPoint {
+//    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
+//    explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
+//    explosion.position = collisionPoint;
+//    [star.parent.parent addChild:explosion];
+//    
+//    // show "score double" for a short time (use star.parent as the whole object!)
+//    CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
+//    scoreDouble.position = collisionPoint;
+//    [star.parent.parent addChild:scoreDouble];
+//    // remove when finish.
+//    CCAnimationManager* animationManager = scoreDouble.userObject;
+//    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
+//    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+//        [scoreDouble removeFromParentAndCleanup:YES];
+//    }];
+//    
+//    // remove the entire starSpinging object from parent, not just the star.
+//    [star.parent removeFromParent];
+//    
+//    // play sound effect
+//    [_gameManager.audio playEffect:@"star_sound.wav"];
+//}
 
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {

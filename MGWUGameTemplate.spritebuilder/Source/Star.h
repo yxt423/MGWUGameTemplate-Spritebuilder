@@ -10,4 +10,6 @@
 
 @interface Star : BasicObject
 
+- (void)removeAndPlayAnimationAt: (CGPoint)collisionPoint;
+
 @end

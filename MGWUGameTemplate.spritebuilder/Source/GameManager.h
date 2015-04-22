@@ -18,7 +18,9 @@
     int gamePlayState;
     bool muted;
     int characterHighest;
+    int cloudHit;
     CCNode *sharedObjectsGroup;
+    OALSimpleAudio *audio;
     
     // for game over scene.
     int currentScore;
@@ -35,16 +37,16 @@
 
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) bool muted;
+@property (nonatomic, assign) int cloudHit;
+@property (nonatomic, assign) int characterHighest;
+@property (nonatomic, retain) CCNode *sharedObjectsGroup;
+@property (nonatomic, retain) OALSimpleAudio *audio;
 
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
 @property (nonatomic, assign) bool newHighScore;
 
-@property (nonatomic, assign) int characterHighest;
-@property (nonatomic, retain) CCNode *sharedObjectsGroup;
-
 @property (nonatomic, assign) int gamePlayTimes;
-
 @property (nonatomic, assign) int bubbleNum;
 
 + (id)getGameManager;
