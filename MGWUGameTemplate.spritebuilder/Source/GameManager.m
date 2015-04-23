@@ -122,12 +122,4 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-/*
-- (void)playBackGroundMusic {
-    OALSimpleAudio *bgMusic = [OALSimpleAudio sharedInstance];
-    bgMusic.bgVolume = 1;
-    [bgMusic playBg:@"High Mario.mp3" loop:YES];
-}
- */
-
 @end

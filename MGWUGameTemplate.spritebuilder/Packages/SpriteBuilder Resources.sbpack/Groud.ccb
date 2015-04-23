@@ -70,7 +70,7 @@
 			<key>elasticity</key>
 			<real>0.30000001192092896</real>
 			<key>friction</key>
-			<real>0.30000001192092896</real>
+			<real>1</real>
 			<key>points</key>
 			<array>
 				<array>
@@ -78,32 +78,32 @@
 					<real>0.0</real>
 				</array>
 				<array>
-					<real>0.27290448546409607</real>
-					<real>24.21495246887207</real>
+					<real>0.83866822719573975</real>
+					<real>15.751590728759766</real>
 				</array>
 				<array>
-					<real>479.6240234375</real>
-					<real>24.847003936767578</real>
+					<real>669.33636474609375</real>
+					<real>15.172887802124023</real>
 				</array>
 				<array>
-					<real>480</real>
-					<real>0.0</real>
+					<real>668.61749267578125</real>
+					<real>0.77989363670349121</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>480</real>
-						<real>0.0</real>
+						<real>668.61749267578125</real>
+						<real>0.77989363670349121</real>
 					</array>
 					<array>
-						<real>479.6240234375</real>
-						<real>24.847003936767578</real>
+						<real>669.33636474609375</real>
+						<real>15.172887802124023</real>
 					</array>
 					<array>
-						<real>0.27290448546409607</real>
-						<real>24.21495246887207</real>
+						<real>0.83866822719573975</real>
+						<real>15.751590728759766</real>
 					</array>
 					<array>
 						<real>0.0</real>
@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/ground.png</string>
+					<string>Assets/GroundNew3.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -204,6 +204,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
