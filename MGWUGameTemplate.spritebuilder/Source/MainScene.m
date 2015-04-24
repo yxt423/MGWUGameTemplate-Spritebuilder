@@ -47,6 +47,7 @@
             _newBubblePopUp.position = ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight / 2);
             [self addChild:_newBubblePopUp];
             [_gameManager addBubble:10];
+            [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
         }
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];

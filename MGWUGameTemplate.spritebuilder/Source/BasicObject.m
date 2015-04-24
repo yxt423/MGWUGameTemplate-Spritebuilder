@@ -20,7 +20,6 @@
     
     _gameManager = [GameManager getGameManager];
     _timeSinceUpdate = 0;
-//    self.physicsBody.sensor = YES;
     
     return self;
 }
@@ -41,7 +40,6 @@
             [self removeFromParent];
         }
     }
-    
 }
 
 @end
