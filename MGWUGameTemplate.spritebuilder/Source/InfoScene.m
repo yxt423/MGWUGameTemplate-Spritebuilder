@@ -7,11 +7,12 @@
 //
 
 #import "InfoScene.h"
+#import "GameManager.h"
 
 @implementation InfoScene
 
 - (void)backToMainScene {
-    [[CCDirector sharedDirector] popScene];
+    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
 }
 
 @end

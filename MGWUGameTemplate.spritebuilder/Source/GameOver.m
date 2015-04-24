@@ -69,12 +69,11 @@
 
 - (void)playAgain {
     // resload gameplay scene
-    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GamePlay"]];
+    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
 }
 
 - (void)backToMainScene {
-    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
-    [[CCDirector sharedDirector] replaceScene:mainScene];
+    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
 }
 
 - (void)facebookShare {

@@ -54,8 +54,7 @@
 }
 
 - (void)play {
-    CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
-    [[CCDirector sharedDirector] replaceScene:gameplayScene];
+    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
 }
 
 - (void)setting {

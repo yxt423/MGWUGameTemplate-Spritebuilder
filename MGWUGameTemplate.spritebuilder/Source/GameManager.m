@@ -22,6 +22,7 @@
 
 @synthesize screenHeight, screenWidth;
 @synthesize screenLeft, screenRight;
+@synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize currentScore, highestScore;
 @synthesize newHighScore;
 @synthesize gamePlayState;
@@ -32,6 +33,8 @@
 @synthesize bubbleNum;
 @synthesize cloudHit;
 @synthesize audio;
+
+/* init functions */
 
 - (id)init {
     if (self = [super init]) {
@@ -80,11 +83,15 @@
     screenWidth = mainScene.boundingBox.size.width;
     screenLeft = mainScene.boundingBox.origin.x;
     screenRight = screenLeft + screenWidth;
+    screenHeightInPoints = [[UIScreen mainScreen] bounds].size.height;
+    screenWidthInPoints = [[UIScreen mainScreen] bounds].size.width;
     CCLOG(@"screenHeight %d", screenHeight);
     CCLOG(@"screenWidth %d", screenWidth);
+    CCLOG(@"screenHeightInPoints %d", screenHeightInPoints);
+    CCLOG(@"screenWidthInPoints %d", screenWidthInPoints);
 }
 
-/* scoring functions */
+/* parameters related */
 
 - (void)setHighestScore: (int)score {
     CCLOG(@"new high score!");
@@ -92,6 +99,22 @@
     [[NSUserDefaults standardUserDefaults] setInteger:score forKey:@"highscore"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+- (void)addBubble: (int)num {
+    bubbleNum += num;
+    [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setBubbleNum:(int)num {
+    CCLOG(@"set bubble num to %d", num);
+    
+    bubbleNum = num;
+    [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"bubbleNum"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/* Class methods */
 
 + (NSString *)scoreWithComma: (int)s{
     NSString * result = @"";
@@ -115,18 +138,16 @@
     return result;
 }
 
-- (void)addBubble: (int)num {
-    bubbleNum += num;
-    [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
++ (void)replaceSceneWithFadeTransition: (NSString*)newSceneName {
+    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
+    [[CCDirector sharedDirector] replaceScene:newScene withTransition:transition];
 }
 
-- (void)setBubbleNum:(int)num {
-    CCLOG(@"set bubble num to %d", num);
-    
-    bubbleNum = num;
-    [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"bubbleNum"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
++ (void)pushSceneWithFadeTransition: (NSString*)newSceneName {
+    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
+    [[CCDirector sharedDirector] pushScene:newScene withTransition:transition];
 }
 
 @end

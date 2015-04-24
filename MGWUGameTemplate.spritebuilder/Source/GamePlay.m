@@ -240,22 +240,30 @@
 }
 
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
-    CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
-    CGPoint convertedPoint = [self convertToNodeSpace:[self convertToWorldSpace:point]];
-    convertedPoint.y = _gameManager.screenHeight - convertedPoint.y; // the convertedPoint has different reference corner.
-    if (CGRectContainsPoint(_buttonPause.boundingBox, convertedPoint) || CGRectContainsPoint(_buttonBubble.boundingBox, convertedPoint)) {
+    CCLOG(@"_character.position %f, %f", _character.position.x , _character.position.y);
+    
+    CGPoint point = [gestureRecognizer locationInView:nil];
+    CCLOG(@"point %f, %f", point.x, point.y);
+    point.y = _gameManager.screenHeightInPoints - point.y; // the convertedPoint has different reference corner.
+    CCLOG(@"point adjusted %f, %f", point.x, point.y);
+    if (CGRectContainsPoint(_buttonPause.boundingBox, point) || CGRectContainsPoint(_buttonBubble.boundingBox, point)) {
         return;
+        // point 是大坐标。 does this work?
     }
     
     // if tap on left side of character, or very left of the screen, jump left. 
-    if (point.x < 70) {
+    if (point.x < 40) {
         [_character moveLeft];
-    } else if (_gameManager.screenWidth - point.x < 70 ) {
+        CCLOG(@"very left");
+    } else if (_gameManager.screenWidthInPoints - point.x < 40 ) {
         [_character moveRight];
-    } else if (point.x < _character.position.x) {
+        CCLOG(@"very right");
+    } else if (point.x < _character.positionInPoints.x) {
         [_character moveLeft];
+        CCLOG(@"_character moveLeft");
     } else {
         [_character moveRight];
+        CCLOG(@"_character moveRight");
     }
 }
 
@@ -306,7 +314,8 @@
     
     [self stopUserInteraction];
     [self trackGameEnd];
-    [[CCDirector sharedDirector] replaceScene: [CCBReader loadAsScene:@"GameOver"]];
+    
+    [GameManager replaceSceneWithFadeTransition:@"GameOver"];
 }
 
 - (void)trackGameEnd {

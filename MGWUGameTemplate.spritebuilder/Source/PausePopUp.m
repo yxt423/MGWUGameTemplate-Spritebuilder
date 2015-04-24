@@ -39,9 +39,8 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)backToMainScene {
-    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
-    [[CCDirector sharedDirector] replaceScene:mainScene];
     _gameManager.gamePlayState = 0;
+    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
 }
 
 - (void)muteGamePlay {
@@ -86,8 +85,7 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)info {
-    CCScene *infoScene = [CCBReader loadAsScene:@"InfoScene"];
-    [[CCDirector sharedDirector] pushScene:infoScene];
+    [GameManager replaceSceneWithFadeTransition:@"InfoScene"];
 }
 
 @end
