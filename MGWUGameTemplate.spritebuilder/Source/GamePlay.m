@@ -343,31 +343,44 @@
 }
 
 - (void)buttonBubble {
-    if (!_inBubble && _gameManager.bubbleNum > 0) {
-        if (_bubbleUsed >= 3) {
-            // show: you can use at most 3 bubbles in one game.
-            CCNode * _bubbleLimitPopUp = [CCBReader load:@"PopUp/BubbleLimitPopUp"];
-            _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-            _bubbleLimitPopUp.position = ccp(0.5, 0.3);
-            [self addChild:_bubbleLimitPopUp];
+    // the button works when the character is not in bubble.
+    if (!_inBubble) {
+        if (_gameManager.bubbleNum > 0) {
+            if (_bubbleUsed >= 3) {
+                // show: you can use at most 3 bubbles in one game.
+                CCNode * _bubbleLimitPopUp = [CCBReader load:@"PopUp/BubbleLimitPopUp"];
+                _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+                _bubbleLimitPopUp.position = ccp(0.5, 0.3);
+                [self addChild:_bubbleLimitPopUp];
+                
+                CCAnimationManager* animationManager = _bubbleLimitPopUp.userObject;
+                [animationManager runAnimationsForSequenceNamed:@"Show"];
+                // remove the popUp from mainScene after finish.
+                [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+                    [_bubbleLimitPopUp removeFromParentAndCleanup:YES];
+                }];
+                
+            } else { // put character in bubble.
+                _inBubble = true;
+                _bubbleUsed += 1;
+                _bubble = [CCBReader load:@"Objects/Bubble"];
+                _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
+                [_character addChild:_bubble];
+                [_character bubbleUp];
+                
+                [_gameManager addBubble:-1];
+                _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+            }
             
-            CCAnimationManager* animationManager = _bubbleLimitPopUp.userObject;
-            [animationManager runAnimationsForSequenceNamed:@"Show"];
-            // remove the popUp from mainScene after finish.
-            [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-                [_bubbleLimitPopUp removeFromParentAndCleanup:YES];
-            }];
+        } else { // pop up shop window.
+            _physicsNode.paused = YES;
+            [self stopUserInteraction];
+            _gameManager.gamePlayState = 1;
             
-        } else {
-            _inBubble = true;
-            _bubbleUsed += 1;
-            _bubble = [CCBReader load:@"Objects/Bubble"];
-            _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
-            [_character addChild:_bubble];
-            [_character bubbleUp];
-            
-            [_gameManager addBubble:-1];
-            _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+            CCNode * _shopPopUp = [CCBReader load:@"PopUp/Shop"];
+            _shopPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+            _shopPopUp.position = ccp(0.5, 0.5);
+            [self addChild:_shopPopUp];
         }
     }
 }

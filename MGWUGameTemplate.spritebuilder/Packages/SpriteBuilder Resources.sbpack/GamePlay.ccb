@@ -217,9 +217,11 @@
 												<key>type</key>
 												<string>CCBFile</string>
 												<key>value</key>
-												<string>Wall.ccb</string>
+												<string>Objects/Wall.ccb</string>
 											</dict>
 										</array>
+										<key>selected</key>
+										<true/>
 									</dict>
 									<dict>
 										<key>UUID</key>
@@ -279,7 +281,7 @@
 												<key>type</key>
 												<string>CCBFile</string>
 												<key>value</key>
-												<string>Wall.ccb</string>
+												<string>Objects/Wall.ccb</string>
 											</dict>
 										</array>
 									</dict>
@@ -354,8 +356,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>
