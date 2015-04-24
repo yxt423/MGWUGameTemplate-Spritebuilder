@@ -115,10 +115,17 @@
     return result;
 }
 
-
 - (void)addBubble: (int)num {
     bubbleNum += num;
     [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setBubbleNum:(int)num {
+    CCLOG(@"set bubble num to %d", num);
+    
+    bubbleNum = num;
+    [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"bubbleNum"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -218,7 +218,6 @@
     star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
-    CCLOG(@"_contentHeight %d", _contentHeight);
 }
 
 - (void)followCharacter {

@@ -21,7 +21,6 @@
     CCButton *_buttonFB;
     GameManager *_gameManager;
     Mixpanel *_mixpanel;
-    
 }
 
 - (void)didLoadFromCCB {
@@ -110,7 +109,9 @@
 
 - (void)resetHighestScore {
     CCLOG(@".....just reset highest score.");
-    [_gameManager setHighestScore:0];
+//    [_gameManager setHighestScore:0];
+    _gameManager.highestScore = 0;
+    _gameManager.bubbleNum = 0;
 }
 
 @end
