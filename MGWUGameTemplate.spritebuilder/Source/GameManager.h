@@ -58,6 +58,8 @@
 
 + (id)getGameManager;
 
++ (int)getCloudIntervalAt: (int)height;
++ (float)getCloudScaleAt: (int)height;
 + (NSString *)scoreWithComma: (int)s;
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName;
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName;

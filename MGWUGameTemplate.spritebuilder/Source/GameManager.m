@@ -119,6 +119,40 @@
 
 /* Class methods */
 
++ (int)getCloudIntervalAt: (int)height {
+    int _cloudInterval;
+    
+    if (height < 1000) {
+        _cloudInterval = 30;
+    } else if (height < 3000) {
+        _cloudInterval = 33;
+    } else if (height < 5000) {
+        _cloudInterval = 36;
+    } else {
+        _cloudInterval = 38;
+    }
+    
+    return _cloudInterval;
+}
+
++ (float)getCloudScaleAt: (int)height {
+    float _cloudScale;
+    
+    if (height < 5000) {
+        _cloudScale = 1.f;
+    } else if (height < 10000) {
+        _cloudScale = 0.9f;
+    } else if (height < 15000) {
+        _cloudScale = 0.8f;
+    } else if (height < 23000) {
+        _cloudScale = 0.7f;
+    } else {
+        _cloudScale = 0.6f;
+    }
+    
+    return _cloudScale;
+}
+
 + (NSString *)scoreWithComma: (int)s{
     NSString * result = @"";
     

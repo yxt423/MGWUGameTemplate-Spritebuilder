@@ -176,26 +176,8 @@
 
 // loadNewContent by ramdomly generate game content.
 - (void)loadNewContent {
-    
-    if (_contentHeight < 3000) {
-        _cloudInterval = 35;
-    } else if (_contentHeight < 6000) {
-        _cloudInterval = 40;
-    } else {
-        _cloudInterval = 45;
-    }
-    
-    if (_contentHeight < 10000) {
-        _cloudScale = 1.f;
-    } else if (_contentHeight < 15000) {
-        _cloudScale = 0.9f;
-    } else if (_contentHeight < 20000) {
-        _cloudScale = 0.8f;
-    } else if (_contentHeight < 25000) {
-        _cloudScale = 0.7f;
-    } else {
-        _cloudScale = 0.6f;
-    }
+    _cloudInterval = [GameManager getCloudIntervalAt:_contentHeight];
+    _cloudScale = [GameManager getCloudScaleAt:_contentHeight];
     
     for (int i = 0; i < 20; i++) {
         CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
@@ -218,6 +200,7 @@
     star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
     star.zOrder = -1;
     [_objectsGroup addChild:star];
+    CCLOG(@"_cloudInterval %d, _cloudScale %f", _cloudInterval, _cloudScale);
 }
 
 - (void)followCharacter {
@@ -260,16 +243,12 @@
     // if tap on left side of character, or very left of the screen, jump left. 
     if (point.x < 40) {
         [_character moveLeft];
-        CCLOG(@"very left");
     } else if (_gameManager.screenWidthInPoints - point.x < 40 ) {
         [_character moveRight];
-        CCLOG(@"very right");
     } else if (point.x < _character.positionInPoints.x) {
         [_character moveLeft];
-        CCLOG(@"_character moveLeft");
     } else {
         [_character moveRight];
-        CCLOG(@"_character moveRight");
     }
 }
 
