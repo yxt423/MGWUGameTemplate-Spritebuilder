@@ -14,6 +14,7 @@
     int screenHeight, screenWidth;
     int screenLeft, screenRight;
     int screenHeightInPoints, screenWidthInPoints;
+    int tapUIScaleDifference;
     
     // for game play scene.
     int gamePlayState;
@@ -36,8 +37,10 @@
 @property (nonatomic, assign) int screenHeight, screenWidth; // for drawing objects on screen.
 @property (nonatomic, assign) int screenHeightInPoints, screenWidthInPoints; // for comparing tap position and chatacter position. 
 @property (nonatomic, assign) int screenLeft, screenRight;
+@property (nonatomic, assign) int tapUIScaleDifference;
 // screenHeight, screenWidth: iPhone4 480 320. iPad 512 384,
 // screenHeightInPoints, screenWidthInPoints, iPad 1024 768
+// tapUIPositionDifference = screenWidthInPoints / screenWidth;
 
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) bool muted;

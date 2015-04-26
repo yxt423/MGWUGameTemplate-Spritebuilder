@@ -13,6 +13,7 @@
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B68BBF561AEAF10C00555618 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = B68BBF551AEAF10C00555618 /* Shop.m */; };
+		B68BBF5B1AEC5A4700555618 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B68BBF5A1AEC5A4700555618 /* StoreKit.framework */; };
 		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
 		B6A5553A1ADC8F6B00E3FC7C /* Bubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555391ADC8F6B00E3FC7C /* Bubble.m */; };
 		B6A555471ADF658100E3FC7C /* NewBubblePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555461ADF658100E3FC7C /* NewBubblePopUp.m */; };
@@ -106,6 +107,7 @@
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		B68BBF541AEAF10C00555618 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shop.h; path = Source/Shop.h; sourceTree = "<group>"; };
 		B68BBF551AEAF10C00555618 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Shop.m; path = Source/Shop.m; sourceTree = "<group>"; };
+		B68BBF5A1AEC5A4700555618 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B6A555321AD9F9F100E3FC7C /* BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicObject.h; path = Source/BasicObject.h; sourceTree = "<group>"; };
 		B6A555331AD9F9F100E3FC7C /* BasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicObject.m; path = Source/BasicObject.m; sourceTree = "<group>"; };
 		B6A555381ADC8F6B00E3FC7C /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bubble.h; path = Source/Bubble.h; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				B737898A1807642B0076A88C /* libcocos2d.a in Frameworks */,
 				B6FDE0301ADF843000C7396A /* FBSDKShareKit.framework in Frameworks */,
+				B68BBF5B1AEC5A4700555618 /* StoreKit.framework in Frameworks */,
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
 				B77F1B3417B978D7009739AE /* OpenGLES.framework in Frameworks */,
 				B6FDE02E1ADF842500C7396A /* FBSDKLoginKit.framework in Frameworks */,
@@ -345,6 +348,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B68BBF5A1AEC5A4700555618 /* StoreKit.framework */,
 				B6FDE02F1ADF843000C7396A /* FBSDKShareKit.framework */,
 				B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */,
 				B6FDE02C1ADF842500C7396A /* FBSDKLoginKit.framework */,
@@ -422,6 +426,9 @@
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
 							};
 						};
 					};
@@ -634,8 +641,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Xintong Yu (V8J96K5Y78)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xintong Yu (V8J96K5Y78)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -662,7 +669,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = MGWUGameTemplate;
-				PROVISIONING_PROFILE = "2dc65e1e-c021-46a5-a77b-0110f6f968a0";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -676,8 +683,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Xintong Yu (V8J96K5Y78)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xintong Yu (V8J96K5Y78)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -702,7 +709,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = MGWUGameTemplate;
-				PROVISIONING_PROFILE = "2dc65e1e-c021-46a5-a77b-0110f6f968a0";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

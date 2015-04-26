@@ -239,13 +239,19 @@
     self.userInteractionEnabled = false;  // stop accept touches.
 }
 
+// the tap position and character position has different UI density. Why is that?
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
-    CCLOG(@"_character.position %f, %f", _character.position.x , _character.position.y);
+//    CCLOG(@"=========== tapGesture =================");
+//    CCLOG(@"_character.position %f, %f", _character.position.x , _character.position.y);
     
     CGPoint point = [gestureRecognizer locationInView:nil];
-    CCLOG(@"point %f, %f", point.x, point.y);
-    point.y = _gameManager.screenHeightInPoints - point.y; // the convertedPoint has different reference corner.
-    CCLOG(@"point adjusted %f, %f", point.x, point.y);
+//    CCLOG(@"point %f, %f", point.x, point.y);
+    point.x = point.x / _gameManager.tapUIScaleDifference;
+    point.y = point.y / _gameManager.tapUIScaleDifference;
+    point.y = _gameManager.screenHeight - point.y; // the convertedPoint has different reference corner.
+//    CCLOG(@"point adjusted %f, %f", point.x, point.y);
+//    CCLOG(@"_buttonPause.boundingBox %f, %f, %f, %f", _buttonPause.boundingBox.origin.x , _buttonPause.boundingBox.origin.y, _buttonPause.boundingBox.size.width, _buttonPause.boundingBox.size.height);
+    
     if (CGRectContainsPoint(_buttonPause.boundingBox, point) || CGRectContainsPoint(_buttonBubble.boundingBox, point)) {
         return;
         // point 是大坐标。 does this work?

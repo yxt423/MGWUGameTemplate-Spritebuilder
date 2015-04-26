@@ -23,6 +23,7 @@
 @synthesize screenHeight, screenWidth;
 @synthesize screenLeft, screenRight;
 @synthesize screenHeightInPoints, screenWidthInPoints;
+@synthesize tapUIScaleDifference;
 @synthesize currentScore, highestScore;
 @synthesize newHighScore;
 @synthesize gamePlayState;
@@ -85,10 +86,12 @@
     screenRight = screenLeft + screenWidth;
     screenHeightInPoints = [[UIScreen mainScreen] bounds].size.height;
     screenWidthInPoints = [[UIScreen mainScreen] bounds].size.width;
+    tapUIScaleDifference = screenWidthInPoints / screenWidth;
     CCLOG(@"screenHeight %d", screenHeight);
     CCLOG(@"screenWidth %d", screenWidth);
     CCLOG(@"screenHeightInPoints %d", screenHeightInPoints);
     CCLOG(@"screenWidthInPoints %d", screenWidthInPoints);
+    CCLOG(@"tapUIScaleDifference %d", tapUIScaleDifference);
 }
 
 /* parameters related */

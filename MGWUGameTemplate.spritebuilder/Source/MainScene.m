@@ -58,7 +58,6 @@
 }
 
 - (void)setting {
-    CCLOG(@"Main - setting");
     CCNode *_popUp = [CCBReader load:@"PopUp/SettingPopUp"];
     _popUp.position = _buttonSetting.position;
     _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerBottomRight);

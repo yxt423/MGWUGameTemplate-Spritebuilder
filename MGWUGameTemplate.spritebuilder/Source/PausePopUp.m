@@ -27,13 +27,11 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)resume {
-    CCLOG(@"PausePopUp - resume");
     _gameManager.gamePlayState = 2;
     [self removeFromParent];
 }
 
 - (void)restart {
-    CCLOG(@"PausePopUp - restart");
     _gameManager.gamePlayState = 3;
     [self removeFromParent];
 }
@@ -44,13 +42,11 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)muteGamePlay {
-    CCLOG(@"PausePopUp - muteGamePlay");
     [self mute];
     _gameManager.gamePlayState = 4;
 }
 
 - (void)muteMainMenu {
-    CCLOG(@"PausePopUp - muteMainMenu");
     [self mute];
 }
 
@@ -74,7 +70,6 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)setting {
-    CCLOG(@"popUp - setting");
     CCAnimationManager* animationManager = _popUp.userObject;
     [animationManager runAnimationsForSequenceNamed:@"Collapse"];
     

@@ -13,7 +13,6 @@
 }
 
 - (void)ok {
-    CCLOG(@"NewBubblePopUp - ok");
     CCAnimationManager* animationManager = _newBubblePopUp.userObject;
     [animationManager runAnimationsForSequenceNamed:@"Disappear"];
     
