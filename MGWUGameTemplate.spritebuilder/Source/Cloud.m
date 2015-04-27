@@ -14,7 +14,6 @@
 #import "GameManager.h"
 
 @implementation Cloud {
-    float _timeSinceUpdate;
     GameManager *_gameManager;
 }
 

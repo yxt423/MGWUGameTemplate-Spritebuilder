@@ -11,7 +11,6 @@
 #import "GameManager.h"
 
 @implementation Star {
-    float _timeSinceUpdate;
     GameManager *_gameManager;
 }
 

@@ -20,7 +20,7 @@
 #import "Cloud.h"
 #import "Star.h"
 #import "Groud.h"
-#import "Bubble.h"
+#import "BubbleObject.h"
 #import "ScoreAdd.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "GameManager.h"
@@ -45,6 +45,7 @@
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
+    UILongPressGestureRecognizer *_longPressGesture;
     
     // stats
     int _starHit;
@@ -89,6 +90,10 @@
 
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
+    
+    _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
+    [_longPressGesture setCancelsTouchesInView:NO];
+    _longPressGesture.minimumPressDuration = 1.0f;
     
     // load game content
     [self loadNewContent];
@@ -179,7 +184,38 @@
     _cloudInterval = [GameManager getCloudIntervalAt:_contentHeight];
     _cloudScale = [GameManager getCloudScaleAt:_contentHeight];
     
-    for (int i = 0; i < 20; i++) {
+    [self addClouds:10];
+    
+    int randomNum = arc4random_uniform(100);
+    if (randomNum < 10) {
+        // add star.
+        CCNode *star;
+        if (_starHit < 2) {
+            star = [CCBReader load:@"Objects/StarStatic"];
+        } else if (_starHit < 5) {
+            star = [CCBReader load:@"Objects/StarSpining40"];
+        } else {
+            star = [CCBReader load:@"Objects/StarSpining80"];
+        }
+        _contentHeight += _cloudInterval;
+        star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
+        star.zOrder = -1;
+        [_objectsGroup addChild:star];
+    } else {
+        // add bubble.
+        BubbleObject *bubbleObject;
+        bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
+        _contentHeight += _cloudInterval;
+        bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
+        bubbleObject.zOrder = -1;
+        [_objectsGroup addChild:bubbleObject];
+    }
+    
+//    CCLOG(@"_cloudInterval %d, _cloudScale %f", _cloudInterval, _cloudScale);
+}
+
+- (void)addClouds: (int)num{
+    for (int i = 0; i < num; i++) {
         CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
         _contentHeight += _cloudInterval;
         cloud.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
@@ -187,20 +223,6 @@
         cloud.scale = _cloudScale;
         [_objectsGroup addChild:cloud];
     }
-    
-    CCNode *star;
-    if (_starHit < 2) {
-        star = [CCBReader load:@"Objects/StarStatic"];
-    } else if (_starHit < 5) {
-        star = [CCBReader load:@"Objects/StarSpining40"];
-    } else {
-        star = [CCBReader load:@"Objects/StarSpining80"];
-    }
-    _contentHeight += _cloudInterval;
-    star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
-    star.zOrder = -1;
-    [_objectsGroup addChild:star];
-    CCLOG(@"_cloudInterval %d, _cloudScale %f", _cloudInterval, _cloudScale);
 }
 
 - (void)followCharacter {
@@ -215,10 +237,12 @@
 - (void)startUserInteraction {
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:_longPressGesture];
 }
 
 - (void)stopUserInteraction {
     [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_longPressGesture];
     self.userInteractionEnabled = false;  // stop accept touches.
 }
 
@@ -250,6 +274,10 @@
     } else {
         [_character moveRight];
     }
+}
+
+- (void)longPressGesture:(UIGestureRecognizer *)gestureRecognizer  {
+    CCLOG(@"longPressGesture");
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
@@ -288,6 +316,17 @@
     return YES;
 }
 
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA bubbleObject:(CCNode *)nodeB {
+    if (!_inBubble) {
+        [_character jump];
+        [(BubbleObject *)nodeB removeAndPlayAnimation];
+        [_gameManager addBubble:1];
+        _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+    }
+    
+    return YES;
+}
+
 // update current score and highest score, stop user interaction on GamePlay, load GameOver scene.
 - (void)endGame {
     _gameManager.gamePlayTimes += 1;
@@ -299,6 +338,9 @@
     
     [self stopUserInteraction];
     [self trackGameEnd];
+    
+    // prevent the ground from being removed on game over scene.
+    _gameManager.characterHighest = 0;
     
     [GameManager replaceSceneWithFadeTransition:@"GameOver"];
 }

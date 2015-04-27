@@ -11,7 +11,6 @@
 #import "GameManager.h"
 #import "InfoScene.h"
 #import "Mixpanel.h"
-#import "Bubble.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
