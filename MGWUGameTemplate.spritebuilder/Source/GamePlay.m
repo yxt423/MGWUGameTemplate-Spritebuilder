@@ -221,7 +221,7 @@
         [_objectsGroup addChild:star];
     }
     
-    CCLOG(@"interval %d, scale, %f", _cloudInterval, _cloudScale);
+//    CCLOG(@"interval %d, scale, %f", _cloudInterval, _cloudScale);
 }
 
 - (void)addClouds: (int)num{
@@ -235,7 +235,7 @@
         [_objectsGroup addChild:cloud];
         // if this cloud is too close to the left/right screen edge, add another one.
         if (ramdon / (_gameManager.screenWidth - 40) < 0.07 || ramdon / (_gameManager.screenWidth - 40) > 0.93) {
-            [self addAdditionalCloudWith:ramdon + 20];
+            [self addSymmetricCloudWith:ramdon + 20];
         }
     }
 }
@@ -243,6 +243,14 @@
 - (void)addAdditionalCloudWith: (int)x {
     CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
     cloud.position = ccp([_gameManager getSecondXAtSameLineWith:x], _contentHeight);
+    cloud.zOrder = -1;
+    cloud.scale = _cloudScale;
+    [_objectsGroup addChild:cloud];
+}
+
+- (void)addSymmetricCloudWith: (int)x {
+    CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
+    cloud.position = ccp(_gameManager.screenWidth - x, _contentHeight);
     cloud.zOrder = -1;
     cloud.scale = _cloudScale;
     [_objectsGroup addChild:cloud];

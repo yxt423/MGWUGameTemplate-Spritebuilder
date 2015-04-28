@@ -78,8 +78,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [super applicationDidBecomeActive:application];
-    
-    CCLOG(@"applicationDidBecomeActive");
     [FBSDKAppEvents activateApp];
 }
 
