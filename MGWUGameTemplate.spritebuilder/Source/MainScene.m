@@ -25,6 +25,7 @@
     GameManager *_gameManager;
     CCPhysicsNode *_physicsNode;
     Mixpanel *_mixpanel;
+    CCNode *_mainScene;
     Character *_character;
     CCNode *_bubble;
     
@@ -83,6 +84,9 @@
         explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
         [_character addChild:explosion];
         [_character stop];
+        
+        CCAnimationManager* animationManager = _mainScene.userObject;
+        [animationManager runAnimationsForSequenceNamed:@"Repeat"];
     }
     
     return YES;
