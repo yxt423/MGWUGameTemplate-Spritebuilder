@@ -13,6 +13,7 @@
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B65BDD9A1AEDB582007EA982 /* BubbleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B65BDD991AEDB582007EA982 /* BubbleObject.m */; };
+		B65BDDA01AEE03D1007EA982 /* CloudBlack.m in Sources */ = {isa = PBXBuildFile; fileRef = B65BDD9F1AEE03D1007EA982 /* CloudBlack.m */; };
 		B68BBF561AEAF10C00555618 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = B68BBF551AEAF10C00555618 /* Shop.m */; };
 		B68BBF5B1AEC5A4700555618 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B68BBF5A1AEC5A4700555618 /* StoreKit.framework */; };
 		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
@@ -107,6 +108,8 @@
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		B65BDD981AEDB582007EA982 /* BubbleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleObject.h; path = Source/BubbleObject.h; sourceTree = "<group>"; };
 		B65BDD991AEDB582007EA982 /* BubbleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleObject.m; path = Source/BubbleObject.m; sourceTree = "<group>"; };
+		B65BDD9E1AEE03D1007EA982 /* CloudBlack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloudBlack.h; path = Source/CloudBlack.h; sourceTree = "<group>"; };
+		B65BDD9F1AEE03D1007EA982 /* CloudBlack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloudBlack.m; path = Source/CloudBlack.m; sourceTree = "<group>"; };
 		B68BBF541AEAF10C00555618 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shop.h; path = Source/Shop.h; sourceTree = "<group>"; };
 		B68BBF551AEAF10C00555618 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Shop.m; path = Source/Shop.m; sourceTree = "<group>"; };
 		B68BBF5A1AEC5A4700555618 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -235,6 +238,8 @@
 				B6F36B291AA3BB030050F36E /* Star.m */,
 				B6350E011A97F82B00B4867C /* Cloud.h */,
 				B6350E021A97F82B00B4867C /* Cloud.m */,
+				B65BDD9E1AEE03D1007EA982 /* CloudBlack.h */,
+				B65BDD9F1AEE03D1007EA982 /* CloudBlack.m */,
 				B6350E041A97F83900B4867C /* Character.h */,
 				B6350E051A97F83900B4867C /* Character.m */,
 				B6A555321AD9F9F100E3FC7C /* BasicObject.h */,
@@ -568,6 +573,7 @@
 				B65BDD9A1AEDB582007EA982 /* BubbleObject.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
+				B65BDDA01AEE03D1007EA982 /* CloudBlack.m in Sources */,
 				B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */,
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,

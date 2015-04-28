@@ -67,5 +67,6 @@
 - (void)initDeviceParam: (MainScene *)mainScene;
 
 - (void)addBubble: (int)num;
+- (float)getSecondXAtSameLineWith: (float)x;
 
 @end

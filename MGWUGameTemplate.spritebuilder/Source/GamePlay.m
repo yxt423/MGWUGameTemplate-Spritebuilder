@@ -18,6 +18,7 @@
 #import "PausePopUp.h"
 #import "Character.h"
 #import "Cloud.h"
+#import "CloudBlack.h"
 #import "Star.h"
 #import "Groud.h"
 #import "BubbleObject.h"
@@ -184,10 +185,27 @@
     _cloudInterval = [GameManager getCloudIntervalAt:_contentHeight];
     _cloudScale = [GameManager getCloudScaleAt:_contentHeight];
     
-    [self addClouds:10];
+    [self addClouds:arc4random_uniform(10) + 15];
     
     int randomNum = arc4random_uniform(100);
     if (randomNum < 10) {
+        // add bubble.
+        BubbleObject *bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
+        _contentHeight += _cloudInterval;
+        bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
+        bubbleObject.zOrder = -1;
+        [_objectsGroup addChild:bubbleObject];
+        
+    } else if (randomNum < 50) {
+        // add cloudBlack.
+        CCNode *cloudBlack = [CCBReader load:@"Objects/CloudBlack"];
+        _contentHeight += _cloudInterval;
+        cloudBlack.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
+        cloudBlack.zOrder = -1;
+        [_objectsGroup addChild:cloudBlack];
+        [self addAdditionalCloudWith:cloudBlack.position.x];
+        
+    } else {
         // add star.
         CCNode *star;
         if (_starHit < 2) {
@@ -201,28 +219,32 @@
         star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
         star.zOrder = -1;
         [_objectsGroup addChild:star];
-    } else {
-        // add bubble.
-        BubbleObject *bubbleObject;
-        bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
-        _contentHeight += _cloudInterval;
-        bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
-        bubbleObject.zOrder = -1;
-        [_objectsGroup addChild:bubbleObject];
     }
     
-//    CCLOG(@"_cloudInterval %d, _cloudScale %f", _cloudInterval, _cloudScale);
+    CCLOG(@"interval %d, scale, %f", _cloudInterval, _cloudScale);
 }
 
 - (void)addClouds: (int)num{
     for (int i = 0; i < num; i++) {
         CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
         _contentHeight += _cloudInterval;
-        cloud.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
+        float ramdon = arc4random_uniform(_gameManager.screenWidth - 40);
+        cloud.position = ccp(ramdon + 20, _contentHeight);
         cloud.zOrder = -1;
         cloud.scale = _cloudScale;
         [_objectsGroup addChild:cloud];
+        if (ramdon / (_gameManager.screenWidth - 40) < 0.07 || ramdon / (_gameManager.screenWidth - 40) > 0.93) {
+            [self addAdditionalCloudWith:ramdon + 20];
+        }
     }
+}
+
+- (void)addAdditionalCloudWith: (int)x {
+    CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
+    cloud.position = ccp([_gameManager getSecondXAtSameLineWith:x], _contentHeight);
+    cloud.zOrder = -1;
+    cloud.scale = _cloudScale;
+    [_objectsGroup addChild:cloud];
 }
 
 - (void)followCharacter {
@@ -322,6 +344,17 @@
         [(BubbleObject *)nodeB removeAndPlayAnimation];
         [_gameManager addBubble:1];
         _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+    }
+    
+    return YES;
+}
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloudBlack:(CloudBlack *)nodeB {
+    if (!_inBubble) {
+        [_character jump];
+    } else {
+        // if character in bubble, make everything sensor so it can keep going up.
+        nodeB.physicsBody.sensor = YES;
     }
     
     return YES;

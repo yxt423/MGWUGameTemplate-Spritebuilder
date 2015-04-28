@@ -117,6 +117,14 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (float)getSecondXAtSameLineWith: (float)x {
+    if (x < screenWidth / 2) {
+        return arc4random_uniform(screenWidth / 2 - 40) + screenWidth / 2 + 20;
+    } else {
+        return arc4random_uniform(screenWidth / 2 - 40) + 20;
+    }
+}
+
 /* Class methods */
 
 + (int)getCloudIntervalAt: (int)height {
@@ -129,7 +137,7 @@
     } else if (height < 5000) {
         _cloudInterval = 36;
     } else {
-        _cloudInterval = 38;
+        _cloudInterval = 40;
     }
     
     return _cloudInterval;
