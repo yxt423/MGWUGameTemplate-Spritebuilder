@@ -15,5 +15,6 @@
 - (void)moveLeft;
 - (void)moveRight;
 - (void)bubbleUp;
+- (void)stop;
 
 @end

@@ -7,19 +7,22 @@
 //
 
 #import "NewBubblePopUp.h"
+#import "GameManager.h"
 
 @implementation NewBubblePopUp {
     CCNode *_newBubblePopUp;
 }
 
 - (void)ok {
-    CCAnimationManager* animationManager = _newBubblePopUp.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Disappear"];
+    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     
-    // remove the popUp from mainScene after finish.
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [_newBubblePopUp removeFromParentAndCleanup:YES];
-    }];
+//    CCAnimationManager* animationManager = _newBubblePopUp.userObject;
+//    [animationManager runAnimationsForSequenceNamed:@"Disappear"];
+//    
+//    // remove the popUp from mainScene after finish.
+//    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+//        [_newBubblePopUp removeFromParentAndCleanup:YES];
+//    }];
 }
 
 @end

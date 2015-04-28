@@ -32,6 +32,10 @@
     [self.physicsBody applyImpulse:ccp(150.f, 0.f)];
 }
 
+- (void)stop {
+    self.physicsBody.velocity = ccp(0.f, 0.f);
+}
+
 - (void)bubbleUp {
     self.physicsBody.velocity = ccp(0.f, 0.f);
     [self.physicsBody applyImpulse:ccp(0.f, 1000.f)];

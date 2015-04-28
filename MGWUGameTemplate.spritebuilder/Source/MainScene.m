@@ -6,11 +6,15 @@
 //  Copyright (c) 2013 Apportable. All rights reserved.
 //
 
+#include <stdlib.h>
 #import "MainScene.h"
 #import "GamePlay.h"
 #import "GameManager.h"
+#import "Character.h"
+#import "Groud.h"
 #import "InfoScene.h"
 #import "Mixpanel.h"
+#import "CCPhysics+ObjectiveChipmunk.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
@@ -19,12 +23,24 @@
     CCButton *_buttonSetting;
     CCButton *_buttonFB;
     GameManager *_gameManager;
+    CCPhysicsNode *_physicsNode;
     Mixpanel *_mixpanel;
+    Character *_character;
+    CCNode *_bubble;
+    
+    bool _inBubble;
+    float _timeSinceUpdate;
+    bool _canUpdate;
 }
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
     _mixpanel = [Mixpanel sharedInstance];
+    
+    _physicsNode.collisionDelegate = self;
+    _timeSinceUpdate = 0.f;
+    _inBubble = false;
+    _canUpdate = false;
 }
 
 - (void)onEnter {
@@ -32,6 +48,47 @@
     // init devide parameters.
     [_gameManager initDeviceParam:self];
     
+    _bubble = [CCBReader load:@"Objects/Bubble"];
+    _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
+    [_character addChild:_bubble];
+    _inBubble = true;
+}
+
+- (void)update:(CCTime)delta {
+    _timeSinceUpdate += delta;
+    if (_timeSinceUpdate > 0.1f) {
+        _canUpdate = true;
+    }
+    
+    if(_canUpdate && _inBubble) {
+        if (_character.position.x < 100) {
+            [_character.physicsBody applyImpulse:ccp(50.f, 0.f)];
+        } else if (_character.position.x > 200) {
+            [_character.physicsBody applyImpulse:ccp(-50.f, 0.f)];
+        }
+        
+        _canUpdate = false;
+        _timeSinceUpdate = 0;
+    }
+}
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
+    if (_inBubble) {
+        [_bubble removeFromParent];
+        _inBubble = false;
+        
+        CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/BubbleVanish"];
+        explosion.autoRemoveOnFinish = TRUE;
+        explosion.position = ccp(0.5, 0.2);
+        explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+        [_character addChild:explosion];
+        [_character stop];
+    }
+    
+    return YES;
+}
+
+- (void)play {
     // get 10 bubbles everyday.
     NSDate *newTime = [NSDate date];
     NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
@@ -46,14 +103,14 @@
             [self addChild:_newBubblePopUp];
             [_gameManager addBubble:10];
             [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+        } else {
+            [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
         }
     } else {
+        // first time play game.
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     }
-}
-
-- (void)play {
-    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
 }
 
 - (void)setting {
