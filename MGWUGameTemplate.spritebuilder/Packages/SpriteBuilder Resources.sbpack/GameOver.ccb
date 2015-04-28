@@ -1126,8 +1126,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>150</real>
-							<real>97</real>
+							<real>130</real>
+							<real>84.5</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -1378,6 +1378,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1599,8 +1601,6 @@ Again</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
