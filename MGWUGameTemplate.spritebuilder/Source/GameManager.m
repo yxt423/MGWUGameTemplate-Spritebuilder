@@ -130,14 +130,16 @@
 + (int)getCloudIntervalAt: (int)height {
     int _cloudInterval;
     
-    if (height < 1000) {
-        _cloudInterval = 30;
-    } else if (height < 3000) {
-        _cloudInterval = 33;
-    } else if (height < 5000) {
+    if (height > 8000) {
+        _cloudInterval = 42;
+    } else if (height > 5000) {
+        _cloudInterval = 39;
+    } else if (height > 3000) {
         _cloudInterval = 36;
+    } else if (height > 1000) {
+        _cloudInterval = 33;
     } else {
-        _cloudInterval = 40;
+        _cloudInterval = 30;
     }
     
     return _cloudInterval;
@@ -150,9 +152,9 @@
         _cloudScale = 1.f;
     } else if (height < 10000) {
         _cloudScale = 0.9f;
-    } else if (height < 15000) {
+    } else if (height < 18000) {
         _cloudScale = 0.8f;
-    } else if (height < 23000) {
+    } else if (height < 26000) {
         _cloudScale = 0.7f;
     } else {
         _cloudScale = 0.6f;

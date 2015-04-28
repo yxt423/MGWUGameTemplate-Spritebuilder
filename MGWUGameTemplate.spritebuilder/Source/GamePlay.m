@@ -233,6 +233,7 @@
         cloud.zOrder = -1;
         cloud.scale = _cloudScale;
         [_objectsGroup addChild:cloud];
+        // if this cloud is too close to the left/right screen edge, add another one.
         if (ramdon / (_gameManager.screenWidth - 40) < 0.07 || ramdon / (_gameManager.screenWidth - 40) > 0.93) {
             [self addAdditionalCloudWith:ramdon + 20];
         }

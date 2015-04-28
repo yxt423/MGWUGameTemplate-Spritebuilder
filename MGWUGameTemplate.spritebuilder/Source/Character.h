@@ -11,6 +11,7 @@
 @interface Character : CCSprite
 
 - (void)jump;
+- (void)jumpHigh;
 - (void)moveLeft;
 - (void)moveRight;
 - (void)bubbleUp;
