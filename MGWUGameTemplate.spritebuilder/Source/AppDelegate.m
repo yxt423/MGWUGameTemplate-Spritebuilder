@@ -28,7 +28,7 @@
 #import "CCBuilderReader.h"
 #import "Mixpanel.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #define MIXPANEL_TOKEN @"82842b3adca73c3fb410a90961fba4fa"
 
@@ -67,16 +67,19 @@
 //    return YES;
     
     // for facebook
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (CCScene*) startScene {
     return [CCBReader loadAsScene:@"MainScene"];
 }
 
-// facebook functions.
+/* facebook functions. */
+
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [super applicationDidBecomeActive:application];
+    
+    CCLOG(@"applicationDidBecomeActive");
     [FBSDKAppEvents activateApp];
 }
 

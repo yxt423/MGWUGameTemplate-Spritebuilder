@@ -78,9 +78,8 @@
 
 - (void)facebookShare {
     // TODO: change the sharing content!!!!
-    // Bug: game freeze after FB finish !!!
     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentTitle = @"I've got a 1,000 score in Sky Jumper, come play with me!";
+    content.contentURL = [NSURL URLWithString:@"http://developers.facebook.com"];
     [FBSDKShareDialog showFromViewController:[CCDirector sharedDirector]
                                  withContent:content
                                     delegate:nil];
