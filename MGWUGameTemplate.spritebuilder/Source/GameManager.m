@@ -117,7 +117,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (float)getSecondXAtSameLineWith: (float)x {
+- (float)getRandomXAtSameLineWith: (float)x {
     if (x < screenWidth / 2) {
         return arc4random_uniform(screenWidth / 2 - 40) + screenWidth / 2 + 20;
     } else {
@@ -126,6 +126,8 @@
 }
 
 /* Class methods */
+
+/* get game parameters */
 
 + (int)getCloudIntervalAt: (int)height {
     int _cloudInterval;
@@ -163,6 +165,8 @@
     return _cloudScale;
 }
 
+/* UI effect methods. */
+
 + (NSString *)scoreWithComma: (int)s{
     NSString * result = @"";
     
@@ -195,6 +199,16 @@
     CCScene *newScene = [CCBReader loadAsScene:newSceneName];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
     [[CCDirector sharedDirector] pushScene:newScene withTransition:transition];
+}
+
++ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {
+    CCAnimationManager* animationManager = node.userObject;
+    [animationManager runAnimationsForSequenceNamed:name];
+    
+    // remove the node from scene after finish.
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [node removeFromParentAndCleanup:YES];
+    }];
 }
 
 @end

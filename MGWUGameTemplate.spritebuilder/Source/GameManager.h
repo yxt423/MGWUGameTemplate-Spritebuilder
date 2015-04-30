@@ -56,17 +56,29 @@
 @property (nonatomic, assign) int gamePlayTimes;
 @property (nonatomic, assign) int bubbleNum;
 
+/* init functions */
+
 + (id)getGameManager;
+- (void)initDeviceParam: (MainScene *)mainScene;
+
+/* parameters related */
+
+- (void)addBubble: (int)num;
+- (float)getRandomXAtSameLineWith: (float)x;
+
+/** Class methods */
+
+/* get game parameters */
 
 + (int)getCloudIntervalAt: (int)height;
 + (float)getCloudScaleAt: (int)height;
+
+/* UI effect methods. */
+
 + (NSString *)scoreWithComma: (int)s;
+
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName;
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName;
-
-- (void)initDeviceParam: (MainScene *)mainScene;
-
-- (void)addBubble: (int)num;
-- (float)getSecondXAtSameLineWith: (float)x;
++ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
 
 @end

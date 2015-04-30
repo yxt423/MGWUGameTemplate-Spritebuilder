@@ -242,7 +242,7 @@
 
 - (void)addAdditionalCloudWith: (int)x {
     CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-    cloud.position = ccp([_gameManager getSecondXAtSameLineWith:x], _contentHeight);
+    cloud.position = ccp([_gameManager getRandomXAtSameLineWith:x], _contentHeight);
     cloud.zOrder = -1;
     cloud.scale = _cloudScale;
     [_objectsGroup addChild:cloud];
@@ -414,6 +414,11 @@
 - (void)buttonBubble {
     // the button works when the character is not in bubble.
     if (!_inBubble) {
+        if (_bubbleUsed >= 3) {
+            
+        } else {
+            
+        }
         if (_gameManager.bubbleNum > 0) {
             if (_bubbleUsed >= 3) {
                 // show: you can use at most 3 bubbles in one game.
@@ -421,13 +426,7 @@
                 _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
                 _bubbleLimitPopUp.position = ccp(0.5, 0.3);
                 [self addChild:_bubbleLimitPopUp];
-                
-                CCAnimationManager* animationManager = _bubbleLimitPopUp.userObject;
-                [animationManager runAnimationsForSequenceNamed:@"Show"];
-                // remove the popUp from mainScene after finish.
-                [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-                    [_bubbleLimitPopUp removeFromParentAndCleanup:YES];
-                }];
+                [GameManager playThenCleanUpAnimationOf:_bubbleLimitPopUp Named:@"Show"];
                 
             } else { // put character in bubble.
                 _inBubble = true;

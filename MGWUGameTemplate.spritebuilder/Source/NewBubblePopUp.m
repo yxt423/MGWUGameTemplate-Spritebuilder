@@ -15,14 +15,6 @@
 
 - (void)ok {
     [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
-    
-//    CCAnimationManager* animationManager = _newBubblePopUp.userObject;
-//    [animationManager runAnimationsForSequenceNamed:@"Disappear"];
-//    
-//    // remove the popUp from mainScene after finish.
-//    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-//        [_newBubblePopUp removeFromParentAndCleanup:YES];
-//    }];
 }
 
 @end

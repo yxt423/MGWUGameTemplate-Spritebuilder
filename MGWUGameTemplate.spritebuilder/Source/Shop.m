@@ -23,14 +23,7 @@
 
 - (void)cancel {
     CCLOG(@"Shop - cancel");
-    CCAnimationManager* animationManager = _shop.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Disappear"];
-    
-    // remove the popUp from scene after finish.
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [_shop removeFromParentAndCleanup:YES];
-    }];
-    
+    [GameManager playThenCleanUpAnimationOf:_shop Named:@"Disappear"];
     _gameManager.gamePlayState = 2;
 }
 

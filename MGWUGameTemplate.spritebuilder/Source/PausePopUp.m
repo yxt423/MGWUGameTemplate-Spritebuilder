@@ -70,13 +70,7 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)setting {
-    CCAnimationManager* animationManager = _popUp.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Collapse"];
-    
-    // remove the popUp from mainScene after finish.
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [_popUp removeFromParentAndCleanup:YES];
-    }];
+    [GameManager playThenCleanUpAnimationOf:_popUp Named:@"Collapse"];
 }
 
 - (void)info {
