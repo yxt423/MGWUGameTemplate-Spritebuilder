@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>51</integer>
+	<integer>55</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -412,7 +412,7 @@
 										<key>value</key>
 										<array>
 											<real>150</real>
-											<real>120</real>
+											<real>100</real>
 											<integer>1</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -461,7 +461,7 @@
 										<key>value</key>
 										<array>
 											<real>100</real>
-											<real>100</real>
+											<real>80</real>
 											<integer>0</integer>
 											<integer>0</integer>
 										</array>
@@ -704,8 +704,6 @@
 										</array>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 							<dict>
 								<key>UUID</key>
@@ -740,7 +738,7 @@
 										<key>value</key>
 										<array>
 											<real>150</real>
-											<real>120</real>
+											<real>100</real>
 											<integer>1</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -802,7 +800,7 @@
 										<key>value</key>
 										<array>
 											<real>30</real>
-											<real>120</real>
+											<real>100</real>
 											<integer>1</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -851,7 +849,7 @@
 										<key>value</key>
 										<array>
 											<real>100</real>
-											<real>100</real>
+											<real>80</real>
 											<integer>0</integer>
 											<integer>0</integer>
 										</array>
@@ -1128,7 +1126,7 @@
 										<key>value</key>
 										<array>
 											<real>30</real>
-											<real>120</real>
+											<real>100</real>
 											<integer>1</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -1239,7 +1237,7 @@
 										<key>value</key>
 										<array>
 											<real>100</real>
-											<real>100</real>
+											<real>80</real>
 											<integer>0</integer>
 											<integer>0</integer>
 										</array>
@@ -1627,7 +1625,7 @@
 										<key>value</key>
 										<array>
 											<real>100</real>
-											<real>100</real>
+											<real>80</real>
 											<integer>0</integer>
 											<integer>0</integer>
 										</array>
@@ -1973,10 +1971,10 @@
 								<string>Size</string>
 								<key>value</key>
 								<array>
-									<real>1</real>
-									<real>1</real>
-									<integer>2</integer>
-									<integer>2</integer>
+									<real>0.0</real>
+									<real>0.0</real>
+									<integer>0</integer>
+									<integer>0</integer>
 								</array>
 							</dict>
 							<dict>
@@ -2004,6 +2002,228 @@
 								</array>
 							</dict>
 						</array>
+					</dict>
+					<dict>
+						<key>UUID</key>
+						<integer>54</integer>
+						<key>baseClass</key>
+						<string>CCLabelTTF</string>
+						<key>children</key>
+						<array/>
+						<key>customClass</key>
+						<string></string>
+						<key>displayName</key>
+						<string>YouHaveNum</string>
+						<key>memberVarAssignmentName</key>
+						<string>_youHaveBubbleNum</string>
+						<key>memberVarAssignmentType</key>
+						<integer>1</integer>
+						<key>properties</key>
+						<array>
+							<dict>
+								<key>name</key>
+								<string>name</string>
+								<key>type</key>
+								<string>StringSimple</string>
+								<key>value</key>
+								<string></string>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>28</real>
+									<real>37</real>
+									<integer>3</integer>
+									<integer>0</integer>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>anchorPoint</string>
+								<key>type</key>
+								<string>Point</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<real>0.0</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>scale</string>
+								<key>type</key>
+								<string>ScaleLock</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<real>1</real>
+									<false/>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>string</string>
+								<key>type</key>
+								<string>Text</string>
+								<key>value</key>
+								<array>
+									<string>You have 0</string>
+									<false/>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>fontName</string>
+								<key>type</key>
+								<string>FontTTF</string>
+								<key>value</key>
+								<string>Chalkduster</string>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>fontSize</string>
+								<key>type</key>
+								<string>FloatScale</string>
+								<key>value</key>
+								<array>
+									<real>12</real>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>adjustsFontSizeToFit</string>
+								<key>type</key>
+								<string>Check</string>
+								<key>value</key>
+								<true/>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>color</string>
+								<key>type</key>
+								<string>Color3</string>
+								<key>value</key>
+								<array>
+									<real>0.38224855065345764</real>
+									<real>0.39185744524002075</real>
+									<real>1</real>
+									<real>1</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>dimensions</string>
+								<key>type</key>
+								<string>Size</string>
+								<key>value</key>
+								<array>
+									<real>0.0</real>
+									<real>0.0</real>
+									<integer>0</integer>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>horizontalAlignment</string>
+								<key>type</key>
+								<string>IntegerLabeled</string>
+								<key>value</key>
+								<integer>2</integer>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>verticalAlignment</string>
+								<key>type</key>
+								<string>IntegerLabeled</string>
+								<key>value</key>
+								<integer>0</integer>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>fontColor</string>
+								<key>type</key>
+								<string>Color4</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<real>1</real>
+									<real>1</real>
+									<real>1</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>outlineColor</string>
+								<key>type</key>
+								<string>Color4</string>
+								<key>value</key>
+								<array>
+									<real>0.0</real>
+									<real>0.0</real>
+									<real>0.0</real>
+									<real>0.0</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>outlineWidth</string>
+								<key>type</key>
+								<string>FloatScale</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>shadowColor</string>
+								<key>type</key>
+								<string>Color4</string>
+								<key>value</key>
+								<array>
+									<real>0.0</real>
+									<real>0.0</real>
+									<real>0.0</real>
+									<real>0.0</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>shadowBlurRadius</string>
+								<key>type</key>
+								<string>FloatScale</string>
+								<key>value</key>
+								<array>
+									<real>0.0</real>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>shadowOffset</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
+									<real>0.0</real>
+									<real>0.0</real>
+									<integer>0</integer>
+									<integer>0</integer>
+									<integer>0</integer>
+								</array>
+							</dict>
+						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
@@ -2569,7 +2789,7 @@
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>34</integer>
+						<integer>51</integer>
 						<key>baseClass</key>
 						<string>CCLabelTTF</string>
 						<key>children</key>
@@ -2667,6 +2887,19 @@
 								<string>Check</string>
 								<key>value</key>
 								<false/>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>color</string>
+								<key>type</key>
+								<string>Color3</string>
+								<key>value</key>
+								<array>
+									<real>0.55510818958282471</real>
+									<real>0.73145705461502075</real>
+									<real>1</real>
+									<real>1</real>
+								</array>
 							</dict>
 							<dict>
 								<key>name</key>

@@ -103,6 +103,7 @@
 }
 
 - (void)addBubble: (int)num {
+    // add bubbleNum and save to local.
     bubbleNum += num;
     [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -192,6 +193,14 @@
     node.position = position;
     [parentNode addChild:node];
     return node;
+}
+
++ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
+    CCParticleSystem *node = (CCParticleSystem *)[CCBReader load:fileName];
+    node.autoRemoveOnFinish = TRUE;
+    node.position = position;
+    node.positionType = positionType;
+    [parentNode addChild:node];
 }
 
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {

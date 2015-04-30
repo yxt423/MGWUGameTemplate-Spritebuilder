@@ -8,15 +8,23 @@
 
 #import "Shop.h"
 #import "GameManager.h"
+#import "Mixpanel.h"
 #import <StoreKit/StoreKit.h>
 
 @implementation Shop {
     CCNode *_shop;
     GameManager *_gameManager;
+    Mixpanel *_mixpanel;
+    CCLabelTTF *_youHaveBubbleNum;
+    
+    int _bubbleToBeAdded;
 }
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
+    _mixpanel = [Mixpanel sharedInstance];
+    _bubbleToBeAdded = 0;
+    [self updateBubbleNumText];
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
@@ -29,21 +37,25 @@
 - (void)bubble1 {
     NSString * productName = @"skyjumper.bubble.10";
     [self startInAppPurchaseWithProductName:productName];
+    _bubbleToBeAdded = 10;
 }
 
 - (void)bubble2 {
     NSString * productName = @"skyjumper.bubble.35";
     [self startInAppPurchaseWithProductName:productName];
+    _bubbleToBeAdded = 35;
 }
 
 - (void)bubble3 {
     NSString * productName = @"skyjumper.bubble.60";
     [self startInAppPurchaseWithProductName:productName];
+    _bubbleToBeAdded = 60;
 }
 
 - (void)bubble4 {
     NSString * productName = @"skyjumper.bubble.130";
     [self startInAppPurchaseWithProductName:productName];
+    _bubbleToBeAdded = 130;
 }
 
 - (void)startInAppPurchaseWithProductName: (NSString *)productName {
@@ -95,13 +107,15 @@
 
 - (void) completeTransaction: (SKPaymentTransaction *)transaction {
     CCLOG(@"IAP Transaction Completed");
-    // You can create a method to record the transaction.
-    // [self recordTransaction: transaction];
-    
-    // You should make the update to your app based on what was purchased and inform user.
-    // [self provideContent: transaction.payment.productIdentifier];
-    // Finally, remove the transaction from the payment queue.
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    
+    // add bubble in game.
+    [_gameManager addBubble:_bubbleToBeAdded];
+    _bubbleToBeAdded = 0;
+    [self updateBubbleNumText];
+    
+    // track in mixpanel.
+    [_mixpanel track:@"Transaction Finish" properties:@{@"ItemName": @"Bubble", @"Number": [NSNumber numberWithInt:_bubbleToBeAdded], @"Price": [NSNumber numberWithFloat:[self getItemPrice:_bubbleToBeAdded]] }];
 }
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
@@ -125,4 +139,17 @@
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 }
 
+- (float)getItemPrice:(int)bubbleNum {
+    switch (bubbleNum) {
+        case 10: return 0.99;
+        case 35: return 2.99;
+        case 60: return 4.99;
+        case 130: return 9.99;
+        default: return 0;
+    }
+}
+
+- (void)updateBubbleNumText {
+    _youHaveBubbleNum.string = [@"You have " stringByAppendingString:[NSString stringWithFormat:@"%d", _gameManager.bubbleNum]];
+}
 @end

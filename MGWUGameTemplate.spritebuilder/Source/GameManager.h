@@ -80,6 +80,7 @@
 /* UI effect methods. */
 
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
++ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
 
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName;

@@ -77,11 +77,8 @@
         [_bubble removeFromParent];
         _inBubble = false;
         
-        CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/BubbleVanish"];
-        explosion.autoRemoveOnFinish = TRUE;
-        explosion.position = ccp(0.5, 0.2);
-        explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-        [_character addChild:explosion];
+        [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+        
         [_character stop];
         
         CCAnimationManager* animationManager = _mainScene.userObject;
@@ -98,20 +95,12 @@
     CCLOG(@"newTime %@", newTime);
     CCLOG(@"oldTime %@", oldTime);
     
-    if (oldTime) {
-        if ([[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
-            CCLOG(@"new 10 bubbles!");
-            CCNode *_newBubblePopUp = [CCBReader load:@"PopUp/NewBubblePopUp"];
-            _newBubblePopUp.position = ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight / 2);
-            [self addChild:_newBubblePopUp];
-            [_gameManager addBubble:10];
-            [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
-        } else {
-            [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
-        }
-    } else {
-        // first time play game.
+    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+        CCLOG(@"new 10 bubbles!");
+        [GameManager addCCNodeFromFile:@"PopUp/NewBubblePopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+        [_gameManager addBubble:10];
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+    } else {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     }
 }
@@ -122,6 +111,10 @@
     _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerBottomRight);
 
     [self addChild:_popUp];
+}
+
+- (void)shop {
+    [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
 }
 
 - (void)facebook {
@@ -138,11 +131,12 @@
     [_gameManager addBubble:5];
 }
 
-- (void)resetHighestScore {
-    CCLOG(@".....just reset highest score.");
-//    [_gameManager setHighestScore:0];
+- (void)reset {
+    CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.bubbleNum = 0;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:0 forKey:@"lastGiftTime"];
 }
 
 @end

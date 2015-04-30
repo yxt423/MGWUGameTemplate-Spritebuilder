@@ -140,29 +140,17 @@
                 [_bubble removeFromParent];
                 
                 // show remove bubble animation.
-                CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/BubbleVanish"];
-                explosion.autoRemoveOnFinish = TRUE;
-                explosion.position = ccp(0.5, 0.2);
-                explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-                [_character addChild:explosion];
+                [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
             }
         }
     }
     
     else if (_gameManager.gamePlayState == 2) { // to be resumed
-        _physicsNode.paused = NO;
-        [self startUserInteraction];
-        [self followCharacter];
-        _gameManager.gamePlayState = 0;
+        [self resume];
     }
-    
     else if (_gameManager.gamePlayState == 3) { // to be restarted.
-        CCScene *gameplayScene = [CCBReader loadAsScene:@"GamePlay"];
-        [[CCDirector sharedDirector] replaceScene:gameplayScene];
-        _gameManager.gamePlayState = 0;
-        CCLOG(@"restarted!");
+        [self restart];
     }
-    
     else if (_gameManager.gamePlayState == 4) { // sound setting to be reversed
         _gameManager.audio.muted = _gameManager.muted;
         _gameManager.gamePlayState = 1;
@@ -408,6 +396,19 @@
     }
 }
 
+- (void)resume {
+    _physicsNode.paused = NO;
+    [self startUserInteraction];
+    [self followCharacter];
+    _gameManager.gamePlayState = 0;
+}
+
+- (void)restart {
+    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    _gameManager.gamePlayState = 0;
+    CCLOG(@"restarted!");
+}
+
 - (void)buttonBubble {
     // the button works when the character is not in bubble.
     if (_inBubble) {
@@ -423,9 +424,7 @@
             // put character in bubble.
             _inBubble = true;
             _bubbleUsed += 1;
-            _bubble = [CCBReader load:@"Objects/Bubble"];
-            _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
-            [_character addChild:_bubble];
+            [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
             [_character bubbleUp];
                 
             [_gameManager addBubble:-1];
