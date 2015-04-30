@@ -28,6 +28,7 @@
     int currentScore;
     int highestScore;
     bool newHighScore;
+    NSMutableArray *scoreBoard;
     
     // stats, objects count.
     int gamePlayTimes;
@@ -52,6 +53,7 @@
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
 @property (nonatomic, assign) bool newHighScore;
+@property (nonatomic, retain) NSMutableArray *scoreBoard;
 
 @property (nonatomic, assign) int gamePlayTimes;
 @property (nonatomic, assign) int bubbleNum;
@@ -63,6 +65,7 @@
 
 /* parameters related */
 
+- (void)updateScoreBoard: (int)score;
 - (void)addBubble: (int)num;
 - (float)getRandomXAtSameLineWith: (float)x;
 

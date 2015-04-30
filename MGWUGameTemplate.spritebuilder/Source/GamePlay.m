@@ -81,6 +81,7 @@
     _timeInBubble = 0.0f;
     _bubbleUsed = 0;
     
+    _gameManager.gamePlayState = 0;
     _gameManager.characterHighest = 0;
     _gameManager.sharedObjectsGroup = _objectsGroup;
     _gameManager.newHighScore = false;
@@ -359,12 +360,18 @@
 
 // update current score and highest score, stop user interaction on GamePlay, load GameOver scene.
 - (void)endGame {
+    if (_gameManager.gamePlayState == -1) {
+        return; // endGame is already called once.
+    }
+    
+    _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
     _gameManager.currentScore = _score;
     if (_score > _gameManager.highestScore) {
         _gameManager.highestScore = _score;
         _gameManager.newHighScore = true;
     }
+    [_gameManager updateScoreBoard:_score];
     
     [self stopUserInteraction];
     [self trackGameEnd];

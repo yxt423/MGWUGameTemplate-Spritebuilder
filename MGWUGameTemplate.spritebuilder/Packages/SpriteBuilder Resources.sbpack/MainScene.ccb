@@ -10,11 +10,11 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>56</integer>
+	<integer>59</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>0</integer>
+	<integer>2</integer>
 	<key>currentSequenceId</key>
 	<integer>1</integer>
 	<key>docDimensionsType</key>
@@ -1101,8 +1101,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.0</real>
-									<real>0.0</real>
+									<real>1</real>
+									<real>1</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -1379,6 +1379,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 						<key>seqExpanded</key>
 						<true/>
 					</dict>
@@ -1584,8 +1586,8 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.0</real>
-									<real>0.0</real>
+									<real>1</real>
+									<real>1</real>
 									<false/>
 									<integer>0</integer>
 								</array>
@@ -2023,7 +2025,7 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>ButtonFB</string>
+						<string>ButtonScoreBoard</string>
 						<key>memberVarAssignmentName</key>
 						<string></string>
 						<key>memberVarAssignmentType</key>
@@ -2098,7 +2100,7 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string>facebook</string>
+									<string>scoreBoard</string>
 									<integer>1</integer>
 								</array>
 							</dict>
@@ -2163,7 +2165,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Assets/Button/Button_Facebook_240.png</string>
+									<string>Assets/Button/Button_scoreBoard_240.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -2174,7 +2176,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Assets/Button/Button_Facebook_240.png</string>
+									<string>Assets/Button/Button_scoreBoard_240.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -2361,8 +2363,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 						<key>seqExpanded</key>
 						<true/>
 					</dict>
@@ -3886,11 +3886,11 @@ Jumper</string>
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>80</real>
-									<real>1.1000000238418579</real>
+									<real>40</real>
+									<real>500</real>
 									<integer>0</integer>
 									<integer>0</integer>
-									<integer>2</integer>
+									<integer>0</integer>
 								</array>
 							</dict>
 							<dict>
@@ -4147,7 +4147,7 @@ Jumper</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>2.6666667461395264</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -4183,7 +4183,7 @@ Jumper</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.83333331346511841</real>
+			<real>1.1666666269302368</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

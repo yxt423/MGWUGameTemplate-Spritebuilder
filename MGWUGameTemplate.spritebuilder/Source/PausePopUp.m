@@ -11,6 +11,8 @@
 
 #import "PausePopUp.h"
 #import "GameManager.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 static NSString * const buttonMusic = @"Assets/Button/Button_music_240.png";
 static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
@@ -75,6 +77,15 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 
 - (void)info {
     [GameManager replaceSceneWithFadeTransition:@"InfoScene"];
+}
+
+- (void)facebook {
+    // TODO: change the sharing content!!!!
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:@"http://developers.facebook.com"];
+    [FBSDKShareDialog showFromViewController:[CCDirector sharedDirector]
+                                 withContent:content
+                                    delegate:nil];
 }
 
 @end

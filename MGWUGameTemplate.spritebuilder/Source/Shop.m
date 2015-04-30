@@ -30,7 +30,6 @@
 }
 
 - (void)cancel {
-    CCLOG(@"Shop - cancel");
     [GameManager playThenCleanUpAnimationOf:_shop Named:@"Disappear"];
 }
 

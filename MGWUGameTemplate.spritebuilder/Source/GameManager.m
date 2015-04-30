@@ -17,6 +17,7 @@
 
 @implementation GameManager {
     Mixpanel *_mixpanel;
+    NSUserDefaults *_defaults;
 }
 
 @synthesize screenHeight, screenWidth;
@@ -25,6 +26,7 @@
 @synthesize tapUIScaleDifference;
 @synthesize currentScore, highestScore;
 @synthesize newHighScore;
+@synthesize scoreBoard;
 @synthesize gamePlayState;
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
@@ -42,18 +44,19 @@
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
         characterHighest = 0;
+        _defaults = [NSUserDefaults standardUserDefaults];
         
         // init veriables from local
-        highestScore = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];  // long to int, loss
-        gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
+        highestScore = (int)[_defaults integerForKey:@"highscore"];  // long to int, loss
+        gamePlayTimes = (int)[_defaults integerForKey:@"gamePlayTimes"];
         if (!gamePlayTimes) {
             gamePlayTimes = 0;
         }
-        muted = [[NSUserDefaults standardUserDefaults] boolForKey:@"muted"];
+        muted = [_defaults boolForKey:@"muted"];
         if (!muted) {
             muted = false;
         }
-        bubbleNum = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"bubbleNum"];
+        bubbleNum = (int)[_defaults integerForKey:@"bubbleNum"];
         if (!bubbleNum) {
             bubbleNum = 0;
         }
@@ -61,6 +64,8 @@
         audio = [OALSimpleAudio sharedInstance];
         audio.effectsVolume = 1;
         audio.muted = muted;
+        
+        scoreBoard = [NSMutableArray arrayWithArray:[_defaults arrayForKey:@"scoreBoard"]];
         
         _mixpanel = [Mixpanel sharedInstance];
         [_mixpanel track:@"Game Open"];
@@ -95,26 +100,51 @@
 
 /* parameters related */
 
+- (void)updateScoreBoard: (int)score {
+    if ([scoreBoard count] == 0) {
+        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:0];
+        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+        [_defaults synchronize];
+        CCLOG(@"Saved new score of %@", scoreBoard);
+        return;
+    }
+    
+    for (int i = 0; i < [scoreBoard count]; i++) {
+        if (score >= [[scoreBoard objectAtIndex:i] intValue]) {
+            [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:i];
+            if ([scoreBoard count] > 5) {
+                [scoreBoard removeLastObject];
+            }
+            
+            [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+            [_defaults synchronize];
+            
+            CCLOG(@"Saved new score of %@", scoreBoard);
+            break;
+        }
+    }
+}
+
 - (void)setHighestScore: (int)score {
     CCLOG(@"new high score!");
     highestScore = score;
-    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:@"highscore"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [_defaults setInteger:score forKey:@"highscore"];
+    [_defaults synchronize];
 }
 
 - (void)addBubble: (int)num {
     // add bubbleNum and save to local.
     bubbleNum += num;
-    [[NSUserDefaults standardUserDefaults] setInteger:bubbleNum forKey:@"bubbleNum"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [_defaults setInteger:bubbleNum forKey:@"bubbleNum"];
+    [_defaults synchronize];
 }
 
 - (void)setBubbleNum:(int)num {
     CCLOG(@"set bubble num to %d", num);
     
     bubbleNum = num;
-    [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"bubbleNum"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [_defaults setInteger:num forKey:@"bubbleNum"];
+    [_defaults synchronize];
 }
 
 - (float)getRandomXAtSameLineWith: (float)x {

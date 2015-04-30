@@ -15,8 +15,6 @@
 #import "InfoScene.h"
 #import "Mixpanel.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKShareKit/FBSDKShareKit.h>
 
 @implementation MainScene {
     CCButton *_buttonSetting;
@@ -40,7 +38,7 @@
     _physicsNode.collisionDelegate = self;
     _timeSinceUpdate = 0.f;
     _inBubble = false;
-    _canUpdate = false;
+    _canUpdate = true;
 }
 
 - (void)onEnter {
@@ -61,9 +59,9 @@
     }
     
     if(_canUpdate && _inBubble) {
-        if (_character.position.x < 100) {
+        if (_character.position.x < 50) {
             [_character.physicsBody applyImpulse:ccp(50.f, 0.f)];
-        } else if (_character.position.x > 200) {
+        } else if (_character.position.x > 150) {
             [_character.physicsBody applyImpulse:ccp(-50.f, 0.f)];
         }
         
@@ -117,26 +115,22 @@
     [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
 }
 
-- (void)facebook {
-    // TODO: change the sharing content!!!!
-    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL = [NSURL URLWithString:@"http://developers.facebook.com"];
-    [FBSDKShareDialog showFromViewController:[CCDirector sharedDirector]
-                                  withContent:content
-                                     delegate:nil];
+- (void)scoreBoard {
+    CCLOG(@"show score board");
 }
 
 - (void)buttonAddBubble {
     CCLOG(@".....just add more bubbles.");
-    [_gameManager addBubble:5];
+    [_gameManager addBubble:2];
 }
 
 - (void)reset {
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.bubbleNum = 0;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"scoreBoard"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:0 forKey:@"lastGiftTime"];
+//    [[NSUserDefaults standardUserDefaults] setObject:0 forKey:@"lastGiftTime"];
 }
 
 @end
