@@ -7,7 +7,8 @@
 //
 
 #import "CCNode.h"
+#import <StoreKit/StoreKit.h>
 
-@interface Shop : CCNode
+@interface Shop : CCNode <SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
 @end
