@@ -66,6 +66,10 @@
 - (void)addBubble: (int)num;
 - (float)getRandomXAtSameLineWith: (float)x;
 
+// get CCPositionType.
+- (CCPositionType)getPTNormalizedTopLeft;
+- (CCPositionType)getPTUnitTopLeft;
+
 /** Class methods */
 
 /* get game parameters */
@@ -75,10 +79,12 @@
 
 /* UI effect methods. */
 
-+ (NSString *)scoreWithComma: (int)s;
++ (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
++ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
 
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName;
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName;
-+ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
+
++ (NSString *)scoreWithComma: (int)s;
 
 @end

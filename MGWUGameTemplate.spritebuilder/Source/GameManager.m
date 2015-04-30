@@ -15,7 +15,6 @@
 #import "Mixpanel.h"
 #import "MainScene.h"
 
-
 @implementation GameManager {
     Mixpanel *_mixpanel;
 }
@@ -165,7 +164,45 @@
     return _cloudScale;
 }
 
+- (CCPositionType)getPTNormalizedTopLeft {
+    return CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
+}
+
+- (CCPositionType)getPTUnitTopLeft {
+    return CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
+}
+
 /* UI effect methods. */
+
++ (void)replaceSceneWithFadeTransition: (NSString*)newSceneName {
+    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
+    [[CCDirector sharedDirector] replaceScene:newScene withTransition:transition];
+}
+
++ (void)pushSceneWithFadeTransition: (NSString*)newSceneName {
+    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
+    [[CCDirector sharedDirector] pushScene:newScene withTransition:transition];
+}
+
++ (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
+    CCNode * node = [CCBReader load:fileName];
+    node.positionType =positionType;
+    node.position = position;
+    [parentNode addChild:node];
+    return node;
+}
+
++ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {
+    CCAnimationManager* animationManager = node.userObject;
+    [animationManager runAnimationsForSequenceNamed:name];
+    
+    // remove the node from scene after finish.
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [node removeFromParentAndCleanup:YES];
+    }];
+}
 
 + (NSString *)scoreWithComma: (int)s{
     NSString * result = @"";
@@ -187,28 +224,6 @@
     }
     
     return result;
-}
-
-+ (void)replaceSceneWithFadeTransition: (NSString*)newSceneName {
-    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
-    [[CCDirector sharedDirector] replaceScene:newScene withTransition:transition];
-}
-
-+ (void)pushSceneWithFadeTransition: (NSString*)newSceneName {
-    CCScene *newScene = [CCBReader loadAsScene:newSceneName];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
-    [[CCDirector sharedDirector] pushScene:newScene withTransition:transition];
-}
-
-+ (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {
-    CCAnimationManager* animationManager = node.userObject;
-    [animationManager runAnimationsForSequenceNamed:name];
-    
-    // remove the node from scene after finish.
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [node removeFromParentAndCleanup:YES];
-    }];
 }
 
 @end

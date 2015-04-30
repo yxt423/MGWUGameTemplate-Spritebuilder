@@ -24,7 +24,6 @@
 - (void)cancel {
     CCLOG(@"Shop - cancel");
     [GameManager playThenCleanUpAnimationOf:_shop Named:@"Disappear"];
-    _gameManager.gamePlayState = 2;
 }
 
 - (void)bubble1 {

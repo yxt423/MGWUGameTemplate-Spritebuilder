@@ -400,10 +400,7 @@
 
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {
-        _popUp = [CCBReader load:@"PopUp/PausePopUp"];
-        _popUp.position = _buttonPause.position;
-        _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
-        [_gamePlay addChild:_popUp];
+        [GameManager addCCNodeFromFile:@"PopUp/PausePopUp" WithPosition:_buttonPause.position Type:_gameManager.getPTUnitTopLeft To:_gamePlay];
         
         _physicsNode.paused = YES;
         [self stopUserInteraction];
@@ -413,42 +410,32 @@
 
 - (void)buttonBubble {
     // the button works when the character is not in bubble.
-    if (!_inBubble) {
-        if (_bubbleUsed >= 3) {
-            
-        } else {
-            
-        }
+    if (_inBubble) {
+        return;
+    }
+    
+    if (_bubbleUsed >= 3) {
+        // pop up bubble limit
+        CCNode * _bubbleLimitPopUp = [GameManager addCCNodeFromFile:@"PopUp/BubbleLimitPopUp" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
+        [GameManager playThenCleanUpAnimationOf:_bubbleLimitPopUp Named:@"Show"];
+    } else {
         if (_gameManager.bubbleNum > 0) {
-            if (_bubbleUsed >= 3) {
-                // show: you can use at most 3 bubbles in one game.
-                CCNode * _bubbleLimitPopUp = [CCBReader load:@"PopUp/BubbleLimitPopUp"];
-                _bubbleLimitPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-                _bubbleLimitPopUp.position = ccp(0.5, 0.3);
-                [self addChild:_bubbleLimitPopUp];
-                [GameManager playThenCleanUpAnimationOf:_bubbleLimitPopUp Named:@"Show"];
+            // put character in bubble.
+            _inBubble = true;
+            _bubbleUsed += 1;
+            _bubble = [CCBReader load:@"Objects/Bubble"];
+            _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
+            [_character addChild:_bubble];
+            [_character bubbleUp];
                 
-            } else { // put character in bubble.
-                _inBubble = true;
-                _bubbleUsed += 1;
-                _bubble = [CCBReader load:@"Objects/Bubble"];
-                _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
-                [_character addChild:_bubble];
-                [_character bubbleUp];
-                
-                [_gameManager addBubble:-1];
-                _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
-            }
+            [_gameManager addBubble:-1];
+            _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+        } else {
+            // pop up shop window.
+            _gameManager.gamePlayState = 0;
+            [self pause];
             
-        } else { // pop up shop window.
-            _physicsNode.paused = YES;
-            [self stopUserInteraction];
-            _gameManager.gamePlayState = 1;
-            
-            CCNode * _shopPopUp = [CCBReader load:@"PopUp/Shop"];
-            _shopPopUp.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-            _shopPopUp.position = ccp(0.5, 0.5);
-            [self addChild:_shopPopUp];
+            [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
         }
     }
 }
