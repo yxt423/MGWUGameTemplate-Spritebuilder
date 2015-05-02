@@ -8,7 +8,7 @@
 
 #import "CCNode.h"
 
-@interface GameOver : CCNode
+@interface GameOver : CCNode <UITextFieldDelegate>
 
 
 @property (nonatomic, assign) int score;

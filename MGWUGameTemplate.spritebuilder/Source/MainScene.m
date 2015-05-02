@@ -39,6 +39,9 @@
     _timeSinceUpdate = 0.f;
     _inBubble = false;
     _canUpdate = true;
+    
+    // prevent the ground from being removed.
+    _gameManager.characterHighest = 0;
 }
 
 - (void)onEnter {
@@ -116,7 +119,7 @@
 }
 
 - (void)scoreBoard {
-    CCLOG(@"show score board");
+    [GameManager replaceSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
 - (void)buttonAddBubble {
@@ -128,7 +131,11 @@
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.bubbleNum = 0;
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"scoreBoard"];
+    
+    _gameManager.scoreBoard = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"scoreBoard"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    _gameManager.scoreBoard = [[NSMutableArray alloc] init];
     
 //    [[NSUserDefaults standardUserDefaults] setObject:0 forKey:@"lastGiftTime"];
 }

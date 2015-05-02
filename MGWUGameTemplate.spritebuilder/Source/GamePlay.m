@@ -84,6 +84,7 @@
     _gameManager.gamePlayState = 0;
     _gameManager.characterHighest = 0;
     _gameManager.sharedObjectsGroup = _objectsGroup;
+    _gameManager.bubbleNumLabel = _bubbleNumLabel;
     _gameManager.newHighScore = false;
     _gameManager.cloudHit = 0;
     
@@ -376,9 +377,6 @@
     [self stopUserInteraction];
     [self trackGameEnd];
     
-    // prevent the ground from being removed on game over scene.
-    _gameManager.characterHighest = 0;
-    
     [GameManager replaceSceneWithFadeTransition:@"GameOver"];
 }
 
@@ -431,7 +429,7 @@
             // put character in bubble.
             _inBubble = true;
             _bubbleUsed += 1;
-            [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+            _bubble = [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
             [_character bubbleUp];
                 
             [_gameManager addBubble:-1];

@@ -24,13 +24,17 @@
 @synthesize screenLeft, screenRight;
 @synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize tapUIScaleDifference;
+
 @synthesize currentScore, highestScore;
 @synthesize newHighScore;
 @synthesize scoreBoard;
+@synthesize userName;
+
 @synthesize gamePlayState;
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+@synthesize bubbleNumLabel;
 @synthesize gamePlayTimes;
 @synthesize bubbleNum;
 @synthesize cloudHit;
@@ -66,6 +70,8 @@
         audio.muted = muted;
         
         scoreBoard = [NSMutableArray arrayWithArray:[_defaults arrayForKey:@"scoreBoard"]];
+        userName = [_defaults stringForKey:@"userName"];
+        CCLOG(@"userName %@", userName);
         
         _mixpanel = [Mixpanel sharedInstance];
         [_mixpanel track:@"Game Open"];
@@ -105,6 +111,7 @@
         [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:0];
         [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
         [_defaults synchronize];
+        CCLOG(@"1");
         CCLOG(@"Saved new score of %@", scoreBoard);
         return;
     }
@@ -119,9 +126,18 @@
             [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
             [_defaults synchronize];
             
+            CCLOG(@"2");
             CCLOG(@"Saved new score of %@", scoreBoard);
-            break;
+            return;
         }
+    }
+    
+    if ([scoreBoard count] < 5) {
+        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:[scoreBoard count]];
+        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+        [_defaults synchronize];
+        CCLOG(@"3");
+        CCLOG(@"Saved new score of %@", scoreBoard);
     }
 }
 
@@ -145,6 +161,10 @@
     bubbleNum = num;
     [_defaults setInteger:num forKey:@"bubbleNum"];
     [_defaults synchronize];
+}
+
+- (void)updateBubbleNumInGamePlay:(int)num {
+    bubbleNumLabel.string = [NSString stringWithFormat:@"%d", bubbleNum];
 }
 
 - (float)getRandomXAtSameLineWith: (float)x {

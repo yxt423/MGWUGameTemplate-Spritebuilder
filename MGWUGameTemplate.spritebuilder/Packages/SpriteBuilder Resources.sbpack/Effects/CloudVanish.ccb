@@ -315,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>Assets/EffectTexture/BubbleVanishTexture.png</string>
+				<string>Assets/EffectTexture/CloudVanishTexture.png</string>
 			</dict>
 		</array>
 		<key>selected</key>

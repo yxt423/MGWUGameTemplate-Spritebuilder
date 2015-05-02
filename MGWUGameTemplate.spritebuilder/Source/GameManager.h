@@ -23,12 +23,14 @@
     int cloudHit;
     CCNode *sharedObjectsGroup;
     OALSimpleAudio *audio;
+    CCLabelTTF *bubbleNumLabel;
     
     // for game over scene.
     int currentScore;
     int highestScore;
     bool newHighScore;
     NSMutableArray *scoreBoard;
+    NSString *userName;
     
     // stats, objects count.
     int gamePlayTimes;
@@ -49,11 +51,14 @@
 @property (nonatomic, assign) int characterHighest;
 @property (nonatomic, retain) CCNode *sharedObjectsGroup;
 @property (nonatomic, retain) OALSimpleAudio *audio;
+@property (nonatomic, retain) CCLabelTTF *bubbleNumLabel;
 
+// score related.
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
 @property (nonatomic, assign) bool newHighScore;
 @property (nonatomic, retain) NSMutableArray *scoreBoard;
+@property (nonatomic, retain) NSString *userName;
 
 @property (nonatomic, assign) int gamePlayTimes;
 @property (nonatomic, assign) int bubbleNum;
@@ -67,6 +72,7 @@
 
 - (void)updateScoreBoard: (int)score;
 - (void)addBubble: (int)num;
+- (void)updateBubbleNumInGamePlay:(int)num;
 - (float)getRandomXAtSameLineWith: (float)x;
 
 // get CCPositionType.
