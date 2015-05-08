@@ -7,8 +7,19 @@
 //
 
 #import "CCNode.h"
-#import <StoreKit/StoreKit.h>
 
-@interface Shop : CCNode <SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@interface Shop : CCNode {
+    int bubbleToBeAdded;
+    NSString * productName;
+    
+    CCLabelTTF *youHaveBubbleNumLabel;
+}
+
+@property (nonatomic, assign) int bubbleToBeAdded;
+@property (nonatomic, retain) NSString * productName;
+
+@property (nonatomic, retain) CCLabelTTF *youHaveBubbleNumLabel;
+
+- (void)updateBubbleNumText;
 
 @end

@@ -111,8 +111,6 @@
         [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:0];
         [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
         [_defaults synchronize];
-        CCLOG(@"1");
-        CCLOG(@"Saved new score of %@", scoreBoard);
         return;
     }
     
@@ -125,9 +123,6 @@
             
             [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
             [_defaults synchronize];
-            
-            CCLOG(@"2");
-            CCLOG(@"Saved new score of %@", scoreBoard);
             return;
         }
     }
@@ -136,8 +131,6 @@
         [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:[scoreBoard count]];
         [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
         [_defaults synchronize];
-        CCLOG(@"3");
-        CCLOG(@"Saved new score of %@", scoreBoard);
     }
 }
 

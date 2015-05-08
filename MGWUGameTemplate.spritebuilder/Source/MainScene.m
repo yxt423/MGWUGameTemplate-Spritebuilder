@@ -10,6 +10,7 @@
 #import "MainScene.h"
 #import "GamePlay.h"
 #import "GameManager.h"
+#import "IAPManager.h"
 #import "Character.h"
 #import "Groud.h"
 #import "InfoScene.h"
@@ -20,6 +21,7 @@
     CCButton *_buttonSetting;
     CCButton *_buttonFB;
     GameManager *_gameManager;
+    IAPManager *_iapManager;
     CCPhysicsNode *_physicsNode;
     Mixpanel *_mixpanel;
     CCNode *_mainScene;
@@ -33,6 +35,7 @@
 
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
+    _iapManager = [IAPManager getIAPManager];
     _mixpanel = [Mixpanel sharedInstance];
     
     _physicsNode.collisionDelegate = self;
