@@ -53,6 +53,7 @@
 @property (nonatomic, assign) int mainSceneState;
 @property (nonatomic, assign) int shopSceneNo;
 
+// for game play scene.
 @property (nonatomic, assign) bool muted;
 @property (nonatomic, assign) int cloudHit;
 @property (nonatomic, assign) int characterHighest;
@@ -99,8 +100,10 @@
 + (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
 
+/* scene loading methods */
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName;
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName;
++ (void)popSceneWithFadeTransition;
 
 + (NSString *)scoreWithComma: (int)s;
 

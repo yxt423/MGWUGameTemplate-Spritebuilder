@@ -33,6 +33,15 @@
     bool _canUpdate;
 }
 
+- (id)init {
+    self = [super init];
+    if (!self) return(nil);
+    
+    _inBubble = true;
+    
+    return self;
+}
+
 - (void)didLoadFromCCB {
     _gameManager = [GameManager getGameManager];
     _iapManager = [IAPManager getIAPManager];
@@ -40,7 +49,6 @@
     
     _physicsNode.collisionDelegate = self;
     _timeSinceUpdate = 0.f;
-    _inBubble = false;
     _canUpdate = true;
     
     // prevent the ground from being removed.
@@ -51,11 +59,6 @@
     [super onEnter];
     // init devide parameters.
     [_gameManager initDeviceParam:self];
-    
-    _bubble = [CCBReader load:@"Objects/Bubble"];
-    _bubble.position = ccp(_character.boundingBox.size.width / 2, _character.boundingBox.size.height / 2);
-    [_character addChild:_bubble];
-    _inBubble = true;
 }
 
 - (void)update:(CCTime)delta {
@@ -64,7 +67,12 @@
         _canUpdate = true;
     }
     
-    if(_canUpdate && _inBubble) {
+    if (!_inBubble) { // no updates if the character is not in bubble.
+        return;
+    }
+    
+    // limit the character in a certain area of the screen.
+    if (_canUpdate) {
         if (_character.position.x < 50) {
             [_character.physicsBody applyImpulse:ccp(50.f, 0.f)];
         } else if (_character.position.x > 150) {
@@ -74,6 +82,9 @@
         _canUpdate = false;
         _timeSinceUpdate = 0;
     }
+    
+    // let the bubble move with character.
+    _bubble.position = _character.position;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
@@ -136,7 +147,7 @@
         return;
     }
     
-    [GameManager replaceSceneWithFadeTransition:@"SocreBoardScene"];
+    [GameManager pushSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
 - (void)buttonAddBubble {

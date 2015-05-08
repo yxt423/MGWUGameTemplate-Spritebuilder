@@ -33,6 +33,7 @@
 @synthesize gamePlayState;
 @synthesize mainSceneState;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
+
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -212,6 +213,8 @@
     return _cloudScale;
 }
 
+/* get PositionType */
+
 - (CCPositionType)getPTNormalizedTopLeft {
     return CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
 }
@@ -220,23 +223,31 @@
     return CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
 }
 
-/* UI effect methods. */
+/* scene loading methods */
+
++ (CCTransition *)getFadeTransition {
+    return [CCTransition transitionFadeWithDuration:0.4f];
+}
 
 + (void)replaceSceneWithFadeTransition: (NSString*)newSceneName {
     CCScene *newScene = [CCBReader loadAsScene:newSceneName];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
-    [[CCDirector sharedDirector] replaceScene:newScene withTransition:transition];
+    [[CCDirector sharedDirector] replaceScene:newScene withTransition:[self getFadeTransition]];
 }
 
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName {
     CCScene *newScene = [CCBReader loadAsScene:newSceneName];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.4f];
-    [[CCDirector sharedDirector] pushScene:newScene withTransition:transition];
+    [[CCDirector sharedDirector] pushScene:newScene withTransition:[self getFadeTransition]];
 }
+
++ (void)popSceneWithFadeTransition {
+    [[CCDirector sharedDirector] popSceneWithTransition:[self getFadeTransition]];
+}
+
+/* noces / objects loading methods. */
 
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
     CCNode * node = [CCBReader load:fileName];
-    node.positionType =positionType;
+    node.positionType = positionType;
     node.position = position;
     [parentNode addChild:node];
     return node;
@@ -259,6 +270,8 @@
         [node removeFromParentAndCleanup:YES];
     }];
 }
+
+/* UI utilities. */
 
 + (NSString *)scoreWithComma: (int)s{
     NSString * result = @"";

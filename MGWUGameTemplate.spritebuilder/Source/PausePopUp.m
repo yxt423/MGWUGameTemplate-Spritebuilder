@@ -76,7 +76,7 @@ static NSString * const buttonMuted = @"Assets/Button/Button_muted_240.png";
 }
 
 - (void)info {
-    [GameManager replaceSceneWithFadeTransition:@"InfoScene"];
+    [GameManager pushSceneWithFadeTransition:@"InfoScene"];
 }
 
 - (void)facebook {

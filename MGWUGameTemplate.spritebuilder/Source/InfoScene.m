@@ -12,7 +12,8 @@
 @implementation InfoScene
 
 - (void)backToMainScene {
-    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
+    [GameManager popSceneWithFadeTransition];
+//    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
 }
 
 @end
