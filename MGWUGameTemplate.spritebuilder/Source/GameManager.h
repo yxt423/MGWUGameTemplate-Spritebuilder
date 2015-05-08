@@ -16,8 +16,12 @@
     int screenHeightInPoints, screenWidthInPoints;
     int tapUIScaleDifference;
     
-    // for game play scene.
+    // scene states.
     int gamePlayState;
+    int mainSceneState;
+    int shopSceneNo;
+    
+    // for game play scene.
     bool muted;
     int characterHighest;
     int cloudHit;
@@ -46,6 +50,9 @@
 // tapUIPositionDifference = screenWidthInPoints / screenWidth;
 
 @property (nonatomic, assign) int gamePlayState;
+@property (nonatomic, assign) int mainSceneState;
+@property (nonatomic, assign) int shopSceneNo;
+
 @property (nonatomic, assign) bool muted;
 @property (nonatomic, assign) int cloudHit;
 @property (nonatomic, assign) int characterHighest;

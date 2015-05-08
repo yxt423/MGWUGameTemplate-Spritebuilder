@@ -118,7 +118,9 @@
     // add bubble in game.
     [_gameManager addBubble:shop.bubbleToBeAdded];
     [self updateBubbleNumText];
-    [_gameManager updateBubbleNumInGamePlay:_gameManager.bubbleNum];
+    if (_gameManager.shopSceneNo == 2) {
+        [_gameManager updateBubbleNumInGamePlay:_gameManager.bubbleNum];
+    }
     
     // track in mixpanel.
     [_mixpanel track:@"Transaction Finish" properties:@{@"ItemName": @"Bubble", @"Number": [NSNumber numberWithInt:shop.bubbleToBeAdded], @"Price": [NSNumber numberWithFloat:[self getItemPrice:shop.bubbleToBeAdded]] }];

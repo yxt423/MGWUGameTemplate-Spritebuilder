@@ -41,6 +41,7 @@
         _highScoreLabel.string = [GameManager scoreWithComma:highScore];
     } else {
         CCLOG(@"game over new high score");
+//        CCNode * newHighScore = [GameManager addCCNodeFromFile:@"Effects/NewHighScore" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
         [GameManager addCCNodeFromFile:@"Effects/NewHighScore" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
         [_normalScore removeFromParent];
         
@@ -54,13 +55,11 @@
 //        yourName.preferredSize = CGSizeMake(92.2, 48);
 //        yourName.anchorPoint = ccp(0, 0.5);
 //        
-//        yourName.textField.textColor = [UIColor whiteColor];
-//        yourName.color = [CCColor whiteColor];
-////        yourName.textField.t
+////        yourName.textField.textColor = [UIColor redColor];
+////        yourName.color = [CCColor whiteColor];
 //        [yourName setFontSize:16.f];
 //        [yourName setColor:[CCColor whiteColor]];
 //        [newHighScore addChild:yourName];
-        
         
         // random Seed (only once)
         srand48(arc4random());

@@ -110,6 +110,10 @@
 }
 
 - (void)setting {
+    if (_gameManager.mainSceneState == 1) {
+        return;
+    }
+    
     CCNode *_popUp = [CCBReader load:@"PopUp/SettingPopUp"];
     _popUp.position = _buttonSetting.position;
     _popUp.positionType = CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerBottomRight);
@@ -118,10 +122,20 @@
 }
 
 - (void)shop {
+    if (_gameManager.mainSceneState == 1) {
+        return;
+    }
+    
     [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+    _gameManager.shopSceneNo = 1;
+    _gameManager.mainSceneState = 1;
 }
 
 - (void)scoreBoard {
+    if (_gameManager.mainSceneState == 1) {
+        return;
+    }
+    
     [GameManager replaceSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
@@ -134,6 +148,7 @@
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.bubbleNum = 0;
+    _gameManager.gamePlayTimes = 0;
     
     _gameManager.scoreBoard = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"scoreBoard"];

@@ -31,6 +31,8 @@
 @synthesize userName;
 
 @synthesize gamePlayState;
+@synthesize mainSceneState;
+@synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
@@ -47,6 +49,8 @@
         CCLOG(@"Game Maneger Init.");
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
+        // mainSceneState: 0, on going, 1 paused. 
+        mainSceneState = 0;
         characterHighest = 0;
         _defaults = [NSUserDefaults standardUserDefaults];
         

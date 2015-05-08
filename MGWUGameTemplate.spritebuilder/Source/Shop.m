@@ -32,6 +32,9 @@
 
 - (void)cancel {
     [GameManager playThenCleanUpAnimationOf:_shop Named:@"Disappear"];
+    if (_gameManager.shopSceneNo == 1) {
+        _gameManager.mainSceneState = 0;
+    }
 }
 
 - (void)bubble1 {

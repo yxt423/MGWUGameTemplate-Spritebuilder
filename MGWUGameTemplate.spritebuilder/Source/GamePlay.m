@@ -437,6 +437,7 @@
         } else {
             // pop up shop window.
             _gameManager.gamePlayState = 0;
+            _gameManager.shopSceneNo = 2;
             [self pause];
             
             [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
