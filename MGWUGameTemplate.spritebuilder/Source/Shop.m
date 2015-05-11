@@ -10,6 +10,7 @@
 #import "GameManager.h"
 #import "IAPManager.h"
 #import "Mixpanel.h"
+#import "BasicScene.h"
 
 @implementation Shop {
     CCNode *_shop;
@@ -30,9 +31,11 @@
     [self updateBubbleNumText];
 }
 
-- (void)cancel {
+- (void)cancel{
     [GameManager playThenCleanUpAnimationOf:_shop Named:@"Disappear"];
+    
     if (_gameManager.shopSceneNo == 1) {
+        [(BasicScene *)self.parent resumeAndUncover]; // the parent of shop must be a child of BasicScene.
         _gameManager.mainSceneState = 0;
     }
 }

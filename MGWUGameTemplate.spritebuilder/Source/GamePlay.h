@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "CCNode.h"
+//#import "CCNode.h"
+#import "BasicScene.h"
 
-@interface GamePlay : CCNode <CCPhysicsCollisionDelegate>
+@interface GamePlay : BasicScene <CCPhysicsCollisionDelegate>
 
 @property (nonatomic, assign) int score;
 @property (nonatomic, assign) int highScore;

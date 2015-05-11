@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MainScene.h"
+@class MainScene;
 
 @interface GameManager : NSObject {
     // device params.

@@ -20,10 +20,10 @@
 @implementation MainScene {
     CCButton *_buttonSetting;
     CCButton *_buttonFB;
-    GameManager *_gameManager;
+//    GameManager *_gameManager;
     IAPManager *_iapManager;
-    CCPhysicsNode *_physicsNode;
-    Mixpanel *_mixpanel;
+//    CCPhysicsNode *_physicsNode;
+//    Mixpanel *_mixpanel;
     CCNode *_mainScene;
     Character *_character;
     CCNode *_bubble;
@@ -43,9 +43,9 @@
 }
 
 - (void)didLoadFromCCB {
-    _gameManager = [GameManager getGameManager];
+//    _gameManager = [GameManager getGameManager];
     _iapManager = [IAPManager getIAPManager];
-    _mixpanel = [Mixpanel sharedInstance];
+//    _mixpanel = [Mixpanel sharedInstance];
     
     _physicsNode.collisionDelegate = self;
     _timeSinceUpdate = 0.f;
@@ -137,6 +137,7 @@
         return;
     }
     
+    [self pauseAndCover];
     [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
     _gameManager.shopSceneNo = 1;
     _gameManager.mainSceneState = 1;

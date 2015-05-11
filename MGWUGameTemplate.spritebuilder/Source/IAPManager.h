@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "Shop.h"
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+@class Shop;
 
 @interface IAPManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver> {
     bool isShopping;

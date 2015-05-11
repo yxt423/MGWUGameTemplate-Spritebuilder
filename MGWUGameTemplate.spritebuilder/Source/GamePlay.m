@@ -36,13 +36,13 @@
     CCNode *_walls;
     CCButton *_buttonPause;
     CCButton *_buttonBubble;
-    CCPhysicsNode *_physicsNode;
+//    CCPhysicsNode *_physicsNode;
     CCAction *_followCharacter;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_bubbleNumLabel;
     CCNode *_bubble;
-    GameManager *_gameManager;
-    Mixpanel *_mixpanel;
+//    GameManager *_gameManager;
+//    Mixpanel *_mixpanel;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -69,8 +69,8 @@
 }
 
 - (void)didLoadFromCCB {
-    _gameManager = [GameManager getGameManager];
-    _mixpanel = [Mixpanel sharedInstance];
+//    _gameManager = [GameManager getGameManager];
+//    _mixpanel = [Mixpanel sharedInstance];
     
     _score = 0;
     _starHit = 0;
@@ -282,7 +282,6 @@
     
     if (CGRectContainsPoint(_buttonPause.boundingBox, point) || CGRectContainsPoint(_buttonBubble.boundingBox, point)) {
         return;
-        // point 是大坐标。 does this work?
     }
     
     // if tap on left side of character, or very left of the screen, jump left. 
@@ -393,16 +392,16 @@
 
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {
+        [self pauseAndCover];
         [GameManager addCCNodeFromFile:@"PopUp/PausePopUp" WithPosition:_buttonPause.position Type:_gameManager.getPTUnitTopLeft To:_gamePlay];
         
-        _physicsNode.paused = YES;
         [self stopUserInteraction];
         _gameManager.gamePlayState = 1;
     }
 }
 
 - (void)resume {
-    _physicsNode.paused = NO;
+    [self resumeAndUncover];
     [self startUserInteraction];
     [self followCharacter];
     _gameManager.gamePlayState = 0;
@@ -416,7 +415,7 @@
 
 - (void)buttonBubble {
     // the button works when the character is not in bubble.
-    if (_inBubble) {
+    if (_inBubble || _gameManager.gamePlayState != 0) {
         return;
     }
     

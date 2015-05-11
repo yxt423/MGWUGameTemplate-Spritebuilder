@@ -75,12 +75,6 @@
         
             // new high score animation: random starVanish effect.
             [GameManager addParticleFromFile:@"Effects/StarVanish" WithPosition:ccp(drand48() / 2 + 0.25, drand48() / 5 + 0.1) Type:_gameManager.getPTNormalizedTopLeft To:self];
-            
-//            CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
-//            explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
-//            explosion.position = ccp(drand48() / 2 + 0.25, drand48() / 5 + 0.1);
-//            explosion.positionType = CCPositionTypeMake(CCPositionUnitNormalized, CCPositionUnitNormalized, CCPositionReferenceCornerTopLeft);
-//            [self addChild:explosion];
         }
     }
 }
@@ -94,7 +88,7 @@
 }
 
 - (void)scoreBoard {
-    [GameManager replaceSceneWithFadeTransition:@"SocreBoardScene"];
+    [GameManager pushSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
 - (void)facebookShare {
