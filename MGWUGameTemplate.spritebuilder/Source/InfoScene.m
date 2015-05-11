@@ -13,7 +13,6 @@
 
 - (void)backToMainScene {
     [GameManager popSceneWithFadeTransition];
-//    [GameManager replaceSceneWithFadeTransition:@"MainScene"];
 }
 
 @end

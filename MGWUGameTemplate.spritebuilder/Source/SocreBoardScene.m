@@ -13,12 +13,10 @@
     CCNode *_scores;
     CCLabelTTF *_score1;
     
-    GameManager *_gameManager;
     NSMutableArray *_scoreBoard;
 }
 
 - (void)didLoadFromCCB {
-    _gameManager = [GameManager getGameManager];
     _scoreBoard = _gameManager.scoreBoard;
     
     int yPosition = 0;

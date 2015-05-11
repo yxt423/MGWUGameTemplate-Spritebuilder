@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Apportable. All rights reserved.
 //
 
-//#import "CCNode.h"
 #import "BasicScene.h"
 
 @interface MainScene : BasicScene <CCPhysicsCollisionDelegate>

@@ -18,7 +18,6 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highScoreLabel;
     CCNode * _normalScore;
-    GameManager *_gameManager;
     CCTextField *_yourName;
     
     // game state flags.
@@ -26,7 +25,6 @@
 }
 
 - (void)didLoadFromCCB {
-    _gameManager = [GameManager getGameManager];
     _timeSinceLastAnimation = 0;
     
     // prevent the ground from being removed.

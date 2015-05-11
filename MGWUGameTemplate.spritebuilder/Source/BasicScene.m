@@ -13,7 +13,6 @@
 
 @implementation BasicScene
 
-
 @synthesize _mixpanel;
 @synthesize _physicsNode;
 @synthesize _gameManager;
@@ -30,7 +29,7 @@
     return self;
 }
 
-// pause function pair: used in mainScene and gamePlay
+/* pause function pair: used in mainScene and gamePlay */
 - (void)pauseAndCover {
     _physicsNode.paused = YES;
     pauseCover = [GameManager addCCNodeFromFile:@"Gadgets/PauseCover" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "CCScene.h"
+#import "BasicScene.h"
 
-@interface SocreBoardScene : CCScene
+@interface SocreBoardScene : BasicScene
 
 @end

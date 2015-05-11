@@ -1599,8 +1599,6 @@ Again</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -1739,7 +1737,7 @@ Again</string>
 				<key>displayName</key>
 				<string>CCPhysicsNode</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_physicsNode</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -1823,6 +1821,8 @@ Again</string>
 						<real>0.5</real>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

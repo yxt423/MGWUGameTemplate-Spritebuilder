@@ -20,10 +20,7 @@
 @implementation MainScene {
     CCButton *_buttonSetting;
     CCButton *_buttonFB;
-//    GameManager *_gameManager;
     IAPManager *_iapManager;
-//    CCPhysicsNode *_physicsNode;
-//    Mixpanel *_mixpanel;
     CCNode *_mainScene;
     Character *_character;
     CCNode *_bubble;
@@ -43,10 +40,7 @@
 }
 
 - (void)didLoadFromCCB {
-//    _gameManager = [GameManager getGameManager];
     _iapManager = [IAPManager getIAPManager];
-//    _mixpanel = [Mixpanel sharedInstance];
-    
     _physicsNode.collisionDelegate = self;
     _timeSinceUpdate = 0.f;
     _canUpdate = true;
@@ -166,8 +160,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"scoreBoard"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     _gameManager.scoreBoard = [[NSMutableArray alloc] init];
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:0 forKey:@"lastGiftTime"];
 }
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "CCNode.h"
+#import "BasicScene.h"
 
-@interface GameOver : CCNode <UITextFieldDelegate>
+@interface GameOver : BasicScene <UITextFieldDelegate>
 
 
 @property (nonatomic, assign) int score;

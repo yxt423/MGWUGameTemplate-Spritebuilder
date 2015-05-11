@@ -36,13 +36,10 @@
     CCNode *_walls;
     CCButton *_buttonPause;
     CCButton *_buttonBubble;
-//    CCPhysicsNode *_physicsNode;
     CCAction *_followCharacter;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_bubbleNumLabel;
     CCNode *_bubble;
-//    GameManager *_gameManager;
-//    Mixpanel *_mixpanel;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -69,9 +66,6 @@
 }
 
 - (void)didLoadFromCCB {
-//    _gameManager = [GameManager getGameManager];
-//    _mixpanel = [Mixpanel sharedInstance];
-    
     _score = 0;
     _starHit = 0;
     _contentHeight = 100;
