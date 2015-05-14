@@ -10,12 +10,10 @@
 #import "GameManager.h"
 
 @implementation CloudBlack {
-//    GameManager *_gameManager;
 }
 
 - (void)didLoadFromCCB {
     self.physicsBody.collisionType = @"cloudBlack";
-//    _gameManager = [GameManager getGameManager];
 }
 
 @end

@@ -11,8 +11,9 @@
 
 @implementation BasicObject {
     float _timeSinceUpdate;
-    GameManager *_gameManager;
 }
+
+@synthesize _gameManager;
 
 - (id)init {
     self = [super init];

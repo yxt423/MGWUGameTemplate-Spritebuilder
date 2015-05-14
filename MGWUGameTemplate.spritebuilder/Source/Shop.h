@@ -20,6 +20,4 @@
 
 @property (nonatomic, retain) CCLabelTTF *youHaveBubbleNumLabel;
 
-- (void)updateBubbleNumText;
-
 @end

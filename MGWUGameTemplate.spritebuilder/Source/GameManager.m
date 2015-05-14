@@ -20,8 +20,7 @@
     NSUserDefaults *_defaults;
 }
 
-@synthesize screenHeight, screenWidth;
-@synthesize screenLeft, screenRight;
+@synthesize screenHeight, screenWidth, screenLeft, screenRight;
 @synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize tapUIScaleDifference;
 
@@ -30,16 +29,16 @@
 @synthesize scoreBoard;
 @synthesize userName;
 
-@synthesize gamePlayState;
-@synthesize mainSceneState;
+@synthesize gamePlayState, mainSceneState;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 
 @synthesize muted;
 @synthesize characterHighest;  //the highest position the character ever been to
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
-@synthesize bubbleNumLabel;
+@synthesize bubbleStartNum;
+
 @synthesize gamePlayTimes;
-@synthesize bubbleNum;
+//@synthesize bubbleNum;
 @synthesize cloudHit;
 @synthesize audio;
 
@@ -65,10 +64,12 @@
         if (!muted) {
             muted = false;
         }
-        bubbleNum = (int)[_defaults integerForKey:@"bubbleNum"];
-        if (!bubbleNum) {
-            bubbleNum = 0;
+        bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
+        if (!bubbleStartNum) {
+            bubbleStartNum = 0;
         }
+        // FOR TESTING
+        bubbleStartNum = 1;
         
         audio = [OALSimpleAudio sharedInstance];
         audio.effectsVolume = 1;
@@ -146,25 +147,6 @@
     [_defaults synchronize];
 }
 
-- (void)addBubble: (int)num {
-    // add bubbleNum and save to local.
-    bubbleNum += num;
-    [_defaults setInteger:bubbleNum forKey:@"bubbleNum"];
-    [_defaults synchronize];
-}
-
-- (void)setBubbleNum:(int)num {
-    CCLOG(@"set bubble num to %d", num);
-    
-    bubbleNum = num;
-    [_defaults setInteger:num forKey:@"bubbleNum"];
-    [_defaults synchronize];
-}
-
-- (void)updateBubbleNumInGamePlay:(int)num {
-    bubbleNumLabel.string = [NSString stringWithFormat:@"%d", bubbleNum];
-}
-
 - (float)getRandomXAtSameLineWith: (float)x {
     if (x < screenWidth / 2) {
         return arc4random_uniform(screenWidth / 2 - 40) + screenWidth / 2 + 20;
@@ -174,7 +156,6 @@
 }
 
 /* Class methods */
-
 /* get game parameters */
 
 + (int)getCloudIntervalAt: (int)height {
@@ -253,6 +234,13 @@
     return node;
 }
 
++ (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode {
+    CCNode * node = [CCBReader load:fileName];
+    node.position = position;
+    [parentNode addChild:node];
+    return node;
+}
+
 + (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
     CCParticleSystem *node = (CCParticleSystem *)[CCBReader load:fileName];
     node.autoRemoveOnFinish = TRUE;
@@ -261,10 +249,16 @@
     [parentNode addChild:node];
 }
 
++ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode {
+    CCParticleSystem *node = (CCParticleSystem *)[CCBReader load:fileName];
+    node.autoRemoveOnFinish = TRUE;
+    node.position = position;
+    [parentNode addChild:node];
+}
+
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {
     CCAnimationManager* animationManager = node.userObject;
     [animationManager runAnimationsForSequenceNamed:name];
-    
     // remove the node from scene after finish.
     [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
         [node removeFromParentAndCleanup:YES];

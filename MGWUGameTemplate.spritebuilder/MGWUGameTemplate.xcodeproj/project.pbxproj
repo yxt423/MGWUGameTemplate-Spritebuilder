@@ -30,6 +30,7 @@
 		B6D211F31AD63C9F001055DE /* sound_cloud.wav in Resources */ = {isa = PBXBuildFile; fileRef = B6D211F21AD63C9F001055DE /* sound_cloud.wav */; };
 		B6D211F91AD72479001055DE /* InfoScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211F81AD72479001055DE /* InfoScene.m */; };
 		B6EA5EAD1B013B3400C7D7D2 /* BasicScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EA5EAC1B013B3400C7D7D2 /* BasicScene.m */; };
+		B6EA5EB61B03D64A00C7D7D2 /* GamePlay+UIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EA5EB51B03D64A00C7D7D2 /* GamePlay+UIUtils.m */; };
 		B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B231AA2E4230050F36E /* ScoreAdd.m */; };
 		B6F36B2A1AA3BB030050F36E /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F36B291AA3BB030050F36E /* Star.m */; };
 		B6FDE02D1ADF842500C7396A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */; };
@@ -141,6 +142,8 @@
 		B6D211F81AD72479001055DE /* InfoScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoScene.m; path = Source/InfoScene.m; sourceTree = "<group>"; };
 		B6EA5EAB1B013B3400C7D7D2 /* BasicScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicScene.h; path = Source/BasicScene.h; sourceTree = "<group>"; };
 		B6EA5EAC1B013B3400C7D7D2 /* BasicScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicScene.m; path = Source/BasicScene.m; sourceTree = "<group>"; };
+		B6EA5EB41B03D64A00C7D7D2 /* GamePlay+UIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GamePlay+UIUtils.h"; path = "Source/GamePlay+UIUtils.h"; sourceTree = "<group>"; };
+		B6EA5EB51B03D64A00C7D7D2 /* GamePlay+UIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GamePlay+UIUtils.m"; path = "Source/GamePlay+UIUtils.m"; sourceTree = "<group>"; };
 		B6F36B221AA2E4230050F36E /* ScoreAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreAdd.h; path = Source/ScoreAdd.h; sourceTree = "<group>"; };
 		B6F36B231AA2E4230050F36E /* ScoreAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAdd.m; path = Source/ScoreAdd.m; sourceTree = "<group>"; };
 		B6F36B281AA3BB030050F36E /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Star.h; path = Source/Star.h; sourceTree = "<group>"; };
@@ -303,6 +306,8 @@
 				B7378993180767190076A88C /* MainScene.m */,
 				B6350DFE1A97F81C00B4867C /* GamePlay.h */,
 				B6350DFF1A97F81C00B4867C /* GamePlay.m */,
+				B6EA5EB41B03D64A00C7D7D2 /* GamePlay+UIUtils.h */,
+				B6EA5EB51B03D64A00C7D7D2 /* GamePlay+UIUtils.m */,
 				B6CBD67C1A9BF65100859D79 /* GameOver.h */,
 				B6CBD67D1A9BF65100859D79 /* GameOver.m */,
 				B6D211F71AD72479001055DE /* InfoScene.h */,
@@ -588,6 +593,7 @@
 				B657E0121AFB104D00523CBF /* IAPManager.m in Sources */,
 				B65BDD9A1AEDB582007EA982 /* BubbleObject.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
+				B6EA5EB61B03D64A00C7D7D2 /* GamePlay+UIUtils.m in Sources */,
 				B6EA5EAD1B013B3400C7D7D2 /* BasicScene.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				B65BDDA01AEE03D1007EA982 /* CloudBlack.m in Sources */,

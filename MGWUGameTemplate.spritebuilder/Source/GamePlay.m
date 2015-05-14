@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #import "GamePlay.h"
+#import "GamePlay+UIUtils.h"
 #import "GameOver.h"
 #import "PausePopUp.h"
 #import "Character.h"
@@ -37,8 +38,6 @@
     CCButton *_buttonPause;
     CCButton *_buttonBubble;
     CCAction *_followCharacter;
-    CCLabelTTF *_scoreLabel;
-    CCLabelTTF *_bubbleNumLabel;
     CCNode *_bubble;
     
     // user interaction var
@@ -56,35 +55,39 @@
     bool _canLoadNewContent;
     float _timeInBubble;
     bool _inBubble;
-    int _bubbleUsed;
 }
 
-- (id)init {
-    self = [super init];
-    if (!self) return(nil);
-    return self;
-}
+@synthesize score;
+@synthesize _scoreLabel;
+
+@synthesize _bubbleLimit;
+@synthesize _bubbleToUse;
+@synthesize _bubbleLife1;
+@synthesize _bubbleLife2;
+@synthesize _bubbleLife3;
 
 - (void)didLoadFromCCB {
-    _score = 0;
+    score = 0;
     _starHit = 0;
     _contentHeight = 100;
-    _canLoadNewContent = false;
+    _canLoadNewContent = true;
     _timeSinceNewContent = 0.0f;
     _inBubble = false;
     _timeInBubble = 0.0f;
-    _bubbleUsed = 0;
+    
+    // constants
+    _bubbleLimit = 3;
     
     _gameManager.gamePlayState = 0;
     _gameManager.characterHighest = 0;
     _gameManager.sharedObjectsGroup = _objectsGroup;
-    _gameManager.bubbleNumLabel = _bubbleNumLabel;
     _gameManager.newHighScore = false;
     _gameManager.cloudHit = 0;
+    _bubbleToUse = _gameManager.bubbleStartNum;
+    [self updateBubbleNum];
     
     _physicsNode.collisionDelegate = self;
-    _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
-
+    
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
     
@@ -172,7 +175,7 @@
     [self addClouds:arc4random_uniform(10) + 15];
     
     int randomNum = arc4random_uniform(100);
-    if (randomNum < 10) {
+    if (randomNum < 80) {
         // add bubble.
         BubbleObject *bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
         _contentHeight += _cloudInterval;
@@ -297,7 +300,7 @@
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     if (!_inBubble) {
         _gameManager.cloudHit += 1;
-        _score += _gameManager.cloudHit * 10;
+        score += _gameManager.cloudHit * 10;
         [self updateScore];
         [_character jump];
         [(Cloud *)nodeB removeAndPlayAnimation];
@@ -309,7 +312,7 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     if (!_inBubble) {
         _starHit += 1;
-        _score *= 2;
+        score *= 2;
         [self updateScore];
         
         [_character jump];
@@ -333,9 +336,14 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA bubbleObject:(CCNode *)nodeB {
     if (!_inBubble) {
         [_character jump];
-        [(BubbleObject *)nodeB removeAndPlayAnimation];
-        [_gameManager addBubble:1];
-        _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
+        CCLOG(@"_bubbleToUse was %d", _bubbleToUse);
+        if (_bubbleToUse < 3) {
+            [(BubbleObject *)nodeB removeAndPlayBubbleAddOne];
+            _bubbleToUse += 1;
+            [self updateBubbleNum];
+        } else {
+            [(BubbleObject *)nodeB removeAndPlayVanish];
+        }
     }
     
     return YES;
@@ -360,12 +368,12 @@
     
     _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
-    _gameManager.currentScore = _score;
-    if (_score > _gameManager.highestScore) {
-        _gameManager.highestScore = _score;
+    _gameManager.currentScore = score;
+    if (score > _gameManager.highestScore) {
+        _gameManager.highestScore = score;
         _gameManager.newHighScore = true;
     }
-    [_gameManager updateScoreBoard:_score];
+    [_gameManager updateScoreBoard:score];
     
     [self stopUserInteraction];
     [self trackGameEnd];
@@ -374,13 +382,12 @@
 }
 
 - (void)trackGameEnd {
-    [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:_score],
+    [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:score],
                                               @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
                                               @"StarHit": [NSNumber numberWithInt:_starHit],
                                               @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes],
                                               @"CloudInterval": [NSNumber numberWithInt:_cloudInterval],
-                                              @"CloudScale": [NSNumber numberWithFloat:_cloudScale],
-                                              @"Bubble Used": [NSNumber numberWithInt:_bubbleUsed]
+                                              @"CloudScale": [NSNumber numberWithFloat:_cloudScale]
                                               }];
 }
 
@@ -413,33 +420,20 @@
         return;
     }
     
-    if (_bubbleUsed >= 3) {
+    if (_bubbleToUse <= 0) {
         // pop up bubble limit
-        CCNode * _bubbleLimitPopUp = [GameManager addCCNodeFromFile:@"PopUp/BubbleLimitPopUp" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
+        // TODO.
+        CCNode * _bubbleLimitPopUp = [GameManager addCCNodeFromFile:@"Effects/BubbleUsedUp" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
         [GameManager playThenCleanUpAnimationOf:_bubbleLimitPopUp Named:@"Show"];
     } else {
-        if (_gameManager.bubbleNum > 0) {
-            // put character in bubble.
-            _inBubble = true;
-            _bubbleUsed += 1;
-            _bubble = [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
-            [_character bubbleUp];
-                
-            [_gameManager addBubble:-1];
-            _bubbleNumLabel.string = [NSString stringWithFormat:@"%d", _gameManager.bubbleNum];
-        } else {
-            // pop up shop window.
-            _gameManager.gamePlayState = 0;
-            _gameManager.shopSceneNo = 2;
-            [self pause];
-            
-            [GameManager addCCNodeFromFile:@"PopUp/Shop" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-        }
+        // put character in bubble.
+        _inBubble = true;
+        _bubbleToUse -= 1;
+        [self updateBubbleNum];
+        
+        _bubble = [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+        [_character bubbleUp];
     }
-}
-
-- (void)updateScore {
-    _scoreLabel.string = [GameManager scoreWithComma:_score];
 }
 
 @end

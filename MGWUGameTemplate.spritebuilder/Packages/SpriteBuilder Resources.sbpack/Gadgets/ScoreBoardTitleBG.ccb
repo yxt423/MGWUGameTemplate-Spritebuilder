@@ -110,7 +110,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/ScoreBoardTitleBG.png</string>
+							<string>Assets/Gadgets/ScoreBoardTitleBG.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -146,6 +146,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -218,7 +220,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Star0.png</string>
+							<string>Assets/Objects/Star.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -326,7 +328,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Assets/Star0.png</string>
+							<string>Assets/Objects/Star.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -362,8 +364,6 @@
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

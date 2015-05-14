@@ -27,7 +27,9 @@
     int cloudHit;
     CCNode *sharedObjectsGroup;
     OALSimpleAudio *audio;
-    CCLabelTTF *bubbleNumLabel;
+    
+    // IAP items
+    int bubbleStartNum;
     
     // for game over scene.
     int currentScore;
@@ -38,7 +40,7 @@
     
     // stats, objects count.
     int gamePlayTimes;
-    int bubbleNum;
+//    int bubbleNum;
 }
 
 @property (nonatomic, assign) int screenHeight, screenWidth; // for drawing objects on screen.
@@ -59,7 +61,9 @@
 @property (nonatomic, assign) int characterHighest;
 @property (nonatomic, retain) CCNode *sharedObjectsGroup;
 @property (nonatomic, retain) OALSimpleAudio *audio;
-@property (nonatomic, retain) CCLabelTTF *bubbleNumLabel;
+
+// IAP items
+@property (nonatomic, assign) int bubbleStartNum;
 
 // score related.
 @property (nonatomic, assign) int currentScore;
@@ -69,7 +73,7 @@
 @property (nonatomic, retain) NSString *userName;
 
 @property (nonatomic, assign) int gamePlayTimes;
-@property (nonatomic, assign) int bubbleNum;
+//@property (nonatomic, assign) int bubbleNum;
 
 /* init functions */
 
@@ -79,8 +83,7 @@
 /* parameters related */
 
 - (void)updateScoreBoard: (int)score;
-- (void)addBubble: (int)num;
-- (void)updateBubbleNumInGamePlay:(int)num;
+//- (void)addBubble: (int)num;
 - (float)getRandomXAtSameLineWith: (float)x;
 
 // get CCPositionType.
@@ -97,7 +100,9 @@
 /* UI effect methods. */
 
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
++ (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode;
 + (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
++ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode;
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name;
 
 /* scene loading methods */

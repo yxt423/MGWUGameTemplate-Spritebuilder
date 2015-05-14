@@ -315,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>Assets/bubble_160.png</string>
+				<string>Assets/Objects/bubble_240.png</string>
 			</dict>
 		</array>
 		<key>selected</key>

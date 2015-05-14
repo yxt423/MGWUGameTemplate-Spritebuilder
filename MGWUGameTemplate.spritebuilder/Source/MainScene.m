@@ -107,7 +107,7 @@
     if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
         CCLOG(@"new 10 bubbles!");
         [GameManager addCCNodeFromFile:@"PopUp/NewBubblePopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-        [_gameManager addBubble:10];
+//        [_gameManager addBubble:10];
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
     } else {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
@@ -146,14 +146,13 @@
 }
 
 - (void)buttonAddBubble {
-    CCLOG(@".....just add more bubbles.");
-    [_gameManager addBubble:2];
+//    CCLOG(@".....just add more bubbles.");
+//    [_gameManager addBubble:2];
 }
 
 - (void)reset {
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
-    _gameManager.bubbleNum = 0;
     _gameManager.gamePlayTimes = 0;
     
     _gameManager.scoreBoard = nil;

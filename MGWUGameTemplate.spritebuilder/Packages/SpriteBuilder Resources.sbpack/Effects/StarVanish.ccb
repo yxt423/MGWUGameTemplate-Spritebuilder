@@ -315,9 +315,11 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>Assets/Star0.png</string>
+				<string>Assets/Objects/Star.png</string>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

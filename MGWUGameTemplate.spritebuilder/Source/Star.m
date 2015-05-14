@@ -10,14 +10,11 @@
 #import "GamePlay.h"
 #import "GameManager.h"
 
-@implementation Star {
-    GameManager *_gameManager;
-}
+@implementation Star
 
 - (void)didLoadFromCCB {
     self.physicsBody.sensor = YES;
     self.physicsBody.collisionType = @"star";
-    _gameManager = [GameManager getGameManager];
 }
 
 - (void)removeAndPlayAnimationAt: (CGPoint)collisionPoint {

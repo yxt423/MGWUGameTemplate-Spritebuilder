@@ -115,14 +115,8 @@
 - (void) completeTransaction: (SKPaymentTransaction *)transaction {
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
-    // add bubble in game.
-    [_gameManager addBubble:shop.bubbleToBeAdded];
-    [self updateBubbleNumText];
-    if (_gameManager.shopSceneNo == 2) {
-        [_gameManager updateBubbleNumInGamePlay:_gameManager.bubbleNum];
-    }
-    
     // track in mixpanel.
+    // TO CHANGE
     [_mixpanel track:@"Transaction Finish" properties:@{@"ItemName": @"Bubble", @"Number": [NSNumber numberWithInt:shop.bubbleToBeAdded], @"Price": [NSNumber numberWithFloat:[self getItemPrice:shop.bubbleToBeAdded]] }];
     
     CCLOG(@"IAP Transaction Completed");
@@ -165,8 +159,8 @@
     }
 }
 
-- (void)updateBubbleNumText {
-    shop.youHaveBubbleNumLabel.string = [@"You have " stringByAppendingString:[NSString stringWithFormat:@"%d", _gameManager.bubbleNum]];
-}
+//- (void)updateBubbleNumText {
+//    shop.youHaveBubbleNumLabel.string = [@"You have " stringByAppendingString:[NSString stringWithFormat:@"%d", _gameManager.bubbleNum]];
+//}
 
 @end

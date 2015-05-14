@@ -13,14 +13,11 @@
 #import "ScoreAdd.h"
 #import "GameManager.h"
 
-@implementation Cloud {
-    GameManager *_gameManager;
-}
+@implementation Cloud
 
 - (void)didLoadFromCCB {
     self.physicsBody.sensor = YES;
     self.physicsBody.collisionType = @"cloud";
-    _gameManager = [GameManager getGameManager];
 }
 
 - (void)removeAndPlayAnimation {

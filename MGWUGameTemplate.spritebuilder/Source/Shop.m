@@ -28,7 +28,7 @@
     _iapManager = [IAPManager getIAPManager];
     bubbleToBeAdded = 0;
     youHaveBubbleNumLabel = _youHaveBubbleNum;
-    [self updateBubbleNumText];
+//    [self updateBubbleNumText];
 }
 
 - (void)cancel{
@@ -65,8 +65,8 @@
     bubbleToBeAdded = 130;
 }
 
-- (void)updateBubbleNumText {
-    youHaveBubbleNumLabel.string = [@"You have " stringByAppendingString:[NSString stringWithFormat:@"%d", _gameManager.bubbleNum]];
-}
+//- (void)updateBubbleNumText {
+//    youHaveBubbleNumLabel.string = [@"You have " stringByAppendingString:[NSString stringWithFormat:@"%d", _gameManager.bubbleNum]];
+//}
 
 @end

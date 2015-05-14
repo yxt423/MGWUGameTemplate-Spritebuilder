@@ -7,6 +7,7 @@
 //
 
 #import "BubbleObject.h"
+#import "GameManager.h"
 
 @implementation BubbleObject
 
@@ -16,24 +17,18 @@
     self.physicsBody.collisionType = @"bubbleObject";
 }
 
-- (void)removeAndPlayAnimation {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/BubbleVanish"];
-    explosion.autoRemoveOnFinish = TRUE;
-    explosion.position = self.position;
-    [self.parent addChild:explosion];
+- (void)removeAndPlayBubbleAddOne {
+    [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:self.position To:self.parent];
     
-    // show bubble plus 1 for a short time
-    CCNode *bubbleAddOne =  [CCBReader load:@"Effects/BubbleAddOne"];
-    bubbleAddOne.position = self.position;
-    [self.parent addChild:bubbleAddOne];
+    // show bubble plus 1 for a short time, remove when finish.
+    CCNode *bubbleAddOne = [GameManager addCCNodeFromFile:@"Effects/BubbleAddOne" WithPosition:self.position To:self.parent];
+    [GameManager playThenCleanUpAnimationOf:bubbleAddOne Named:@"Default Timeline"];
     
-    // remove when finish.
-    CCAnimationManager* animationManager = bubbleAddOne.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [bubbleAddOne removeFromParentAndCleanup:YES];
-    }];
-    
+    [self removeFromParent];
+}
+
+- (void)removeAndPlayVanish {
+    [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:self.position To:self.parent];
     [self removeFromParent];
 }
 

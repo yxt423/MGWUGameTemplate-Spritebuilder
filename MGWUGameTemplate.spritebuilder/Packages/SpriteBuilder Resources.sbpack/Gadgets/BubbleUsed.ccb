@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>3</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -40,78 +40,13 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Groud</string>
+		<string></string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
-		<key>physicsBody</key>
-		<dict>
-			<key>affectedByGravity</key>
-			<true/>
-			<key>allowsRotation</key>
-			<true/>
-			<key>bodyShape</key>
-			<integer>0</integer>
-			<key>collisionCategories</key>
-			<array/>
-			<key>collisionMask</key>
-			<array/>
-			<key>collisionType</key>
-			<string></string>
-			<key>cornerRadius</key>
-			<real>0.0</real>
-			<key>density</key>
-			<real>1</real>
-			<key>dynamic</key>
-			<false/>
-			<key>elasticity</key>
-			<real>0.30000001192092896</real>
-			<key>friction</key>
-			<real>1</real>
-			<key>points</key>
-			<array>
-				<array>
-					<real>0.0</real>
-					<real>0.0</real>
-				</array>
-				<array>
-					<real>0.83866822719573975</real>
-					<real>15.751590728759766</real>
-				</array>
-				<array>
-					<real>669.33636474609375</real>
-					<real>15.172887802124023</real>
-				</array>
-				<array>
-					<real>668.61749267578125</real>
-					<real>0.77989363670349121</real>
-				</array>
-			</array>
-			<key>polygons</key>
-			<array>
-				<array>
-					<array>
-						<real>668.61749267578125</real>
-						<real>0.77989363670349121</real>
-					</array>
-					<array>
-						<real>669.33636474609375</real>
-						<real>15.172887802124023</real>
-					</array>
-					<array>
-						<real>0.83866822719573975</real>
-						<real>15.751590728759766</real>
-					</array>
-					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-					</array>
-				</array>
-			</array>
-		</dict>
 		<key>properties</key>
 		<array>
 			<dict>
@@ -143,8 +78,8 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>0.5</real>
+					<real>0.5</real>
 				</array>
 			</dict>
 			<dict>
@@ -168,7 +103,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/GroundNew.png</string>
+					<string>Assets/Gadgets/bubbleUsed_100.png</string>
 				</array>
 			</dict>
 			<dict>

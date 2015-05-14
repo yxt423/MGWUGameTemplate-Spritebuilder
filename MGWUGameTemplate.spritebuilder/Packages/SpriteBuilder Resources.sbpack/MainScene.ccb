@@ -3848,9 +3848,11 @@ Jumper</string>
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>Groud.ccb</string>
+								<string>Objects/Groud.ccb</string>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>

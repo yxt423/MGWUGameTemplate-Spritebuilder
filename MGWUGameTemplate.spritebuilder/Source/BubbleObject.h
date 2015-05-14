@@ -10,6 +10,7 @@
 
 @interface BubbleObject : BasicObject
 
-- (void)removeAndPlayAnimation;
+- (void)removeAndPlayBubbleAddOne;
+- (void)removeAndPlayVanish;
 
 @end

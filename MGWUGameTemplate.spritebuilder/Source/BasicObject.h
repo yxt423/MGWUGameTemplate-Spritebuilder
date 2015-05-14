@@ -7,7 +7,12 @@
 //
 
 #import "CCSprite.h"
+@class GameManager;
 
-@interface BasicObject : CCSprite
+@interface BasicObject : CCSprite {
+    GameManager *_gameManager;
+}
+
+@property (nonatomic, retain) GameManager *_gameManager;
 
 @end
