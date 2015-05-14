@@ -38,7 +38,6 @@
         _scoreLabel.string = [GameManager scoreWithComma:score];
         _highScoreLabel.string = [GameManager scoreWithComma:highScore];
     } else {
-        CCLOG(@"game over new high score");
         [GameManager addCCNodeFromFile:@"Effects/NewHighScore" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
         [_normalScore removeFromParent];
         

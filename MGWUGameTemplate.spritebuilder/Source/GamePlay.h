@@ -11,6 +11,13 @@
 @interface GamePlay : BasicScene <CCPhysicsCollisionDelegate> {
     int score;
     
+    // stats
+    int _starHit;
+    int _contentHeight;
+    int _objectInterval;
+    float _cloudScale;
+    
+    CCNode *_objectsGroup;
     CCLabelTTF *_scoreLabel;
 
     int _bubbleLimit;
@@ -21,8 +28,13 @@
 }
 
 @property (nonatomic, assign) int score;
-@property (nonatomic, assign) int highScore;
 
+@property (nonatomic, assign) int _starHit;
+@property (nonatomic, assign) int _contentHeight;
+@property (nonatomic, assign) int _objectInterval;
+@property (nonatomic, assign) float _cloudScale;
+
+@property (nonatomic, retain) CCNode *_objectsGroup;
 @property (nonatomic, retain) CCLabelTTF *_scoreLabel;
 
 @property (nonatomic, assign) int _bubbleLimit;

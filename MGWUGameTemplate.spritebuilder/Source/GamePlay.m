@@ -32,7 +32,6 @@
     Character *_character;
     CCNode *_gamePlay;
     CCNode *_contentNode;
-    CCNode *_objectsGroup;
     CCNode *_popUp;
     CCNode *_walls;
     CCButton *_buttonPause;
@@ -44,12 +43,6 @@
     UITapGestureRecognizer *_tapGesture;
     UILongPressGestureRecognizer *_longPressGesture;
     
-    // stats
-    int _starHit;
-    int _contentHeight;
-    int _cloudInterval;
-    float _cloudScale;
-    
     // game state flags.
     float _timeSinceNewContent;
     bool _canLoadNewContent;
@@ -58,7 +51,14 @@
 }
 
 @synthesize score;
+
+@synthesize _starHit;
+@synthesize _contentHeight;
+@synthesize _objectInterval;
+@synthesize _cloudScale;
+
 @synthesize _scoreLabel;
+@synthesize _objectsGroup;
 
 @synthesize _bubbleLimit;
 @synthesize _bubbleToUse;
@@ -167,89 +167,11 @@
     [self stopUserInteraction];
 }
 
-// loadNewContent by ramdomly generate game content.
-- (void)loadNewContent {
-    _cloudInterval = [GameManager getCloudIntervalAt:_contentHeight];
-    _cloudScale = [GameManager getCloudScaleAt:_contentHeight];
-    
-    [self addClouds:arc4random_uniform(10) + 15];
-    
-    int randomNum = arc4random_uniform(100);
-    if (randomNum < 80) {
-        // add bubble.
-        BubbleObject *bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
-        _contentHeight += _cloudInterval;
-        bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
-        bubbleObject.zOrder = -1;
-        [_objectsGroup addChild:bubbleObject];
-        
-    } else if (randomNum < 50) {
-        // add cloudBlack.
-        CCNode *cloudBlack = [CCBReader load:@"Objects/CloudBlack"];
-        _contentHeight += _cloudInterval;
-        cloudBlack.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
-        cloudBlack.zOrder = -1;
-        [_objectsGroup addChild:cloudBlack];
-        [self addAdditionalCloudWith:cloudBlack.position.x];
-        
-    } else {
-        // add star.
-        CCNode *star;
-        if (_starHit < 2) {
-            star = [CCBReader load:@"Objects/StarStatic"];
-        } else if (_starHit < 5) {
-            star = [CCBReader load:@"Objects/StarSpining40"];
-        } else {
-            star = [CCBReader load:@"Objects/StarSpining80"];
-        }
-        _contentHeight += _cloudInterval;
-        star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
-        star.zOrder = -1;
-        [_objectsGroup addChild:star];
-    }
-    
-//    CCLOG(@"interval %d, scale, %f", _cloudInterval, _cloudScale);
-}
-
-- (void)addClouds: (int)num{
-    for (int i = 0; i < num; i++) {
-        CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-        _contentHeight += _cloudInterval;
-        float ramdon = arc4random_uniform(_gameManager.screenWidth - 40);
-        cloud.position = ccp(ramdon + 20, _contentHeight);
-        cloud.zOrder = -1;
-        cloud.scale = _cloudScale;
-        [_objectsGroup addChild:cloud];
-        // if this cloud is too close to the left/right screen edge, add another one.
-        if (ramdon / (_gameManager.screenWidth - 40) < 0.07 || ramdon / (_gameManager.screenWidth - 40) > 0.93) {
-            [self addSymmetricCloudWith:ramdon + 20];
-        }
-    }
-}
-
-- (void)addAdditionalCloudWith: (int)x {
-    CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-    cloud.position = ccp([_gameManager getRandomXAtSameLineWith:x], _contentHeight);
-    cloud.zOrder = -1;
-    cloud.scale = _cloudScale;
-    [_objectsGroup addChild:cloud];
-}
-
-- (void)addSymmetricCloudWith: (int)x {
-    CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-    cloud.position = ccp(_gameManager.screenWidth - x, _contentHeight);
-    cloud.zOrder = -1;
-    cloud.scale = _cloudScale;
-    [_objectsGroup addChild:cloud];
-}
-
 - (void)followCharacter {
-    // do not set a bound for cintent height. 
+    // do not set a bound for cintent height.
     CGRect contentBoundingBox = CGRectMake(self.boundingBox.origin.x, self.boundingBox.origin.y, self.boundingBox.size.width, NSIntegerMax);
     _followCharacter = [CCActionFollow actionWithTarget:_character worldBoundary:contentBoundingBox];
     [_contentNode runAction:_followCharacter];
-    
-    CCLOG(@"followCharacter ");
 }
 
 - (void)startUserInteraction {
@@ -336,7 +258,6 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA bubbleObject:(CCNode *)nodeB {
     if (!_inBubble) {
         [_character jump];
-        CCLOG(@"_bubbleToUse was %d", _bubbleToUse);
         if (_bubbleToUse < 3) {
             [(BubbleObject *)nodeB removeAndPlayBubbleAddOne];
             _bubbleToUse += 1;
@@ -386,7 +307,7 @@
                                               @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
                                               @"StarHit": [NSNumber numberWithInt:_starHit],
                                               @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes],
-                                              @"CloudInterval": [NSNumber numberWithInt:_cloudInterval],
+                                              @"CloudInterval": [NSNumber numberWithInt:_objectInterval],
                                               @"CloudScale": [NSNumber numberWithFloat:_cloudScale]
                                               }];
 }
@@ -422,7 +343,6 @@
     
     if (_bubbleToUse <= 0) {
         // pop up bubble limit
-        // TODO.
         CCNode * _bubbleLimitPopUp = [GameManager addCCNodeFromFile:@"Effects/BubbleUsedUp" WithPosition:ccp(0.5, 0.3) Type:_gameManager.getPTNormalizedTopLeft To:self];
         [GameManager playThenCleanUpAnimationOf:_bubbleLimitPopUp Named:@"Show"];
     } else {

@@ -83,19 +83,12 @@
 /* parameters related */
 
 - (void)updateScoreBoard: (int)score;
-//- (void)addBubble: (int)num;
-- (float)getRandomXAtSameLineWith: (float)x;
 
 // get CCPositionType.
 - (CCPositionType)getPTNormalizedTopLeft;
 - (CCPositionType)getPTUnitTopLeft;
 
 /** Class methods */
-
-/* get game parameters */
-
-+ (int)getCloudIntervalAt: (int)height;
-+ (float)getCloudScaleAt: (int)height;
 
 /* UI effect methods. */
 

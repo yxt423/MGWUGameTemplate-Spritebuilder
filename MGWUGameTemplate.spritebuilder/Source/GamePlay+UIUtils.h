@@ -10,8 +10,18 @@
 
 @interface GamePlay (UIUtils)
 
-- (void)updateScore;
+- (void)loadNewContent;
+/* load game content - cloud related */
+- (void)addClouds: (int)num;
+- (void)addAdditionalCloudWith: (int)x;
+- (void)addSymmetricCloudWith: (int)x;
+- (float)getRandomXAtSameLineWith: (float)x;
 
+/* get game parameters */
+- (int)getObjectIntervalAt: (int)height;
+- (float)getCloudScaleAt: (int)height;
+
+- (void)updateScore;
 - (void)updateBubbleNum;
 
 @end

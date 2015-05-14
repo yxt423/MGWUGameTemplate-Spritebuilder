@@ -18,22 +18,25 @@
 }
 
 - (void)removeAndPlayAnimationAt: (CGPoint)collisionPoint {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
-    explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
-    explosion.position = collisionPoint;
-    [self.parent.parent addChild:explosion];
+    [GameManager addParticleFromFile:@"Effects/StarVanish" WithPosition:collisionPoint To:self.parent.parent];
+//    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/StarVanish"];
+//    explosion.autoRemoveOnFinish = TRUE; // make the particle effect clean itself up, once it is completed
+//    explosion.position = collisionPoint;
+//    [self.parent.parent addChild:explosion];
     
     // show "score double" for a short time (use star.parent as the whole object!)
-    CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
-    scoreDouble.position = collisionPoint;
-    [self.parent.parent addChild:scoreDouble];
+    CCNode *scoreDouble = [GameManager addCCNodeFromFile:@"Effects/ScoreDouble" WithPosition:collisionPoint To:self.parent.parent];
+//    CCNode *scoreDouble = [CCBReader load:@"Effects/ScoreDouble"];
+//    scoreDouble.position = collisionPoint;
+//    [self.parent.parent addChild:scoreDouble];
     
     // remove when finish.
-    CCAnimationManager* animationManager = scoreDouble.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [scoreDouble removeFromParentAndCleanup:YES];
-    }];
+    [GameManager playThenCleanUpAnimationOf:scoreDouble Named:@"Default Timeline"];
+//    CCAnimationManager* animationManager = scoreDouble.userObject;
+//    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
+//    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+//        [scoreDouble removeFromParentAndCleanup:YES];
+//    }];
     
     // remove the entire starSpinging object from parent, not just the star.
     [self.parent removeFromParent];

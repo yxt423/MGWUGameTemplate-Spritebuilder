@@ -9,8 +9,7 @@
 #import "CloudBlack.h"
 #import "GameManager.h"
 
-@implementation CloudBlack {
-}
+@implementation CloudBlack
 
 - (void)didLoadFromCCB {
     self.physicsBody.collisionType = @"cloudBlack";

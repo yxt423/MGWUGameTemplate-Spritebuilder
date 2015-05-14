@@ -21,29 +21,15 @@
 }
 
 - (void)removeAndPlayAnimation {
-    CCParticleSystem *explosion = (CCParticleSystem *)[CCBReader load:@"Effects/CloudVanish"];
-    explosion.autoRemoveOnFinish = TRUE;
-    explosion.position = self.position;
-    [self.parent addChild:explosion];
+    [GameManager addParticleFromFile:@"Effects/CloudVanish" WithPosition:self.position To:self.parent];
     
     // show earned score for a short time
-    ScoreAdd *scoreAdd = (ScoreAdd *) [CCBReader load:@"Effects/ScoreAdd"];
-    scoreAdd.position = self.position;
+    ScoreAdd *scoreAdd = (ScoreAdd *)[GameManager addCCNodeFromFile:@"Effects/ScoreAdd" WithPosition:self.position To:self.parent];
     [scoreAdd setScore:(_gameManager.cloudHit * 10)]; // new score added: _cloudHit * 10
-    [self.parent addChild:scoreAdd];
+    [GameManager playThenCleanUpAnimationOf:scoreAdd Named:@"Default Timeline"];
     
-    // remove scoreAdd when finish.
-    CCAnimationManager* animationManager = scoreAdd.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"Default Timeline"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [scoreAdd removeFromParentAndCleanup:YES];
-    }];
-    
-    // remove a cloud from the scene
     [self removeFromParent];
-    
-    // play sound effect
-    [_gameManager.audio playEffect:@"sound_cloud.wav"];
+    [_gameManager.audio playEffect:@"sound_cloud.wav"]; // play sound effect
 }
 
 
