@@ -284,6 +284,8 @@
 				B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */,
 				B68BBF541AEAF10C00555618 /* Shop.h */,
 				B68BBF551AEAF10C00555618 /* Shop.m */,
+				B657E0101AFB104D00523CBF /* IAPManager.h */,
+				B657E0111AFB104D00523CBF /* IAPManager.m */,
 			);
 			name = PopUp;
 			sourceTree = "<group>";
@@ -298,8 +300,6 @@
 				B737893E1807617C0076A88C /* AppDelegate.m */,
 				B6D211E01AD61418001055DE /* GameManager.h */,
 				B6D211E11AD61418001055DE /* GameManager.m */,
-				B657E0101AFB104D00523CBF /* IAPManager.h */,
-				B657E0111AFB104D00523CBF /* IAPManager.m */,
 				B6EA5EAB1B013B3400C7D7D2 /* BasicScene.h */,
 				B6EA5EAC1B013B3400C7D7D2 /* BasicScene.m */,
 				B7378992180767190076A88C /* MainScene.h */,

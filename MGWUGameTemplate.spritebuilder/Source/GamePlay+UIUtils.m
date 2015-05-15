@@ -17,13 +17,13 @@
     _objectInterval = [self getObjectIntervalAt:_contentHeight];
     _cloudScale = [self getCloudScaleAt:_contentHeight];
     
-    [self addClouds:arc4random_uniform(10) + 15];
+    [self addCloudGroup:arc4random_uniform(10) + 15];
     
+    _contentHeight += _objectInterval;
     int randomNum = arc4random_uniform(100);
     if (randomNum < 10) {
         // add bubble.
         BubbleObject *bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
-        _contentHeight += _objectInterval;
         bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
         bubbleObject.zOrder = -1;
         [_objectsGroup addChild:bubbleObject];
@@ -31,11 +31,11 @@
     } else if (randomNum < 50) {
         // add cloudBlack.
         CCNode *cloudBlack = [CCBReader load:@"Objects/CloudBlack"];
-        _contentHeight += _objectInterval;
         cloudBlack.position = ccp(arc4random_uniform(_gameManager.screenWidth - 40) + 20, _contentHeight);
         cloudBlack.zOrder = -1;
         [_objectsGroup addChild:cloudBlack];
-        [self addAdditionalCloudWith:cloudBlack.position.x];
+        // add a white cloud at the same line with the black one.
+        [self addCloudAt:ccp([self getRandomXAtSameLineWith:cloudBlack.position.x], _contentHeight)];
         
     } else {
         // add star.
@@ -47,44 +47,30 @@
         } else {
             star = [CCBReader load:@"Objects/StarSpining80"];
         }
-        _contentHeight += _objectInterval;
         star.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);
         star.zOrder = -1;
         [_objectsGroup addChild:star];
     }
-    
-    //    CCLOG(@"interval %d, scale, %f", _objectInterval, _cloudScale);
 }
 
 /* load game content - cloud related */
 
-- (void)addClouds: (int)num {
+- (void)addCloudGroup: (int)num {
     for (int i = 0; i < num; i++) {
-        CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
         _contentHeight += _objectInterval;
         float ramdon = arc4random_uniform(_gameManager.screenWidth - 40);
-        cloud.position = ccp(ramdon + 20, _contentHeight);
-        cloud.zOrder = -1;
-        cloud.scale = _cloudScale;
-        [_objectsGroup addChild:cloud];
-        // if this cloud is too close to the left/right screen edge, add another one.
+        [self addCloudAt:ccp(ramdon + 20, _contentHeight)];
+        
+        // if this cloud is too close to the left/right screen edge, add another one at the same line.
         if (ramdon / (_gameManager.screenWidth - 40) < 0.07 || ramdon / (_gameManager.screenWidth - 40) > 0.93) {
-            [self addSymmetricCloudWith:ramdon + 20];
+            [self addCloudAt:ccp(_gameManager.screenWidth - (ramdon + 20), _contentHeight)];
         }
     }
 }
 
-- (void)addAdditionalCloudWith: (int)x {
+- (void)addCloudAt: (CGPoint) position { // add a cloud in the game content at a position.
     CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-    cloud.position = ccp([self getRandomXAtSameLineWith:x], _contentHeight);
-    cloud.zOrder = -1;
-    cloud.scale = _cloudScale;
-    [_objectsGroup addChild:cloud];
-}
-
-- (void)addSymmetricCloudWith: (int)x {
-    CCNode *cloud = [CCBReader load:@"Objects/Cloud"];
-    cloud.position = ccp(_gameManager.screenWidth - x, _contentHeight);
+    cloud.position = position;
     cloud.zOrder = -1;
     cloud.scale = _cloudScale;
     [_objectsGroup addChild:cloud];
