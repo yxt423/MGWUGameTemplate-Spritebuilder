@@ -41,6 +41,7 @@
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
+    UISwipeGestureRecognizer *_swipeUpGesture;
     
     // game state flags.
     float _timeSinceNewContent;
@@ -89,6 +90,10 @@
     
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
+    
+    _swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpGesture:)];
+    [_swipeUpGesture setDirection:(UISwipeGestureRecognizerDirectionUp)];
+    [_swipeUpGesture setCancelsTouchesInView:NO];
     
     // load game content
     [self loadNewContent];
@@ -172,10 +177,12 @@
 - (void)startUserInteraction {
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:_swipeUpGesture];
 }
 
 - (void)stopUserInteraction {
     [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_swipeUpGesture];
     self.userInteractionEnabled = false;  // stop accept touches.
 }
 
@@ -208,8 +215,12 @@
     }
 }
 
-- (void)longPressGesture:(UIGestureRecognizer *)gestureRecognizer  {
-    CCLOG(@"longPressGesture");
+-(void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer{
+    if(recognizer.direction != UISwipeGestureRecognizerDirectionUp) {
+        return;
+    }
+    
+    [self buttonBubble];
 }
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
