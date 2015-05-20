@@ -65,7 +65,7 @@
         }
         bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
         if (!bubbleStartNum) {
-            bubbleStartNum = 0;
+            bubbleStartNum = 3;
         }
         
         audio = [OALSimpleAudio sharedInstance];

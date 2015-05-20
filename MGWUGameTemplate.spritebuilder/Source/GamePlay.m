@@ -41,7 +41,6 @@
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
-    UILongPressGestureRecognizer *_longPressGesture;
     
     // game state flags.
     float _timeSinceNewContent;
@@ -90,10 +89,6 @@
     
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGesture setCancelsTouchesInView:NO]; // !! do not cancel the other call back functions of touches.
-    
-    _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
-    [_longPressGesture setCancelsTouchesInView:NO];
-    _longPressGesture.minimumPressDuration = 1.0f;
     
     // load game content
     [self loadNewContent];
@@ -177,12 +172,10 @@
 - (void)startUserInteraction {
     self.userInteractionEnabled = TRUE;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:_tapGesture];
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:_longPressGesture];
 }
 
 - (void)stopUserInteraction {
     [[[CCDirector sharedDirector] view] removeGestureRecognizer:_tapGesture];
-    [[[CCDirector sharedDirector] view] removeGestureRecognizer:_longPressGesture];
     self.userInteractionEnabled = false;  // stop accept touches.
 }
 
