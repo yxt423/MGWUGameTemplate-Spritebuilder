@@ -9,6 +9,7 @@
 #import "GamePlay+UIUtils.h"
 #import "GameManager.h"
 #import "BubbleObject.h"
+#import "Character.h"
 
 @implementation GamePlay (UIUtils)
 

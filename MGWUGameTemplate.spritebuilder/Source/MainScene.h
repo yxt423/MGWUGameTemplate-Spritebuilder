@@ -10,4 +10,6 @@
 
 @interface MainScene : BasicScene <CCPhysicsCollisionDelegate>
 
++ (void)startNewGame;
+
 @end

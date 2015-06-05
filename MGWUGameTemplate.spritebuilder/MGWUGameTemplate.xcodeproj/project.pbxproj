@@ -13,6 +13,7 @@
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A43591AF322C0009A107B /* SocreBoardScene.m */; };
+		B6417D071B0D1320006EA9A8 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B6417D061B0D1320006EA9A8 /* Tutorial.m */; };
 		B657E0121AFB104D00523CBF /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B657E0111AFB104D00523CBF /* IAPManager.m */; };
 		B65BDD9A1AEDB582007EA982 /* BubbleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B65BDD991AEDB582007EA982 /* BubbleObject.m */; };
 		B65BDDA01AEE03D1007EA982 /* CloudBlack.m in Sources */ = {isa = PBXBuildFile; fileRef = B65BDD9F1AEE03D1007EA982 /* CloudBlack.m */; };
@@ -112,6 +113,8 @@
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		B63A43581AF322C0009A107B /* SocreBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocreBoardScene.h; path = Source/SocreBoardScene.h; sourceTree = "<group>"; };
 		B63A43591AF322C0009A107B /* SocreBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocreBoardScene.m; path = Source/SocreBoardScene.m; sourceTree = "<group>"; };
+		B6417D051B0D1320006EA9A8 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial.h; path = Source/Tutorial.h; sourceTree = "<group>"; };
+		B6417D061B0D1320006EA9A8 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial.m; path = Source/Tutorial.m; sourceTree = "<group>"; };
 		B657E0101AFB104D00523CBF /* IAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPManager.h; path = Source/IAPManager.h; sourceTree = "<group>"; };
 		B657E0111AFB104D00523CBF /* IAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPManager.m; path = Source/IAPManager.m; sourceTree = "<group>"; };
 		B65BDD981AEDB582007EA982 /* BubbleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleObject.h; path = Source/BubbleObject.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				B6350DFF1A97F81C00B4867C /* GamePlay.m */,
 				B6EA5EB41B03D64A00C7D7D2 /* GamePlay+UIUtils.h */,
 				B6EA5EB51B03D64A00C7D7D2 /* GamePlay+UIUtils.m */,
+				B6417D051B0D1320006EA9A8 /* Tutorial.h */,
+				B6417D061B0D1320006EA9A8 /* Tutorial.m */,
 				B6CBD67C1A9BF65100859D79 /* GameOver.h */,
 				B6CBD67D1A9BF65100859D79 /* GameOver.m */,
 				B6D211F71AD72479001055DE /* InfoScene.h */,
@@ -591,6 +596,7 @@
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */,
 				B657E0121AFB104D00523CBF /* IAPManager.m in Sources */,
+				B6417D071B0D1320006EA9A8 /* Tutorial.m in Sources */,
 				B65BDD9A1AEDB582007EA982 /* BubbleObject.m in Sources */,
 				B6350E001A97F81C00B4867C /* GamePlay.m in Sources */,
 				B6EA5EB61B03D64A00C7D7D2 /* GamePlay+UIUtils.m in Sources */,
@@ -690,7 +696,7 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lz",
@@ -731,7 +737,7 @@
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
 				);
 				INFOPLIST_FILE = Source/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",

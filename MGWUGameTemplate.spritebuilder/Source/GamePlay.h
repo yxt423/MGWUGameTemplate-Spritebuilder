@@ -7,6 +7,7 @@
 //
 
 #import "BasicScene.h"
+@class Character;
 
 @interface GamePlay : BasicScene <CCPhysicsCollisionDelegate> {
     int score;
@@ -22,9 +23,11 @@
 
     int _bubbleLimit;
     int _bubbleToUse;
-    CCSprite *_bubbleLife1;
-    CCSprite *_bubbleLife2;
-    CCSprite *_bubbleLife3;
+    CCSprite *_bubbleLife1, *_bubbleLife2, *_bubbleLife3;
+    
+    Character *_character;
+    CCButton *_buttonPause, *_buttonBubble;
+    CCNode *_walls;
 }
 
 @property (nonatomic, assign) int score;
@@ -42,5 +45,12 @@
 @property (nonatomic, retain) CCSprite *_bubbleLife1;
 @property (nonatomic, retain) CCSprite *_bubbleLife2;
 @property (nonatomic, retain) CCSprite *_bubbleLife3;
+
+@property (nonatomic, retain) Character *_character;
+@property (nonatomic, retain) CCButton *_buttonPause, *_buttonBubble;
+@property (nonatomic, retain) CCNode *_walls;
+
+- (void)resume;
+- (void)restart;
 
 @end

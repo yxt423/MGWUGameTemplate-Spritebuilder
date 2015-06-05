@@ -8,13 +8,14 @@
 
 #import "NewBubblePopUp.h"
 #import "GameManager.h"
+#import "MainScene.h"
 
 @implementation NewBubblePopUp {
     CCNode *_newBubblePopUp;
 }
 
 - (void)ok {
-    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    [MainScene startNewGame];
 }
 
 @end

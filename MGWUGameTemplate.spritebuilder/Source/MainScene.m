@@ -107,11 +107,22 @@
     if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
         CCLOG(@"new 10 bubbles!");
         [GameManager addCCNodeFromFile:@"PopUp/NewBubblePopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+        // TODO: every day gift.
 //        [_gameManager addBubble:10];
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
     } else {
-        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+        [MainScene startNewGame];
     }
+}
+
++ (void)startNewGame {
+//    int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
+//    if (gamePlayTimes == 0) {
+//        [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
+//    } else {
+//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+//    }
+    [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
 }
 
 - (void)setting {

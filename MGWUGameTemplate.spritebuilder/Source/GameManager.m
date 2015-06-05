@@ -144,6 +144,12 @@
     [_defaults synchronize];
 }
 
+- (void)setGamePlayTimes:(int)times {
+    gamePlayTimes = times;
+    [_defaults setInteger:gamePlayTimes forKey:@"gamePlayTimes"];
+    [_defaults synchronize];
+}
+
 /* Class methods */
 
 /* get PositionType */

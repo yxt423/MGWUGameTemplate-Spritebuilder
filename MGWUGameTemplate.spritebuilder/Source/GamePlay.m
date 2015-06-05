@@ -29,13 +29,8 @@
 #import "Mixpanel.h"
 
 @implementation GamePlay {
-    Character *_character;
-    CCNode *_gamePlay;
     CCNode *_contentNode;
     CCNode *_popUp;
-    CCNode *_walls;
-    CCButton *_buttonPause;
-    CCButton *_buttonBubble;
     CCAction *_followCharacter;
     CCNode *_bubble;
     
@@ -65,6 +60,10 @@
 @synthesize _bubbleLife1;
 @synthesize _bubbleLife2;
 @synthesize _bubbleLife3;
+
+@synthesize _character;
+@synthesize _buttonPause, _buttonBubble;
+@synthesize _walls;
 
 - (void)didLoadFromCCB {
     score = 0;
@@ -96,10 +95,14 @@
     [_swipeUpGesture setCancelsTouchesInView:NO];
     
     // load game content
-    [self loadNewContent];
-    [_mixpanel track:@"Game Start"];
+    if (_gameManager.gamePlayTimes == 0) {
+        [self loadNewContent];
+        [_mixpanel track:@"Game Start"];
+    } else {
+        [_mixpanel track:@"Tutorial Start"];
+    }
     
-    CCLOG(@"Game Start.");
+    CCLOG(@"GamePlay didLoadFromCCB.");
 }
 
 - (void)update:(CCTime)delta {
@@ -293,6 +296,7 @@
     
     _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
+    
     _gameManager.currentScore = score;
     if (score > _gameManager.highestScore) {
         _gameManager.highestScore = score;
@@ -319,7 +323,7 @@
 - (void)pause {
     if (_gameManager.gamePlayState == 0) {
         [self pauseAndCover];
-        [GameManager addCCNodeFromFile:@"PopUp/PausePopUp" WithPosition:_buttonPause.position Type:_gameManager.getPTUnitTopLeft To:_gamePlay];
+        [GameManager addCCNodeFromFile:@"PopUp/PausePopUp" WithPosition:_buttonPause.position Type:_gameManager.getPTUnitTopLeft To:self];
         
         [self stopUserInteraction];
         _gameManager.gamePlayState = 1;
