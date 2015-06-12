@@ -20,7 +20,7 @@
     if (!self) return(nil);
     
     _tutorialState = 0;
-    // 0: to load left cover.  1, left cover loaded.
+    // 0: to load left cover.  1, left cover loaded.  2, right cover loaded.  3,
     
     
     return self;
@@ -71,6 +71,8 @@
     pauseCover.position = CGPointMake(_character.position.x, 0);
     [self addChild:pauseCover];
     _flagPosition = _character.position.x;
+    
+    [self loadTabAt: ccp((_gameManager.screenWidth - _character.position.x) / 2 + _character.position.x, 80)];
 }
 
 - (void)loadCoverOnRight {
@@ -79,16 +81,23 @@
     pauseCover.position = CGPointMake(_character.position.x, 0);
     [self addChild:pauseCover];
     _flagPosition = _character.position.x;
+    
+    [self loadTabAt:ccp(_character.position.x / 2, 80)];
+}
+
+- (void)loadTabAt: (CGPoint)position {
+    CCNode *T_tab = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTab" WithPosition:position To:self];
+    [GameManager playThenCleanUpAnimationOf:T_tab Named:@"In"];
 }
 
 // switching states when the character hit the groud. 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     [_character jump];
-    if (_tutorialState == 1 && _character.position.x > _flagPosition + 10) {
+    if (_tutorialState == 1 && _character.position.x > _flagPosition + 70) {
         [GameManager playThenCleanUpAnimationOf:pauseCover Named:@"Out"];
         [self loadCoverOnRight];
         _tutorialState = 2;
-    } else if (_tutorialState == 2 && _character.position.x + 10 < _flagPosition) {
+    } else if (_tutorialState == 2 && _character.position.x + 70 < _flagPosition) {
         [GameManager playThenCleanUpAnimationOf:pauseCover Named:@"Out"];
         _tutorialState = 3;
     }
