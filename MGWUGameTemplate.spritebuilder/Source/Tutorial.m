@@ -17,6 +17,10 @@
     int _tutorialState;
     float _flagPosition;
     CCNode *_tutorialText;
+    
+    CCNode *_cloud1;
+    CCNode *_cloud2;
+    CCNode *_star;
 }
 
 - (id)init {
@@ -79,14 +83,13 @@
         [self tutorialStep2];
     } else if (_tutorialState == 2 && _character.position.x + 70 < _flagPosition) {
         [self tutorialStep3];
+    } else if (_tutorialState == 3 && _gameManager.cloudHit > 0 && _starHit == 0) {
+        [self restartStep3];
     }
-    
     return YES;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
-    [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
-    
     _starHit += 1;
     score *= 2;
     [super updateScore];
@@ -94,6 +97,14 @@
     [_character jump];
     CGPoint collisionPoint = pair.contacts.points[0].pointA;
     [(Star *)nodeB removeAndPlayAnimationAt:(CGPoint)collisionPoint];
+    
+    [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
+    _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText4" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7) To:self];
+    CCAnimationManager* animationManager = _tutorialText.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"In"];
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [self endTutorial];
+    }];
     
     return YES;
 }
@@ -146,15 +157,51 @@
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
     
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText3" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7) To:self];
-    
-    CCNode *cloud = [GameManager addCCNodeFromFile:@"Objects/Cloud" WithPosition:ccp(_gameManager.screenWidth - 130, 120) To:_objectsGroup];
-    [GameManager addCCNodeFromFile:@"Objects/Cloud" WithPosition:ccp(cloud.position.x - 50, 180) To:_objectsGroup];
-    [GameManager addCCNodeFromFile:@"Objects/StarStatic" WithPosition:ccp(cloud.position.x, 240) To:_objectsGroup];
+    [self loadCloudAndStar];
 }
+
+- (void)restartStep3 {
+    _gameManager.cloudHit = 0;
+    
+    CCNode *tryAgain = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText5" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7 - 60) To:self];
+    [GameManager playThenCleanUpAnimationOf:tryAgain Named:@"In"];
+    
+    CCAnimationManager* animationManager = tryAgain.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"In"];
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [tryAgain removeFromParentAndCleanup:YES];
+        [self removeCloudAndStar];
+        [self loadCloudAndStar];
+    }];
+}
+
+- (void)endTutorial {
+    if (_gameManager.gamePlayState == -1) {
+        return; // endGame is already called once.
+    }
+    _gameManager.gamePlayState = -1;
+    _gameManager.gamePlayTimes += 1;
+    
+    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+}
+
+/* others */
 
 - (void)loadTabAt: (CGPoint)position {
     CCNode *T_tab = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTab" WithPosition:position To:self];
     [GameManager playThenCleanUpAnimationOf:T_tab Named:@"In"];
+}
+
+- (void)loadCloudAndStar {
+    _cloud1 = [GameManager addCCNodeFromFile:@"Objects/Cloud" WithPosition:ccp(_gameManager.screenWidth - 130, 120) To:_objectsGroup];
+    _cloud2 = [GameManager addCCNodeFromFile:@"Objects/Cloud" WithPosition:ccp(_cloud1.position.x - 70, 180) To:_objectsGroup];
+    _star = [GameManager addCCNodeFromFile:@"Objects/StarStatic" WithPosition:ccp(_cloud1.position.x, 240) To:_objectsGroup];
+}
+
+- (void)removeCloudAndStar {
+    if (_cloud1) {[_cloud1 removeFromParent];}
+    if (_cloud2) {[_cloud2 removeFromParent];}
+    if (_star) {[_star removeFromParent];}
 }
 
 -(void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer{
