@@ -108,56 +108,57 @@
 }
 
 - (void)update:(CCTime)delta {
-    if (_gameManager.gamePlayState == 0) { // game on going.
-        // if character reach top of the current content, load new content.
-        if(_canLoadNewContent) {
-            int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
-            if (yMax + _gameManager.screenHeight / 2 + 1000 > _contentHeight) { // determine when to load new content.
-                [self loadNewContent];
-                _canLoadNewContent = false;
-                _timeSinceNewContent = 0.0f;
+    switch (_gameManager.gamePlayState) {
+        case 0:   // game on going.
+            // if character reach top of the current content, load new content.
+            if(_canLoadNewContent) {
+                int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
+                if (yMax + _gameManager.screenHeight / 2 + 1000 > _contentHeight) { // determine when to load new content.
+                    [self loadNewContent];
+                    _canLoadNewContent = false;
+                    _timeSinceNewContent = 0.0f;
+                }
             }
-        }
-        
-        _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
-        if (_timeSinceNewContent > 2.0f) {
-            _canLoadNewContent = true;
-        }
-        
-        if (_character.position.y > _gameManager.characterHighest) {
-            _gameManager.characterHighest = _character.position.y;
-        }
-        
-        // if the character starts to drop, end the game.
-        if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
-            [self endGame];
-        }
-        
-        // the wall goes with the character.
-        _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
-        
-        if (_inBubble) {
-            _timeInBubble += delta;
-            if (_timeInBubble > 2.0f) {
-                _inBubble = false;
-                _timeInBubble = 0.0f;
-                [_bubble removeFromParent];
-                
-                // show remove bubble animation.
-                [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+            
+            _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
+            if (_timeSinceNewContent > 2.0f) {
+                _canLoadNewContent = true;
             }
-        }
-    }
-    
-    else if (_gameManager.gamePlayState == 2) { // to be resumed
-        [self resume];
-    }
-    else if (_gameManager.gamePlayState == 3) { // to be restarted.
-        [self restart];
-    }
-    else if (_gameManager.gamePlayState == 4) { // sound setting to be reversed
-        _gameManager.audio.muted = _gameManager.muted;
-        _gameManager.gamePlayState = 1;
+            
+            if (_character.position.y > _gameManager.characterHighest) {
+                _gameManager.characterHighest = _character.position.y;
+            }
+            
+            // if the character starts to drop, end the game.
+            if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
+                [self endGame];
+            }
+            
+            // the wall goes with the character.
+            _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
+            
+            if (_inBubble) {
+                _timeInBubble += delta;
+                if (_timeInBubble > 2.0f) {
+                    _inBubble = false;
+                    _timeInBubble = 0.0f;
+                    [_bubble removeFromParent];
+                    
+                    // show remove bubble animation.
+                    [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+                }
+            }
+            break;
+        case 2:   // to be resumed
+            [self resume];
+            break;
+        case 3:  // to be restarted.
+            [GameManager startNewGame];
+            break;
+        case 4:  // sound setting to be reversed
+            _gameManager.audio.muted = _gameManager.muted;
+            _gameManager.gamePlayState = 1;
+            break;
     }
 }
 
@@ -337,12 +338,6 @@
     [self startUserInteraction];
     [self followCharacter];
     _gameManager.gamePlayState = 0;
-}
-
-- (void)restart {
-    [GameManager startNewGame];
-    _gameManager.gamePlayState = 0;
-    CCLOG(@"restarted!");
 }
 
 - (void)buttonBubble {

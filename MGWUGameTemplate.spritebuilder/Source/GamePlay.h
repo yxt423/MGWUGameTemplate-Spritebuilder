@@ -51,6 +51,5 @@
 @property (nonatomic, retain) CCNode *_walls;
 
 - (void)resume;
-- (void)restart;
 
 @end

@@ -5,6 +5,7 @@
 //  Created by Xintong Yu on 5/20/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
+// Totorial about mo
 
 #import "Tutorial.h"
 #import "GamePlay+UIUtils.h"
@@ -40,33 +41,20 @@
 
 // GamePlay update function won't be excuted.
 - (void)update:(CCTime)delta {
-    switch (_tutorialState) {
-        case 0:
-            [self tutorialStep1];
-            break;
-        case 1:
-            break;
-        default:
-            break;
+    if (_tutorialState == 0) {
+        [self tutorialStep1];
     }
     
     switch (_gameManager.gamePlayState) {
-        case 0:  // game going on.
-            // the wall goes with the character.
-            _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
-            break;
         case 2:   // to be resumed
             [super resume];
             break;
         case 3:  // to be restarted.
-            [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
-            _gameManager.gamePlayState = 0;
+            [GameManager startNewGame];
             break;
         case 4:  // sound setting to be reversed
             _gameManager.audio.muted = _gameManager.muted;
             _gameManager.gamePlayState = 1;
-            break;
-        default:
             break;
     }
 }

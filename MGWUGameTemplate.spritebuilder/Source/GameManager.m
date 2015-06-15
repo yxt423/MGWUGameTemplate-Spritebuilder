@@ -111,9 +111,12 @@
     int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
     if (gamePlayTimes == 0) {
         [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
+    } else if (gamePlayTimes == 3) {
+        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     } else {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     }
+    CCLOG(@"start new game!");
 }
 
 /* parameters related */
