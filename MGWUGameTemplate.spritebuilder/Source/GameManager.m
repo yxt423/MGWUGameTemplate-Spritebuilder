@@ -65,7 +65,7 @@
         }
         bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
         if (!bubbleStartNum) {
-            bubbleStartNum = 3;
+            bubbleStartNum = 0;
         }
         
         audio = [OALSimpleAudio sharedInstance];
@@ -110,7 +110,7 @@
 + (void)startNewGame {
     int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
     if (gamePlayTimes == 0) {
-        [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
+        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
     } else if (gamePlayTimes == 3) {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     } else {
@@ -159,6 +159,12 @@
 - (void)setGamePlayTimes:(int)times {
     gamePlayTimes = times;
     [_defaults setInteger:gamePlayTimes forKey:@"gamePlayTimes"];
+    [_defaults synchronize];
+}
+
+- (void)setBubbleStartNum:(int)num {
+    bubbleStartNum = num;
+    [_defaults setInteger:gamePlayTimes forKey:@"bubbleStartNum"];
     [_defaults synchronize];
 }
 

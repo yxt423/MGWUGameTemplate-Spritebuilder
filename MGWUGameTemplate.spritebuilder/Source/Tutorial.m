@@ -16,7 +16,7 @@
 
 @implementation Tutorial {
     int _tutorialState;
-    float _flagPosition;
+    float _coverBoundary;
     CCNode *_tutorialText;
     
     CCNode *_cloud1;
@@ -32,11 +32,6 @@
     /* 0: to load left cover.  1, left cover loaded.  2, right cover loaded. 3, clouds and star loaded. */
     
     return self;
-}
-
-- (void)onEnter {
-    [super onEnter];
-    CCLOG(@"Tutorial started....");
 }
 
 // GamePlay update function won't be excuted.
@@ -65,9 +60,9 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     [_character jump];
     
-    if (_tutorialState == 1 && _character.position.x > _flagPosition + 50) {
+    if (_tutorialState == 1 && _character.position.x > _coverBoundary + 50) {
         [self tutorialStep2];
-    } else if (_tutorialState == 2 && _character.position.x + 50 < _flagPosition) {
+    } else if (_tutorialState == 2 && _character.position.x + 50 < _coverBoundary) {
         [self tutorialStep3];
     } else if (_tutorialState == 3 && _gameManager.cloudHit > 0 && _starHit == 0) {
         [self restartStep3];
@@ -77,7 +72,7 @@
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     _starHit += 1;
-    score *= 2;
+    _score *= 2;
     [super updateScore];
     
     [_character jump];
@@ -95,15 +90,6 @@
     return YES;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
-    _gameManager.cloudHit += 1;
-    score += _gameManager.cloudHit * 10;
-    [self updateScore];
-    [_character jump];
-    [(Cloud *)nodeB removeAndPlayAnimation];
-    return YES;
-}
-
 /* tutorial steps */
 
 - (void)tutorialStep1 {
@@ -113,7 +99,7 @@
     pauseCover.anchorPoint = CGPointMake(1, 0);
     pauseCover.position = CGPointMake(_character.position.x, 0);
     [self addChild:pauseCover];
-    _flagPosition = _character.position.x;
+    _coverBoundary = _character.position.x;
     
     float positionX = (_gameManager.screenWidth - _character.position.x) / 2 + _character.position.x;
     [self loadTabAt: ccp(positionX, 80)];
@@ -130,7 +116,7 @@
     pauseCover.anchorPoint = CGPointMake(0, 0);
     pauseCover.position = CGPointMake(_character.position.x, 0);
     [self addChild:pauseCover];
-    _flagPosition = _character.position.x;
+    _coverBoundary = _character.position.x;
     
     [self loadTabAt:ccp(_character.position.x / 2, 80)];
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText2" WithPosition:ccp(_character.position.x / 2, 200) To:self];

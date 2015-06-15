@@ -10,7 +10,7 @@
 @class Character;
 
 @interface GamePlay : BasicScene <CCPhysicsCollisionDelegate> {
-    int score;
+    int _score;
     
     // stats
     int _starHit;
@@ -30,7 +30,7 @@
     CCNode *_walls;
 }
 
-@property (nonatomic, assign) int score;
+@property (nonatomic, assign) int _score;
 
 @property (nonatomic, assign) int _starHit;
 @property (nonatomic, assign) int _contentHeight;

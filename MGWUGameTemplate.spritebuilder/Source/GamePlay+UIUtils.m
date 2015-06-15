@@ -125,7 +125,7 @@
 }
 
 - (void)updateScore {
-    _scoreLabel.string = [GameManager scoreWithComma:score];
+    _scoreLabel.string = [GameManager scoreWithComma:_score];
 }
 
 /* Bubble num related */

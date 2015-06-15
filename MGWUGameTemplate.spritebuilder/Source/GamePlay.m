@@ -45,7 +45,7 @@
     bool _inBubble;
 }
 
-@synthesize score;
+@synthesize _score;
 
 @synthesize _starHit;
 @synthesize _contentHeight;
@@ -66,7 +66,7 @@
 @synthesize _walls;
 
 - (void)didLoadFromCCB {
-    score = 0;
+    _score = 0;
     _starHit = 0;
     _contentHeight = 100;
     _canLoadNewContent = true;
@@ -232,19 +232,18 @@
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA cloud:(CCNode *)nodeB {
     if (!_inBubble) {
         _gameManager.cloudHit += 1;
-        score += _gameManager.cloudHit * 10;
+        _score += _gameManager.cloudHit * 10;
         [self updateScore];
         [_character jump];
         [(Cloud *)nodeB removeAndPlayAnimation];
     }
-    
     return YES;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA star:(CCNode *)nodeB {
     if (!_inBubble) {
         _starHit += 1;
-        score *= 2;
+        _score *= 2;
         [self updateScore];
         
         [_character jump];
@@ -300,12 +299,12 @@
     _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
     
-    _gameManager.currentScore = score;
-    if (score > _gameManager.highestScore) {
-        _gameManager.highestScore = score;
+    _gameManager.currentScore = _score;
+    if (_score > _gameManager.highestScore) {
+        _gameManager.highestScore = _score;
         _gameManager.newHighScore = true;
     }
-    [_gameManager updateScoreBoard:score];
+    [_gameManager updateScoreBoard:_score];
     
     [self stopUserInteraction];
     [self trackGameEnd];
@@ -314,7 +313,7 @@
 }
 
 - (void)trackGameEnd {
-    [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:score],
+    [_mixpanel track:@"Game End" properties:@{@"Score": [NSNumber numberWithInt:_score],
                                               @"Height": [NSNumber numberWithInt:_gameManager.characterHighest],
                                               @"StarHit": [NSNumber numberWithInt:_starHit],
                                               @"gamePlayTimes": [NSNumber numberWithInt:_gameManager.gamePlayTimes],
