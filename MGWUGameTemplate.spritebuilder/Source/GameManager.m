@@ -107,6 +107,15 @@
     CCLOG(@"tapUIScaleDifference %d", tapUIScaleDifference);
 }
 
++ (void)startNewGame {
+    int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
+    if (gamePlayTimes == 0) {
+        [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
+    } else {
+        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    }
+}
+
 /* parameters related */
 
 - (void)updateScoreBoard: (int)score {

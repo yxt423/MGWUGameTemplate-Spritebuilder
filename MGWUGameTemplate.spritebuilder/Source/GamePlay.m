@@ -95,7 +95,9 @@
     [_swipeUpGesture setCancelsTouchesInView:NO];
     
     // load game content
-    if (_gameManager.gamePlayTimes == 0) {
+    CCLOG(@"gamePlayTimes: %d", _gameManager.gamePlayTimes);
+    
+    if (_gameManager.gamePlayTimes != 0) {
         [self loadNewContent];
         [_mixpanel track:@"Game Start"];
     } else {
@@ -338,7 +340,7 @@
 }
 
 - (void)restart {
-    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    [GameManager startNewGame];
     _gameManager.gamePlayState = 0;
     CCLOG(@"restarted!");
 }

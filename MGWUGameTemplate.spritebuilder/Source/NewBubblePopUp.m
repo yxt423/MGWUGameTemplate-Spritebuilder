@@ -15,7 +15,7 @@
 }
 
 - (void)ok {
-    [MainScene startNewGame];
+    [GameManager startNewGame];
 }
 
 @end

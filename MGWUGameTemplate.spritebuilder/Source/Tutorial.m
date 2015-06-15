@@ -28,9 +28,7 @@
     if (!self) return(nil);
     
     _tutorialState = 0;
-    /* 0: to load left cover.  1, left cover loaded.  2, right cover loaded.  
-     3, clouds and star loaded. 4, finish!
-    */
+    /* 0: to load left cover.  1, left cover loaded.  2, right cover loaded. 3, clouds and star loaded. */
     
     return self;
 }
@@ -79,9 +77,9 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     [_character jump];
     
-    if (_tutorialState == 1 && _character.position.x > _flagPosition + 70) {
+    if (_tutorialState == 1 && _character.position.x > _flagPosition + 50) {
         [self tutorialStep2];
-    } else if (_tutorialState == 2 && _character.position.x + 70 < _flagPosition) {
+    } else if (_tutorialState == 2 && _character.position.x + 50 < _flagPosition) {
         [self tutorialStep3];
     } else if (_tutorialState == 3 && _gameManager.cloudHit > 0 && _starHit == 0) {
         [self restartStep3];
@@ -182,7 +180,7 @@
     _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
     
-    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    [GameManager startNewGame];
 }
 
 /* others */

@@ -111,18 +111,8 @@
 //        [_gameManager addBubble:10];
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
     } else {
-        [MainScene startNewGame];
+        [GameManager startNewGame];
     }
-}
-
-+ (void)startNewGame {
-//    int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
-//    if (gamePlayTimes == 0) {
-//        [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
-//    } else {
-//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
-//    }
-    [GameManager replaceSceneWithFadeTransition:@"Tutorial"];
 }
 
 - (void)setting {

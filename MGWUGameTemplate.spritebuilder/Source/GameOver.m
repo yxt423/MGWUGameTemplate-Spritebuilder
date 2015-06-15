@@ -60,7 +60,7 @@
 }
 
 - (void)playAgain {
-    [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    [GameManager startNewGame];
 }
 
 - (void)backToMainScene {

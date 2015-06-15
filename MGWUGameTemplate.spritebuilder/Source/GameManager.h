@@ -79,6 +79,7 @@
 
 + (id)getGameManager;
 - (void)initDeviceParam: (MainScene *)mainScene;
++ (void)startNewGame;
 
 /* parameters related */
 
