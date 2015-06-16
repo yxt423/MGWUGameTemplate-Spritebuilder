@@ -10,33 +10,40 @@
 @class Character;
 
 @interface GamePlay : BasicScene <CCPhysicsCollisionDelegate> {
-    int _score;
-    
     // stats
+    int _score;
     int _starHit;
     int _contentHeight;
     int _objectInterval;
     float _cloudScale;
     
+    // elements of game
+    Character *_character;
+    CCButton *_buttonPause, *_buttonBubble;
+    CCNode *_walls;
     CCNode *_objectsGroup;
     CCLabelTTF *_scoreLabel;
 
+    // bubble life
     int _bubbleLimit;
     int _bubbleToUse;
     CCSprite *_bubbleLife1, *_bubbleLife2, *_bubbleLife3;
     
-    Character *_character;
-    CCButton *_buttonPause, *_buttonBubble;
-    CCNode *_walls;
+    // update about bubble
+    CCNode *_bubble;
+    bool _inBubble;
+    float _timeInBubble;
 }
 
 @property (nonatomic, assign) int _score;
-
 @property (nonatomic, assign) int _starHit;
 @property (nonatomic, assign) int _contentHeight;
 @property (nonatomic, assign) int _objectInterval;
 @property (nonatomic, assign) float _cloudScale;
 
+@property (nonatomic, retain) Character *_character;
+@property (nonatomic, retain) CCButton *_buttonPause, *_buttonBubble;
+@property (nonatomic, retain) CCNode *_walls;
 @property (nonatomic, retain) CCNode *_objectsGroup;
 @property (nonatomic, retain) CCLabelTTF *_scoreLabel;
 
@@ -46,10 +53,15 @@
 @property (nonatomic, retain) CCSprite *_bubbleLife2;
 @property (nonatomic, retain) CCSprite *_bubbleLife3;
 
-@property (nonatomic, retain) Character *_character;
-@property (nonatomic, retain) CCButton *_buttonPause, *_buttonBubble;
-@property (nonatomic, retain) CCNode *_walls;
+@property (nonatomic, retain) CCNode *_bubble;
+@property (nonatomic, assign) bool _inBubble;
+@property (nonatomic, assign) float _timeInBubble;
 
+
+- (void)update:(CCTime)delta;
+- (void)updateAboutLoadNewContent:(CCTime)delta;
+- (void)updateAboutBubble:(CCTime)delta;
+- (void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer;
 - (void)resume;
 
 @end

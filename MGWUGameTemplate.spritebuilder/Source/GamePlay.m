@@ -32,7 +32,6 @@
     CCNode *_contentNode;
     CCNode *_popUp;
     CCAction *_followCharacter;
-    CCNode *_bubble;
     
     // user interaction var
     UITapGestureRecognizer *_tapGesture;
@@ -41,17 +40,17 @@
     // game state flags.
     float _timeSinceNewContent;
     bool _canLoadNewContent;
-    float _timeInBubble;
-    bool _inBubble;
 }
 
 @synthesize _score;
-
 @synthesize _starHit;
 @synthesize _contentHeight;
 @synthesize _objectInterval;
 @synthesize _cloudScale;
 
+@synthesize _character;
+@synthesize _buttonPause, _buttonBubble;
+@synthesize _walls;
 @synthesize _scoreLabel;
 @synthesize _objectsGroup;
 
@@ -61,9 +60,9 @@
 @synthesize _bubbleLife2;
 @synthesize _bubbleLife3;
 
-@synthesize _character;
-@synthesize _buttonPause, _buttonBubble;
-@synthesize _walls;
+@synthesize _bubble;
+@synthesize _inBubble;
+@synthesize _timeInBubble;
 
 - (void)didLoadFromCCB {
     _score = 0;
@@ -107,47 +106,22 @@
     CCLOG(@"GamePlay didLoadFromCCB.");
 }
 
+- (void)onEnter {
+    [super onEnter];
+    [self followCharacter];
+    [self startUserInteraction];
+}
+
+- (void)onExit {
+    [super onExit];
+    [self stopUserInteraction];
+}
+
 - (void)update:(CCTime)delta {
     switch (_gameManager.gamePlayState) {
         case 0:   // game on going.
-            // if character reach top of the current content, load new content.
-            if(_canLoadNewContent) {
-                int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
-                if (yMax + _gameManager.screenHeight / 2 + 1000 > _contentHeight) { // determine when to load new content.
-                    [self loadNewContent];
-                    _canLoadNewContent = false;
-                    _timeSinceNewContent = 0.0f;
-                }
-            }
-            
-            _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
-            if (_timeSinceNewContent > 2.0f) {
-                _canLoadNewContent = true;
-            }
-            
-            if (_character.position.y > _gameManager.characterHighest) {
-                _gameManager.characterHighest = _character.position.y;
-            }
-            
-            // if the character starts to drop, end the game.
-            if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
-                [self endGame];
-            }
-            
-            // the wall goes with the character.
-            _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2);
-            
-            if (_inBubble) {
-                _timeInBubble += delta;
-                if (_timeInBubble > 2.0f) {
-                    _inBubble = false;
-                    _timeInBubble = 0.0f;
-                    [_bubble removeFromParent];
-                    
-                    // show remove bubble animation.
-                    [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
-                }
-            }
+            [self updateAboutLoadNewContent:delta];
+            [self updateAboutBubble:delta]; // update the bubble
             break;
         case 2:   // to be resumed
             [self resume];
@@ -162,15 +136,46 @@
     }
 }
 
-- (void)onEnter {
-    [super onEnter];
-    [self followCharacter];
-    [self startUserInteraction];
+- (void)updateAboutLoadNewContent:(CCTime)delta {
+    // if character reach top of the current content, load new content.
+    if(_canLoadNewContent) {
+        int yMax = _character.boundingBox.origin.y + _character.boundingBox.size.height;
+        if (yMax + _gameManager.screenHeight / 2 + 1000 > _contentHeight) { // determine when to load new content.
+            [self loadNewContent];
+            _canLoadNewContent = false;
+            _timeSinceNewContent = 0.0f;
+        }
+    }
+    
+    _timeSinceNewContent += delta;  // delta is approximately 1/60th of a second
+    if (_timeSinceNewContent > 2.0f) {
+        _canLoadNewContent = true;
+    }
+    
+    if (_character.position.y > _gameManager.characterHighest) {
+        _gameManager.characterHighest = _character.position.y;
+    }
+    
+    // if the character starts to drop, end the game.
+    if (_character.position.y + _gameManager.screenHeight * 2 < _gameManager.characterHighest) {
+        [self endGame];
+    }
+    
+    _walls.position = ccp(0, _character.position.y - _walls.boundingBox.size.height / 2); // update the wall
 }
 
-- (void)onExit {
-    [super onExit];
-    [self stopUserInteraction];
+- (void)updateAboutBubble:(CCTime)delta {
+    if (_inBubble) {
+        _timeInBubble += delta;
+        if (_timeInBubble > 2.0f) {
+            _inBubble = false;
+            _timeInBubble = 0.0f;
+            [_bubble removeFromParent];
+            
+            // show remove bubble animation.
+            [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+        }
+    }
 }
 
 - (void)followCharacter {
@@ -194,34 +199,16 @@
 
 // the tap position and character position has different UI density. Why is that?
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
-//    CCLOG(@"=========== tapGesture =================");
-//    CCLOG(@"_character.position %f, %f", _character.position.x , _character.position.y);
-    
     CGPoint point = [gestureRecognizer locationInView:nil];
-//    CCLOG(@"point %f, %f", point.x, point.y);
     point.x = point.x / _gameManager.tapUIScaleDifference;
     point.y = point.y / _gameManager.tapUIScaleDifference;
-    point.y = _gameManager.screenHeight - point.y; // the convertedPoint has different reference corner.
-//    CCLOG(@"point adjusted %f, %f", point.x, point.y);
-//    CCLOG(@"_buttonPause.boundingBox %f, %f, %f, %f", _buttonPause.boundingBox.origin.x , _buttonPause.boundingBox.origin.y, _buttonPause.boundingBox.size.width, _buttonPause.boundingBox.size.height);
-    
     if (CGRectContainsPoint(_buttonPause.boundingBox, point) || CGRectContainsPoint(_buttonBubble.boundingBox, point)) {
         return;
     }
-    
-    // if tap on left side of character, or very left of the screen, jump left. 
-    if (point.x < 40) {
-        [_character moveLeft];
-    } else if (_gameManager.screenWidthInPoints - point.x < 40 ) {
-        [_character moveRight];
-    } else if (point.x < _character.positionInPoints.x) {
-        [_character moveLeft];
-    } else {
-        [_character moveRight];
-    }
+    [_character tapGestureCharacterMove:point];
 }
 
--(void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer{
+-(void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer {
     if(recognizer.direction != UISwipeGestureRecognizerDirectionUp) {
         return;
     }
@@ -358,6 +345,10 @@
         _bubble = [GameManager addCCNodeFromFile:@"Objects/Bubble" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:_character];
         [_character bubbleUp];
     }
+}
+
+- (void)buttonBubbleDisabled {
+    CCLOG(@"Disable the bubble button in tutorial.");
 }
 
 @end

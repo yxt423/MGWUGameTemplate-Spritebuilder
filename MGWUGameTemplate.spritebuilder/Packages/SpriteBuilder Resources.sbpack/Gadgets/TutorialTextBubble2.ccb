@@ -198,7 +198,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Tap right to go right</string>
+							<string>Swipe up to use a bubble</string>
 							<false/>
 						</array>
 					</dict>

@@ -111,6 +111,7 @@
     int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
     if (gamePlayTimes == 0) {
         [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
+//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
     } else if (gamePlayTimes == 3) {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     } else {
@@ -180,6 +181,10 @@
     return CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopLeft);
 }
 
+- (CCPositionType)getPTUnitTopRight {
+    return CCPositionTypeMake(CCPositionUnitPoints, CCPositionUnitPoints, CCPositionReferenceCornerTopRight);
+}
+
 /* scene loading methods */
 
 + (CCTransition *)getFadeTransition {
@@ -201,6 +206,14 @@
 }
 
 /* noces / objects loading methods. */
+
++ (CCActionFadeIn*)getFadeIn {
+    return [CCActionFadeIn actionWithDuration:0.5];
+}
+
++ (CCActionFadeOut*)getFadeOut {
+    return [CCActionFadeOut actionWithDuration:0.5];
+}
 
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
     CCNode * node = [CCBReader load:fileName];

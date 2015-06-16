@@ -88,11 +88,13 @@
 // get CCPositionType.
 - (CCPositionType)getPTNormalizedTopLeft;
 - (CCPositionType)getPTUnitTopLeft;
+- (CCPositionType)getPTUnitTopRight;
 
 /** Class methods */
 
 /* UI effect methods. */
-
++ (CCActionFadeIn*)getFadeIn;
++ (CCActionFadeIn*)getFadeOut;
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;
 + (CCNode *)addCCNodeFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode;
 + (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode;

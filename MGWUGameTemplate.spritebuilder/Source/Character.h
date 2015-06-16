@@ -17,4 +17,6 @@
 - (void)bubbleUp;
 - (void)stop;
 
+- (void)tapGestureCharacterMove: (CGPoint)point;
+
 @end
