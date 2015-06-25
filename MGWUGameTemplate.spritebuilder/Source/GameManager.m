@@ -15,6 +15,8 @@
 #import "Mixpanel.h"
 #import "MainScene.h"
 
+static int timeToShowTutorial1, timeToShowTutorial2;
+
 @implementation GameManager {
     Mixpanel *_mixpanel;
     NSUserDefaults *_defaults;
@@ -29,7 +31,7 @@
 @synthesize scoreBoard;
 @synthesize userName;
 
-@synthesize gamePlayState, mainSceneState;
+@synthesize gamePlayState, mainSceneState, tutorialProgress;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 
 @synthesize muted;
@@ -51,9 +53,18 @@
         // mainSceneState: 0, on going, 1 paused. 
         mainSceneState = 0;
         characterHighest = 0;
+        timeToShowTutorial1 = 0;
+        timeToShowTutorial2 = 3;
         _defaults = [NSUserDefaults standardUserDefaults];
         
-        // init veriables from local
+        // veriables from local storage.
+        
+        // tutorialProgress: 0, not started, 1, tutorial1 finished, 2, swipeUp enabled. 3, tutorial 2 (bubble finished.)
+        tutorialProgress = (int)[_defaults integerForKey:@"tutorialProgress"];
+        if (!tutorialProgress) {
+            tutorialProgress = 0;
+        }
+        
         highestScore = (int)[_defaults integerForKey:@"highscore"];  // long to int, loss
         gamePlayTimes = (int)[_defaults integerForKey:@"gamePlayTimes"];
         if (!gamePlayTimes) {
@@ -109,18 +120,16 @@
 
 + (void)startNewGame {
     int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
-    if (gamePlayTimes == 0) {
+    if (gamePlayTimes == timeToShowTutorial1) {
+        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
+    } else if (gamePlayTimes == timeToShowTutorial2) {
         [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
-//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
-    } else if (gamePlayTimes == 3) {
-        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     } else {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     }
     CCLOG(@"start new game!");
 }
-
-/* parameters related */
 
 - (void)updateScoreBoard: (int)score {
     if ([scoreBoard count] == 0) {
@@ -150,6 +159,8 @@
     }
 }
 
+/* setters. store the value to local storage. */
+
 - (void)setHighestScore: (int)score {
     CCLOG(@"new high score!");
     highestScore = score;
@@ -166,6 +177,12 @@
 - (void)setBubbleStartNum:(int)num {
     bubbleStartNum = num;
     [_defaults setInteger:gamePlayTimes forKey:@"bubbleStartNum"];
+    [_defaults synchronize];
+}
+
+- (void)setTutorialState:(int)num {
+    tutorialProgress = num;
+    [_defaults setInteger:gamePlayTimes forKey:@"tutorialProgress"];
     [_defaults synchronize];
 }
 

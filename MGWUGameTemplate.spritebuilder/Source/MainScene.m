@@ -155,6 +155,8 @@
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.gamePlayTimes = 0;
+    _gameManager.bubbleStartNum = 0;
+    _gameManager.tutorialProgress = 0;
     
     _gameManager.scoreBoard = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"scoreBoard"];

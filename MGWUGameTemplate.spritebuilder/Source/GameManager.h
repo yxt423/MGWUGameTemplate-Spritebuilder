@@ -19,6 +19,7 @@
     // scene states.
     int gamePlayState;
     int mainSceneState;
+    int tutorialProgress;
     int shopSceneNo;
     
     // for game play scene.
@@ -53,6 +54,7 @@
 
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) int mainSceneState;
+@property (nonatomic, assign) int tutorialProgress;
 @property (nonatomic, assign) int shopSceneNo;
 
 // for game play scene.

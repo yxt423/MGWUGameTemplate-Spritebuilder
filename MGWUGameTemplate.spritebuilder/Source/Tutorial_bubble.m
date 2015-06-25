@@ -99,21 +99,21 @@
 - (void)tutorialStep2 { // swipe up to use bubble.
     _contentHeight = 300;
     _tutorialState = 2;
+    _gameManager.tutorialProgress = 2;
+    
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
     [GameManager playThenCleanUpAnimationOf:pauseCover Named:@"Out"];
     
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTextBubble2" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.4) To:self];
-    
-    // make the cloud fade in!
-//    _objectsGroup.opacity = 0;
-//    [_objectsGroup runAction:[CCActionFadeIn actionWithDuration:2]];
 }
 
 - (void)tutorialStep3 {
     _tutorialState = 3;
-    [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
+    _gameManager.tutorialProgress = 3;
     
+    [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText4" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7) To:self];
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"In"];
 }
+
 @end

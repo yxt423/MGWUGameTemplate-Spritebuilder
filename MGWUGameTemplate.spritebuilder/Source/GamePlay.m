@@ -96,7 +96,7 @@
     // load game content
     CCLOG(@"gamePlayTimes: %d", _gameManager.gamePlayTimes);
     
-    if (_gameManager.gamePlayTimes != 0) {
+    if (_gameManager.gamePlayTimes != 0 && _gameManager.gamePlayTimes != 3) {
         [self loadNewContent];
         [_mixpanel track:@"Game Start"];
     } else {
@@ -209,7 +209,7 @@
 }
 
 -(void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer {
-    if(recognizer.direction != UISwipeGestureRecognizerDirectionUp) {
+    if(recognizer.direction != UISwipeGestureRecognizerDirectionUp || _gameManager.tutorialProgress < 2) {
         return;
     }
     

@@ -22,7 +22,7 @@
     
     _contentHeight += _objectInterval;
     int randomNum = arc4random_uniform(100);
-    if (randomNum < 10) {
+    if (randomNum < 10 && _gameManager.tutorialProgress >= 3) {
         // add bubble.
         BubbleObject *bubbleObject = (BubbleObject *)[CCBReader load:@"Objects/BubbleObject"];
         bubbleObject.position = ccp(arc4random_uniform(_gameManager.screenWidth - 80) + 40, _contentHeight);

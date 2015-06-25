@@ -153,6 +153,7 @@
     }
     _gameManager.gamePlayState = -1;
     _gameManager.gamePlayTimes += 1;
+    _gameManager.tutorialProgress = 1;
     
     [GameManager startNewGame];
 }
