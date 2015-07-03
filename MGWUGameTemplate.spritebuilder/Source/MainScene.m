@@ -111,7 +111,7 @@
 //        [_gameManager addBubble:10];
         [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
     } else {
-        [GameManager startNewGame];
+        [_gameManager startNewGame];
     }
 }
 

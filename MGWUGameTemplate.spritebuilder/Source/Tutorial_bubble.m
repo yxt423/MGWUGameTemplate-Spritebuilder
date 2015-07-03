@@ -27,7 +27,7 @@
     _tutorialState = 0;
     
     // 1, the bubble you have. 2, swipe up to use a bubble. 3, good job.
-    _gameManager.bubbleStartNum = 1;
+    _gameManager.bubbleStartNum = 3;
     [self updateBubbleNum];
     
     // about loading new content.
@@ -52,7 +52,7 @@
             [super resume];
             break;
         case 3:  // to be restarted.
-            [GameManager startNewGame];
+            [_gameManager startNewGame];
             break;
         case 4:  // sound setting to be reversed
             _gameManager.audio.muted = _gameManager.muted;

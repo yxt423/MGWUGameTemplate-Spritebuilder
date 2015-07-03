@@ -96,7 +96,7 @@
     // load game content
     CCLOG(@"gamePlayTimes: %d", _gameManager.gamePlayTimes);
     
-    if (_gameManager.gamePlayTimes != 0 && _gameManager.gamePlayTimes != 3) {
+    if (_gameManager.gamePlayTimes != _gameManager.TIMETOSHOWTUTORIAL1 && _gameManager.gamePlayTimes != _gameManager.TIMETOSHOWTUTORIAL2) {
         [self loadNewContent];
         [_mixpanel track:@"Game Start"];
     } else {
@@ -127,7 +127,7 @@
             [self resume];
             break;
         case 3:  // to be restarted.
-            [GameManager startNewGame];
+            [_gameManager startNewGame];
             break;
         case 4:  // sound setting to be reversed
             _gameManager.audio.muted = _gameManager.muted;

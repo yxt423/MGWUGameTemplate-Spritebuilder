@@ -12,10 +12,20 @@
 
 @implementation NewBubblePopUp {
     CCNode *_newBubblePopUp;
+    GameManager *_gameManager;
+}
+
+- (id)init {
+    self = [super init];
+    if (!self) return(nil);
+
+    _gameManager = [GameManager getGameManager];
+    
+    return self;
 }
 
 - (void)ok {
-    [GameManager startNewGame];
+    [_gameManager startNewGame];
 }
 
 @end

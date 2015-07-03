@@ -60,7 +60,7 @@
 }
 
 - (void)playAgain {
-    [GameManager startNewGame];
+    [_gameManager startNewGame];
 }
 
 - (void)backToMainScene {

@@ -45,7 +45,7 @@
             [super resume];
             break;
         case 3:  // to be restarted.
-            [GameManager startNewGame];
+            [_gameManager startNewGame];
             break;
         case 4:  // sound setting to be reversed
             _gameManager.audio.muted = _gameManager.muted;
@@ -155,7 +155,7 @@
     _gameManager.gamePlayTimes += 1;
     _gameManager.tutorialProgress = 1;
     
-    [GameManager startNewGame];
+    [_gameManager startNewGame];
 }
 
 /* others */

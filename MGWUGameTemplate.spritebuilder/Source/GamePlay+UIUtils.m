@@ -126,6 +126,9 @@
 
 - (void)updateScore {
     _scoreLabel.string = [GameManager scoreWithComma:_score];
+    if (_score > _gameManager.highestScore) {
+        // set color to yellow.
+    }
 }
 
 /* Bubble num related */

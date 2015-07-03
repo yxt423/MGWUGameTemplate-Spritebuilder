@@ -15,8 +15,6 @@
 #import "Mixpanel.h"
 #import "MainScene.h"
 
-static int timeToShowTutorial1, timeToShowTutorial2;
-
 @implementation GameManager {
     Mixpanel *_mixpanel;
     NSUserDefaults *_defaults;
@@ -26,10 +24,7 @@ static int timeToShowTutorial1, timeToShowTutorial2;
 @synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize tapUIScaleDifference;
 
-@synthesize currentScore, highestScore;
-@synthesize newHighScore;
-@synthesize scoreBoard;
-@synthesize userName;
+@synthesize currentScore, highestScore, newHighScore, scoreBoard;
 
 @synthesize gamePlayState, mainSceneState, tutorialProgress;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
@@ -39,22 +34,25 @@ static int timeToShowTutorial1, timeToShowTutorial2;
 @synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
 @synthesize bubbleStartNum;
 
-@synthesize gamePlayTimes;
-@synthesize cloudHit;
-@synthesize audio;
+@synthesize gamePlayTimes, cloudHit, audio;
+
+@synthesize TIMETOSHOWTUTORIAL1, TIMETOSHOWTUTORIAL2;
 
 /* init functions */
 
 - (id)init {
     if (self = [super init]) {
-        CCLOG(@"Game Maneger Init.");
+        CCLOG(@"Game Manager Init.");
+        
+        // constants init.
+        TIMETOSHOWTUTORIAL1 = 0;
+        TIMETOSHOWTUTORIAL2 = 3;
+        
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
         // mainSceneState: 0, on going, 1 paused. 
         mainSceneState = 0;
         characterHighest = 0;
-        timeToShowTutorial1 = 0;
-        timeToShowTutorial2 = 3;
         _defaults = [NSUserDefaults standardUserDefaults];
         
         // veriables from local storage.
@@ -84,8 +82,6 @@ static int timeToShowTutorial1, timeToShowTutorial2;
         audio.muted = muted;
         
         scoreBoard = [NSMutableArray arrayWithArray:[_defaults arrayForKey:@"scoreBoard"]];
-        userName = [_defaults stringForKey:@"userName"];
-        CCLOG(@"userName %@", userName);
         
         _mixpanel = [Mixpanel sharedInstance];
         [_mixpanel track:@"Game Open"];
@@ -118,13 +114,11 @@ static int timeToShowTutorial1, timeToShowTutorial2;
     CCLOG(@"tapUIScaleDifference %d", tapUIScaleDifference);
 }
 
-+ (void)startNewGame {
-    int gamePlayTimes = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"gamePlayTimes"];
-    if (gamePlayTimes == timeToShowTutorial1) {
+- (void)startNewGame {
+    if (gamePlayTimes == TIMETOSHOWTUTORIAL1) {
         [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
-    } else if (gamePlayTimes == timeToShowTutorial2) {
+    } else if (gamePlayTimes == TIMETOSHOWTUTORIAL2) {
         [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
-//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     } else {
         [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
     }
@@ -176,13 +170,13 @@ static int timeToShowTutorial1, timeToShowTutorial2;
 
 - (void)setBubbleStartNum:(int)num {
     bubbleStartNum = num;
-    [_defaults setInteger:gamePlayTimes forKey:@"bubbleStartNum"];
+    [_defaults setInteger:bubbleStartNum forKey:@"bubbleStartNum"];
     [_defaults synchronize];
 }
 
-- (void)setTutorialState:(int)num {
+- (void)setTutorialProgress:(int)num {
     tutorialProgress = num;
-    [_defaults setInteger:gamePlayTimes forKey:@"tutorialProgress"];
+    [_defaults setInteger:tutorialProgress forKey:@"tutorialProgress"];
     [_defaults synchronize];
 }
 

@@ -37,11 +37,14 @@
     int highestScore;
     bool newHighScore;
     NSMutableArray *scoreBoard;
-    NSString *userName;
     
     // stats, objects count.
     int gamePlayTimes;
 //    int bubbleNum;
+    
+    // constants
+    int TIMETOSHOWTUTORIAL1;
+    int TIMETOSHOWTUTORIAL2;
 }
 
 @property (nonatomic, assign) int screenHeight, screenWidth; // for drawing objects on screen.
@@ -72,16 +75,19 @@
 @property (nonatomic, assign) int highestScore;
 @property (nonatomic, assign) bool newHighScore;
 @property (nonatomic, retain) NSMutableArray *scoreBoard;
-@property (nonatomic, retain) NSString *userName;
 
 @property (nonatomic, assign) int gamePlayTimes;
 //@property (nonatomic, assign) int bubbleNum;
+
+// constants
+@property (nonatomic, assign) int TIMETOSHOWTUTORIAL1;
+@property (nonatomic, assign) int TIMETOSHOWTUTORIAL2;
 
 /* init functions */
 
 + (id)getGameManager;
 - (void)initDeviceParam: (MainScene *)mainScene;
-+ (void)startNewGame;
+- (void)startNewGame;
 
 /* parameters related */
 
