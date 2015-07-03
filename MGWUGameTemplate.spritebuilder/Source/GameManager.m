@@ -24,17 +24,18 @@
 @synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize tapUIScaleDifference;
 
-@synthesize currentScore, highestScore, newHighScore, scoreBoard;
-
 @synthesize gamePlayState, mainSceneState, tutorialProgress;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 
-@synthesize muted;
+@synthesize muted, cloudHit;
 @synthesize characterHighest;  //the highest position the character ever been to
-@synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
-@synthesize bubbleStartNum;
 
-@synthesize gamePlayTimes, cloudHit, audio;
+@synthesize currentScore, highestScore, newHighScore, scoreBoard;
+
+@synthesize gamePlayTimes, audio;
+@synthesize sharedObjectsGroup; // equals to _objectsGroup. used by the clouds in class method getPositionInObjectsGroup.
+
+@synthesize bubbleStartNum, energyNum;
 
 @synthesize TIMETOSHOWTUTORIAL1, TIMETOSHOWTUTORIAL2;
 
@@ -75,6 +76,10 @@
         bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
         if (!bubbleStartNum) {
             bubbleStartNum = 0;
+        }
+        energyNum = (int)[_defaults integerForKey:@"energyNum"];
+        if (!energyNum) {
+            energyNum = 0;
         }
         
         audio = [OALSimpleAudio sharedInstance];
@@ -177,6 +182,12 @@
 - (void)setTutorialProgress:(int)num {
     tutorialProgress = num;
     [_defaults setInteger:tutorialProgress forKey:@"tutorialProgress"];
+    [_defaults synchronize];
+}
+
+- (void)setEnergyNum:(int)num {
+    energyNum = num;
+    [_defaults setInteger:energyNum forKey:@"energyNum"];
     [_defaults synchronize];
 }
 

@@ -146,11 +146,6 @@
     [GameManager pushSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
-- (void)buttonAddBubble {
-//    CCLOG(@".....just add more bubbles.");
-//    [_gameManager addBubble:2];
-}
-
 - (void)reset {
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;

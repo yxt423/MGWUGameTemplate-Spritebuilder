@@ -26,11 +26,6 @@
     bool muted;
     int characterHighest;
     int cloudHit;
-    CCNode *sharedObjectsGroup;
-    OALSimpleAudio *audio;
-    
-    // IAP items
-    int bubbleStartNum;
     
     // for game over scene.
     int currentScore;
@@ -38,15 +33,21 @@
     bool newHighScore;
     NSMutableArray *scoreBoard;
     
-    // stats, objects count.
+    // shared var.
     int gamePlayTimes;
-//    int bubbleNum;
+    CCNode *sharedObjectsGroup;
+    OALSimpleAudio *audio;
+    
+    // IAP items
+    int bubbleStartNum;
+    int energyNum;
     
     // constants
     int TIMETOSHOWTUTORIAL1;
     int TIMETOSHOWTUTORIAL2;
 }
 
+// device params.
 @property (nonatomic, assign) int screenHeight, screenWidth; // for drawing objects on screen.
 @property (nonatomic, assign) int screenHeightInPoints, screenWidthInPoints; // for comparing tap position and chatacter position. 
 @property (nonatomic, assign) int screenLeft, screenRight;
@@ -55,6 +56,7 @@
 // screenHeightInPoints, screenWidthInPoints, iPad 1024 768
 // tapUIPositionDifference = screenWidthInPoints / screenWidth;
 
+// scene states.
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) int mainSceneState;
 @property (nonatomic, assign) int tutorialProgress;
@@ -64,20 +66,21 @@
 @property (nonatomic, assign) bool muted;
 @property (nonatomic, assign) int cloudHit;
 @property (nonatomic, assign) int characterHighest;
-@property (nonatomic, retain) CCNode *sharedObjectsGroup;
-@property (nonatomic, retain) OALSimpleAudio *audio;
 
-// IAP items
-@property (nonatomic, assign) int bubbleStartNum;
-
-// score related.
+// for game over scene.
 @property (nonatomic, assign) int currentScore;
 @property (nonatomic, assign) int highestScore;
 @property (nonatomic, assign) bool newHighScore;
 @property (nonatomic, retain) NSMutableArray *scoreBoard;
 
+// shared var.
 @property (nonatomic, assign) int gamePlayTimes;
-//@property (nonatomic, assign) int bubbleNum;
+@property (nonatomic, retain) CCNode *sharedObjectsGroup;
+@property (nonatomic, retain) OALSimpleAudio *audio;
+
+// IAP items
+@property (nonatomic, assign) int bubbleStartNum;
+@property (nonatomic, assign) int energyNum;
 
 // constants
 @property (nonatomic, assign) int TIMETOSHOWTUTORIAL1;

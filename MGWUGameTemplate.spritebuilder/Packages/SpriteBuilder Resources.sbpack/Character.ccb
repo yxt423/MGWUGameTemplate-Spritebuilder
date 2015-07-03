@@ -57,7 +57,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk01.png</string>
+								<string>Assets/Character/p2_walk01.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -75,7 +75,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk02.png</string>
+								<string>Assets/Character/p2_walk02.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -93,7 +93,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk03.png</string>
+								<string>Assets/Character/p2_walk03.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -111,7 +111,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk04.png</string>
+								<string>Assets/Character/p2_walk04.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -129,7 +129,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk05.png</string>
+								<string>Assets/Character/p2_walk05.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -147,7 +147,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk06.png</string>
+								<string>Assets/Character/p2_walk06.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -165,7 +165,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk07.png</string>
+								<string>Assets/Character/p2_walk07.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -183,7 +183,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk08.png</string>
+								<string>Assets/Character/p2_walk08.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -201,7 +201,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk09.png</string>
+								<string>Assets/Character/p2_walk09.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -219,7 +219,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk10.png</string>
+								<string>Assets/Character/p2_walk10.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -237,7 +237,7 @@
 							<integer>7</integer>
 							<key>value</key>
 							<array>
-								<string>Assets/p2_walk11.png</string>
+								<string>Assets/Character/p2_walk11.png</string>
 								<string>Use regular file</string>
 							</array>
 						</dict>
@@ -278,7 +278,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>1</real>
+			<real>0.94999998807907104</real>
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
@@ -288,150 +288,98 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>10.493433952331543</real>
-					<real>1.5105108022689819</real>
+					<real>9.9597082138061523</real>
+					<real>0.55571001768112183</real>
 				</array>
 				<array>
-					<real>10.108848571777344</real>
-					<real>7.379976749420166</real>
+					<real>10.61198902130127</real>
+					<real>7.1938920021057129</real>
 				</array>
 				<array>
-					<real>2.2293951511383057</real>
-					<real>10.64289379119873</real>
+					<real>3.1498255729675293</real>
+					<real>11.15754222869873</real>
 				</array>
 				<array>
-					<real>4.1674623489379883</real>
-					<real>19.760135650634766</real>
+					<real>-0.064337275922298431</real>
+					<real>30.115470886230469</real>
 				</array>
 				<array>
-					<real>0.48513498902320862</real>
-					<real>29.256664276123047</real>
+					<real>8.8559188842773438</real>
+					<real>45.011634826660156</real>
 				</array>
 				<array>
-					<real>3.9479155540466309</real>
-					<real>40.529247283935547</real>
+					<real>25.368249893188477</real>
+					<real>45.24420166015625</real>
 				</array>
 				<array>
-					<real>15.738327026367188</real>
-					<real>47.312484741210938</real>
+					<real>35.059795379638672</real>
+					<real>31.627162933349609</real>
 				</array>
 				<array>
-					<real>28.746088027954102</real>
-					<real>43.436347961425781</real>
+					<real>30.185859680175781</real>
+					<real>10.703307151794434</real>
 				</array>
 				<array>
-					<real>34.499725341796875</real>
-					<real>32.780010223388672</real>
+					<real>24.836793899536133</real>
+					<real>6.2736129760742188</real>
 				</array>
 				<array>
-					<real>33.570816040039062</real>
-					<real>23.445491790771484</real>
-				</array>
-				<array>
-					<real>29.856691360473633</real>
-					<real>18.582912445068359</real>
-				</array>
-				<array>
-					<real>30.631917953491211</real>
-					<real>11.412064552307129</real>
-				</array>
-				<array>
-					<real>24.421775817871094</real>
-					<real>7.1225771903991699</real>
-				</array>
-				<array>
-					<real>24.042490005493164</real>
-					<real>1.6869051456451416</real>
+					<real>24.834068298339844</real>
+					<real>0.55571001768112183</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>10.108848571777344</real>
-						<real>7.379976749420166</real>
+						<real>10.61198902130127</real>
+						<real>7.1938920021057129</real>
 					</array>
 					<array>
-						<real>10.493433952331543</real>
-						<real>1.5105108022689819</real>
+						<real>9.9597082138061523</real>
+						<real>0.55571001768112183</real>
 					</array>
 					<array>
-						<real>24.042490005493164</real>
-						<real>1.6869051456451416</real>
+						<real>24.834068298339844</real>
+						<real>0.55571001768112183</real>
 					</array>
 					<array>
-						<real>24.421775817871094</real>
-						<real>7.1225771903991699</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>10.108848571777344</real>
-						<real>7.379976749420166</real>
-					</array>
-					<array>
-						<real>24.421775817871094</real>
-						<real>7.1225771903991699</real>
-					</array>
-					<array>
-						<real>30.631917953491211</real>
-						<real>11.412064552307129</real>
-					</array>
-					<array>
-						<real>29.856691360473633</real>
-						<real>18.582912445068359</real>
+						<real>24.836793899536133</real>
+						<real>6.2736129760742188</real>
 					</array>
 				</array>
 				<array>
 					<array>
-						<real>4.1674623489379883</real>
-						<real>19.760135650634766</real>
+						<real>24.836793899536133</real>
+						<real>6.2736129760742188</real>
 					</array>
 					<array>
-						<real>2.2293951511383057</real>
-						<real>10.64289379119873</real>
+						<real>30.185859680175781</real>
+						<real>10.703307151794434</real>
 					</array>
 					<array>
-						<real>10.108848571777344</real>
-						<real>7.379976749420166</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>10.108848571777344</real>
-						<real>7.379976749420166</real>
+						<real>35.059795379638672</real>
+						<real>31.627162933349609</real>
 					</array>
 					<array>
-						<real>29.856691360473633</real>
-						<real>18.582912445068359</real>
+						<real>25.368249893188477</real>
+						<real>45.24420166015625</real>
 					</array>
 					<array>
-						<real>33.570816040039062</real>
-						<real>23.445491790771484</real>
+						<real>8.8559188842773438</real>
+						<real>45.011634826660156</real>
 					</array>
 					<array>
-						<real>34.499725341796875</real>
-						<real>32.780010223388672</real>
+						<real>-0.064337275922298431</real>
+						<real>30.115470886230469</real>
 					</array>
 					<array>
-						<real>28.746088027954102</real>
-						<real>43.436347961425781</real>
+						<real>3.1498255729675293</real>
+						<real>11.15754222869873</real>
 					</array>
 					<array>
-						<real>15.738327026367188</real>
-						<real>47.312484741210938</real>
-					</array>
-					<array>
-						<real>3.9479155540466309</real>
-						<real>40.529247283935547</real>
-					</array>
-					<array>
-						<real>0.48513498902320862</real>
-						<real>29.256664276123047</real>
-					</array>
-					<array>
-						<real>4.1674623489379883</real>
-						<real>19.760135650634766</real>
+						<real>10.61198902130127</real>
+						<real>7.1938920021057129</real>
 					</array>
 				</array>
 			</array>
@@ -487,7 +435,7 @@
 			<dict>
 				<key>baseValue</key>
 				<array>
-					<string>Assets/p2_walk01.png</string>
+					<string>Assets/Character/p2_walk01.png</string>
 					<string>Use regular file</string>
 				</array>
 				<key>name</key>
@@ -497,7 +445,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Assets/p2_walk01.png</string>
+					<string>Assets/Character/p2_walk01.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -534,8 +482,6 @@
 			</dict>
 		</array>
 		<key>selected</key>
-		<true/>
-		<key>seqExpanded</key>
 		<true/>
 	</dict>
 	<key>notes</key>
@@ -592,7 +538,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>0.3333333432674408</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
