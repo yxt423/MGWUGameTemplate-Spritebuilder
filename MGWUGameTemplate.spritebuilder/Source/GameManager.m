@@ -79,7 +79,7 @@
         }
         energyNum = (int)[_defaults integerForKey:@"energyNum"];
         if (!energyNum) {
-            energyNum = 0;
+            energyNum = 10;
         }
         
         audio = [OALSimpleAudio sharedInstance];

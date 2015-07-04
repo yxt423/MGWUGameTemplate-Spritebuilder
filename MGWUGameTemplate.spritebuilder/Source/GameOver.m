@@ -18,7 +18,6 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highScoreLabel;
     CCNode * _normalScore;
-    CCTextField *_yourName;
     
     // game state flags.
     float _timeSinceLastAnimation;

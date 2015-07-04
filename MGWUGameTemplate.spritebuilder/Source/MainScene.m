@@ -24,6 +24,7 @@
     CCNode *_mainScene;
     Character *_character;
     CCNode *_bubble;
+    CCNode *_energy;
     
     bool _inBubble;
     float _timeSinceUpdate;
@@ -47,6 +48,9 @@
     
     // prevent the ground from being removed.
     _gameManager.characterHighest = 0;
+    
+    CCAnimationManager* animationManager = _energy.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"In"];
 }
 
 - (void)onEnter {
@@ -83,15 +87,20 @@
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair character:(CCNode *)nodeA groud:(CCNode *)nodeB {
     if (_inBubble) {
+        // remove bubble and play vanish animation
         [_bubble removeFromParent];
         _inBubble = false;
-        
         [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
         
         [_character stop];
         
         CCAnimationManager* animationManager = _mainScene.userObject;
         [animationManager runAnimationsForSequenceNamed:@"Repeat"];
+        
+        // add energy label
+//        CCNode *energy = [GameManager addCCNodeFromFile:@"Gadgets/Energy" WithPosition:ccp(20, 20) Type:_gameManager.getPTUnitTopLeft To:self];
+//        CCAnimationManager* animationManager2 = energy.userObject;
+//        [animationManager2 runAnimationsForSequenceNamed:@"In"];
     }
     
     return YES;

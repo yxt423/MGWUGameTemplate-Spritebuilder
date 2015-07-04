@@ -13,6 +13,7 @@
 		B6350E031A97F82B00B4867C /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E021A97F82B00B4867C /* Cloud.m */; };
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A43591AF322C0009A107B /* SocreBoardScene.m */; };
+		B63A4ADB1B47EC4D00B4EEBD /* Energy.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A4ADA1B47EC4D00B4EEBD /* Energy.m */; };
 		B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B63CEE241B2EDF0100E1DC5A /* Tutorial_bubble.m */; };
 		B6417D071B0D1320006EA9A8 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B6417D061B0D1320006EA9A8 /* Tutorial.m */; };
 		B657E0121AFB104D00523CBF /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B657E0111AFB104D00523CBF /* IAPManager.m */; };
@@ -114,6 +115,8 @@
 		B6350E051A97F83900B4867C /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		B63A43581AF322C0009A107B /* SocreBoardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocreBoardScene.h; path = Source/SocreBoardScene.h; sourceTree = "<group>"; };
 		B63A43591AF322C0009A107B /* SocreBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocreBoardScene.m; path = Source/SocreBoardScene.m; sourceTree = "<group>"; };
+		B63A4AD91B47EC4D00B4EEBD /* Energy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Energy.h; path = Source/Energy.h; sourceTree = "<group>"; };
+		B63A4ADA1B47EC4D00B4EEBD /* Energy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Energy.m; path = Source/Energy.m; sourceTree = "<group>"; };
 		B63CEE231B2EDF0100E1DC5A /* Tutorial_bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial_bubble.h; path = Source/Tutorial_bubble.h; sourceTree = "<group>"; };
 		B63CEE241B2EDF0100E1DC5A /* Tutorial_bubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial_bubble.m; path = Source/Tutorial_bubble.m; sourceTree = "<group>"; };
 		B6417D051B0D1320006EA9A8 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial.h; path = Source/Tutorial.h; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				B68BBF551AEAF10C00555618 /* Shop.m */,
 				B657E0101AFB104D00523CBF /* IAPManager.h */,
 				B657E0111AFB104D00523CBF /* IAPManager.m */,
+				B63A4AD91B47EC4D00B4EEBD /* Energy.h */,
+				B63A4ADA1B47EC4D00B4EEBD /* Energy.m */,
 			);
 			name = PopUp;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */,
 				B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
+				B63A4ADB1B47EC4D00B4EEBD /* Energy.m in Sources */,
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
 				B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */,
 				B61CE7311AE8537F00FF99CB /* NewHighScore.m in Sources */,
