@@ -13,6 +13,7 @@
 #import "IAPManager.h"
 #import "Character.h"
 #import "Groud.h"
+#import "Energy.h"
 #import "InfoScene.h"
 #import "Mixpanel.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
@@ -24,7 +25,7 @@
     CCNode *_mainScene;
     Character *_character;
     CCNode *_bubble;
-    CCNode *_energy;
+    Energy *_energy;
     
     bool _inBubble;
     float _timeSinceUpdate;
@@ -96,32 +97,35 @@
         
         CCAnimationManager* animationManager = _mainScene.userObject;
         [animationManager runAnimationsForSequenceNamed:@"Repeat"];
-        
-        // add energy label
-//        CCNode *energy = [GameManager addCCNodeFromFile:@"Gadgets/Energy" WithPosition:ccp(20, 20) Type:_gameManager.getPTUnitTopLeft To:self];
-//        CCAnimationManager* animationManager2 = energy.userObject;
-//        [animationManager2 runAnimationsForSequenceNamed:@"In"];
     }
     
     return YES;
 }
 
 - (void)play {
-    // get 10 bubbles everyday.
+    // get 10 energy everyday.
     NSDate *newTime = [NSDate date];
     NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
     CCLOG(@"newTime %@", newTime);
     CCLOG(@"oldTime %@", oldTime);
     
-    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
-        CCLOG(@"new 10 bubbles!");
-        [GameManager addCCNodeFromFile:@"PopUp/NewBubblePopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-        // TODO: every day gift.
-//        [_gameManager addBubble:10];
-        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
-    } else {
-        [_gameManager startNewGame];
-    }
+    [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+    
+    
+//    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+//        CCLOG(@"new 10 bubbles!");
+//        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+//        // TODO: every day gift.
+////        [_gameManager addBubble:10];
+//        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+//    } else {
+//        [_gameManager startNewGame];
+//    }
+}
+
+- (void)addEnergy: (int)num {
+    _gameManager.energyNum += num;
+    [_energy updateEnergyNum];
 }
 
 - (void)setting {

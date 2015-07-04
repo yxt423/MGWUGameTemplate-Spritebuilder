@@ -10,7 +10,6 @@
 
 @interface Energy : CCNode
 
-
 - (void)updateEnergyNum;
 
 @end

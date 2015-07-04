@@ -14,6 +14,7 @@
 		B6350E061A97F83900B4867C /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = B6350E051A97F83900B4867C /* Character.m */; };
 		B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A43591AF322C0009A107B /* SocreBoardScene.m */; };
 		B63A4ADB1B47EC4D00B4EEBD /* Energy.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A4ADA1B47EC4D00B4EEBD /* Energy.m */; };
+		B63A4AE41B48317800B4EEBD /* NewEnergyPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B63A4AE31B48317800B4EEBD /* NewEnergyPopUp.m */; };
 		B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B63CEE241B2EDF0100E1DC5A /* Tutorial_bubble.m */; };
 		B6417D071B0D1320006EA9A8 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B6417D061B0D1320006EA9A8 /* Tutorial.m */; };
 		B657E0121AFB104D00523CBF /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B657E0111AFB104D00523CBF /* IAPManager.m */; };
@@ -22,7 +23,6 @@
 		B68BBF561AEAF10C00555618 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = B68BBF551AEAF10C00555618 /* Shop.m */; };
 		B68BBF5B1AEC5A4700555618 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B68BBF5A1AEC5A4700555618 /* StoreKit.framework */; };
 		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
-		B6A555471ADF658100E3FC7C /* NewBubblePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555461ADF658100E3FC7C /* NewBubblePopUp.m */; };
 		B6A5554A1ADF6BC600E3FC7C /* BubbleLimitPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */; };
 		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
@@ -117,6 +117,8 @@
 		B63A43591AF322C0009A107B /* SocreBoardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocreBoardScene.m; path = Source/SocreBoardScene.m; sourceTree = "<group>"; };
 		B63A4AD91B47EC4D00B4EEBD /* Energy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Energy.h; path = Source/Energy.h; sourceTree = "<group>"; };
 		B63A4ADA1B47EC4D00B4EEBD /* Energy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Energy.m; path = Source/Energy.m; sourceTree = "<group>"; };
+		B63A4AE21B48317800B4EEBD /* NewEnergyPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewEnergyPopUp.h; path = Source/NewEnergyPopUp.h; sourceTree = "<group>"; };
+		B63A4AE31B48317800B4EEBD /* NewEnergyPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEnergyPopUp.m; path = Source/NewEnergyPopUp.m; sourceTree = "<group>"; };
 		B63CEE231B2EDF0100E1DC5A /* Tutorial_bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial_bubble.h; path = Source/Tutorial_bubble.h; sourceTree = "<group>"; };
 		B63CEE241B2EDF0100E1DC5A /* Tutorial_bubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial_bubble.m; path = Source/Tutorial_bubble.m; sourceTree = "<group>"; };
 		B6417D051B0D1320006EA9A8 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial.h; path = Source/Tutorial.h; sourceTree = "<group>"; };
@@ -132,8 +134,6 @@
 		B68BBF5A1AEC5A4700555618 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B6A555321AD9F9F100E3FC7C /* BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicObject.h; path = Source/BasicObject.h; sourceTree = "<group>"; };
 		B6A555331AD9F9F100E3FC7C /* BasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicObject.m; path = Source/BasicObject.m; sourceTree = "<group>"; };
-		B6A555451ADF658100E3FC7C /* NewBubblePopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewBubblePopUp.h; path = Source/NewBubblePopUp.h; sourceTree = "<group>"; };
-		B6A555461ADF658100E3FC7C /* NewBubblePopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewBubblePopUp.m; path = Source/NewBubblePopUp.m; sourceTree = "<group>"; };
 		B6A555481ADF6BC600E3FC7C /* BubbleLimitPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleLimitPopUp.h; path = Source/BubbleLimitPopUp.h; sourceTree = "<group>"; };
 		B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleLimitPopUp.m; path = Source/BubbleLimitPopUp.m; sourceTree = "<group>"; };
 		B6CBD67C1A9BF65100859D79 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOver.h; path = Source/GameOver.h; sourceTree = "<group>"; };
@@ -285,8 +285,8 @@
 		B6A555411ADF656B00E3FC7C /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
-				B6A555451ADF658100E3FC7C /* NewBubblePopUp.h */,
-				B6A555461ADF658100E3FC7C /* NewBubblePopUp.m */,
+				B63A4AE21B48317800B4EEBD /* NewEnergyPopUp.h */,
+				B63A4AE31B48317800B4EEBD /* NewEnergyPopUp.m */,
 				B6D211D11AD3A304001055DE /* PausePopUp.h */,
 				B6D211D21AD3A304001055DE /* PausePopUp.m */,
 				B6A555481ADF6BC600E3FC7C /* BubbleLimitPopUp.h */,
@@ -602,7 +602,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6D211F91AD72479001055DE /* InfoScene.m in Sources */,
-				B6A555471ADF658100E3FC7C /* NewBubblePopUp.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B6F36B241AA2E4230050F36E /* ScoreAdd.m in Sources */,
 				B657E0121AFB104D00523CBF /* IAPManager.m in Sources */,
@@ -616,6 +615,7 @@
 				B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */,
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
 				B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */,
+				B63A4AE41B48317800B4EEBD /* NewEnergyPopUp.m in Sources */,
 				B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B63A4ADB1B47EC4D00B4EEBD /* Energy.m in Sources */,

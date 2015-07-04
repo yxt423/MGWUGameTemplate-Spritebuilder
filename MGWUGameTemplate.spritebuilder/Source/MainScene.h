@@ -10,4 +10,6 @@
 
 @interface MainScene : BasicScene <CCPhysicsCollisionDelegate>
 
+- (void)addEnergy: (int)num;
+
 @end
