@@ -109,22 +109,28 @@
     CCLOG(@"newTime %@", newTime);
     CCLOG(@"oldTime %@", oldTime);
     
-    [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+//    [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
     
+    // new players got to play several times for free.
+    if (_gameManager.gamePlayTimes < 5) {
+        [_gameManager startNewGame];
+        return;
+    }
+    if (_gameManager.gamePlayTimes == 10) {
+        
+    }
     
-//    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
-//        CCLOG(@"new 10 bubbles!");
-//        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-//        // TODO: every day gift.
-////        [_gameManager addBubble:10];
-//        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
-//    } else {
-//        [_gameManager startNewGame];
-//    }
+    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+        CCLOG(@"new 10 bubbles!");
+        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+        _gameManager.energyNum += _gameManager.FREE_ENERGY_EVERYDAY;
+        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+    } else {
+        [_gameManager startNewGame];
+    }
 }
 
-- (void)addEnergy: (int)num {
-    _gameManager.energyNum += num;
+- (void)updateEnergyLabel: (int)num {
     [_energy updateEnergyNum];
 }
 
@@ -164,12 +170,17 @@
     _gameManager.highestScore = 0;
     _gameManager.gamePlayTimes = 0;
     _gameManager.bubbleStartNum = 0;
+    _gameManager.energyNum = 0;
     _gameManager.tutorialProgress = 0;
     
     _gameManager.scoreBoard = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] init] forKey:@"scoreBoard"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     _gameManager.scoreBoard = [[NSMutableArray alloc] init];
+}
+
+- (void)addEnergy {
+    _gameManager.energyNum += 10;
 }
 
 @end

@@ -37,7 +37,7 @@
 
 @synthesize bubbleStartNum, energyNum;
 
-@synthesize TIMETOSHOWTUTORIAL1, TIMETOSHOWTUTORIAL2;
+@synthesize TIMETOSHOWTUTORIAL1, TIMETOSHOWTUTORIAL2, FREE_ENERGY_EVERYDAY, FREE_STARTING_BUBBLE;
 
 /* init functions */
 
@@ -48,6 +48,8 @@
         // constants init.
         TIMETOSHOWTUTORIAL1 = 0;
         TIMETOSHOWTUTORIAL2 = 3;
+        FREE_ENERGY_EVERYDAY = 10;
+        FREE_STARTING_BUBBLE = 1;
         
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
@@ -58,28 +60,31 @@
         
         // veriables from local storage.
         
-        // tutorialProgress: 0, not started, 1, tutorial1 finished, 2, swipeUp enabled. 3, tutorial 2 (bubble finished.)
+        // tutorialProgress: 0, not started, 1, tutorial1 finished, 2, swipeUp enabled. 3, tutorial 2 (bubble) finished.
         tutorialProgress = (int)[_defaults integerForKey:@"tutorialProgress"];
         if (!tutorialProgress) {
-            tutorialProgress = 0;
+            // only outside this class, setter will be automaticlly called when assigning value
+            [self setTutorialProgress:0];
         }
         
         highestScore = (int)[_defaults integerForKey:@"highscore"];  // long to int, loss
         gamePlayTimes = (int)[_defaults integerForKey:@"gamePlayTimes"];
         if (!gamePlayTimes) {
-            gamePlayTimes = 0;
+            [self setGamePlayTimes:0];
         }
+        
         muted = [_defaults boolForKey:@"muted"];
         if (!muted) {
             muted = false;
         }
         bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
         if (!bubbleStartNum) {
-            bubbleStartNum = 0;
+            [self setBubbleStartNum:FREE_STARTING_BUBBLE];
         }
+        
         energyNum = (int)[_defaults integerForKey:@"energyNum"];
         if (!energyNum) {
-            energyNum = 10;
+            [self setEnergyNum:0];
         }
         
         audio = [OALSimpleAudio sharedInstance];
@@ -120,13 +125,16 @@
 }
 
 - (void)startNewGame {
-    if (gamePlayTimes == TIMETOSHOWTUTORIAL1) {
-        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
-    } else if (gamePlayTimes == TIMETOSHOWTUTORIAL2) {
-        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
-    } else {
-        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
-    }
+    gamePlayTimes = 3;
+    [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
+    
+//    if (gamePlayTimes == TIMETOSHOWTUTORIAL1) {
+//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
+//    } else if (gamePlayTimes == TIMETOSHOWTUTORIAL2) {
+//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
+//    } else {
+//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+//    }
     CCLOG(@"start new game!");
 }
 
@@ -158,7 +166,8 @@
     }
 }
 
-/* setters. store the value to local storage. */
+/* setters. store the value to local storage. 
+ only outside this class, setter will be automaticlly called when assigning value. */
 
 - (void)setHighestScore: (int)score {
     CCLOG(@"new high score!");

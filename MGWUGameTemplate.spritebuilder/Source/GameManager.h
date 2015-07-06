@@ -45,6 +45,8 @@
     // constants
     int TIMETOSHOWTUTORIAL1;
     int TIMETOSHOWTUTORIAL2;
+    int FREE_ENERGY_EVERYDAY;
+    int FREE_STARTING_BUBBLE;
 }
 
 // device params.
@@ -85,6 +87,8 @@
 // constants
 @property (nonatomic, assign) int TIMETOSHOWTUTORIAL1;
 @property (nonatomic, assign) int TIMETOSHOWTUTORIAL2;
+@property (nonatomic, assign) int FREE_ENERGY_EVERYDAY;
+@property (nonatomic, assign) int FREE_STARTING_BUBBLE;
 
 /* init functions */
 

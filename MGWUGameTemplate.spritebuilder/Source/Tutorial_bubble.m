@@ -93,7 +93,7 @@
     [self addChild:pauseCover];
     [pauseCover runAction:[GameManager getFadeIn]];
     
-    _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTextBubble1" WithPosition:ccp(120, 80) Type:_gameManager.getPTUnitTopRight To:self];
+    _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTextBubble1" WithPosition:ccp(30, 80) Type:_gameManager.getPTUnitTopRight To:self];
 }
 
 - (void)tutorialStep2 { // swipe up to use bubble.

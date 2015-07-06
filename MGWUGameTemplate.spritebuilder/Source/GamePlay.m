@@ -10,6 +10,9 @@
  1. Remove the cloud when it's position is one screen lower than characterHighest.
  2. End the game when the character is two screens lower than characterHighest.
  
+ == Energy mechanism ==
+ 
+ 
  */
 
 #include <stdlib.h>

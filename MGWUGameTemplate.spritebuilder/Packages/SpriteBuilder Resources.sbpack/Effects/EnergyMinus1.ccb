@@ -16,7 +16,7 @@
 	<key>currentResolution</key>
 	<integer>0</integer>
 	<key>currentSequenceId</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>docDimensionsType</key>
 	<integer>1</integer>
 	<key>fileType</key>
@@ -74,11 +74,41 @@
 									<key>name</key>
 									<string>opacity</string>
 									<key>time</key>
-									<real>0.3333333432674408</real>
+									<real>0.43333333730697632</real>
 									<key>type</key>
 									<integer>10</integer>
 									<key>value</key>
 									<real>1</real>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>opacity</string>
+									<key>time</key>
+									<real>0.66666668653488159</real>
+									<key>type</key>
+									<integer>10</integer>
+									<key>value</key>
+									<real>1</real>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>opacity</string>
+									<key>time</key>
+									<real>1</real>
+									<key>type</key>
+									<integer>10</integer>
+									<key>value</key>
+									<real>0.0</real>
 								</dict>
 							</array>
 							<key>name</key>
@@ -86,10 +116,7 @@
 							<key>type</key>
 							<integer>10</integer>
 						</dict>
-					</dict>
-					<key>1</key>
-					<dict>
-						<key>opacity</key>
+						<key>position</key>
 						<dict>
 							<key>keyframes</key>
 							<array>
@@ -100,13 +127,16 @@
 										<integer>1</integer>
 									</dict>
 									<key>name</key>
-									<string>opacity</string>
+									<string>position</string>
 									<key>time</key>
 									<real>0.0</real>
 									<key>type</key>
-									<integer>10</integer>
+									<integer>3</integer>
 									<key>value</key>
-									<real>1</real>
+									<array>
+										<real>0.0</real>
+										<real>-10</real>
+									</array>
 								</dict>
 								<dict>
 									<key>easing</key>
@@ -115,19 +145,58 @@
 										<integer>1</integer>
 									</dict>
 									<key>name</key>
-									<string>opacity</string>
+									<string>position</string>
 									<key>time</key>
-									<real>0.3333333432674408</real>
+									<real>0.43333333730697632</real>
 									<key>type</key>
-									<integer>10</integer>
+									<integer>3</integer>
 									<key>value</key>
-									<real>0.0</real>
+									<array>
+										<real>0.0</real>
+										<real>0.0</real>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>position</string>
+									<key>time</key>
+									<real>0.66666668653488159</real>
+									<key>type</key>
+									<integer>3</integer>
+									<key>value</key>
+									<array>
+										<real>0.0</real>
+										<real>0.0</real>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>position</string>
+									<key>time</key>
+									<real>1</real>
+									<key>type</key>
+									<integer>3</integer>
+									<key>value</key>
+									<array>
+										<real>0.0</real>
+										<real>10</real>
+									</array>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>opacity</string>
+							<string>position</string>
 							<key>type</key>
-							<integer>10</integer>
+							<integer>3</integer>
 						</dict>
 					</dict>
 				</dict>
@@ -154,6 +223,11 @@
 						<string></string>
 					</dict>
 					<dict>
+						<key>baseValue</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+						</array>
 						<key>name</key>
 						<string>position</string>
 						<key>type</key>
@@ -161,8 +235,8 @@
 						<key>value</key>
 						<array>
 							<real>0.0</real>
-							<real>0.0</real>
-							<integer>0</integer>
+							<real>10</real>
+							<integer>1</integer>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -174,7 +248,7 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
+							<real>0.5</real>
 							<real>0.5</real>
 						</array>
 					</dict>
@@ -198,8 +272,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Look! 
-You've got a free bubble.</string>
+							<string>- 1</string>
 							<false/>
 						</array>
 					</dict>
@@ -218,7 +291,7 @@ You've got a free bubble.</string>
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>16</real>
+							<real>14</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -228,7 +301,7 @@ You've got a free bubble.</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>baseValue</key>
@@ -238,7 +311,20 @@ You've got a free bubble.</string>
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>1</real>
+						<real>0.0</real>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>0.0</real>
+						</array>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -259,7 +345,7 @@ You've got a free bubble.</string>
 						<key>type</key>
 						<string>IntegerLabeled</string>
 						<key>value</key>
-						<integer>1</integer>
+						<integer>0</integer>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -345,8 +431,6 @@ You've got a free bubble.</string>
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
@@ -470,55 +554,19 @@ You've got a free bubble.</string>
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
-			<real>0.3333333432674408</real>
+			<real>1</real>
 			<key>name</key>
 			<string>In</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>1</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
 			<real>128</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
-			<key>soundChannel</key>
-			<dict>
-				<key>isExpanded</key>
-				<false/>
-				<key>keyframes</key>
-				<array/>
-				<key>type</key>
-				<integer>11</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>autoPlay</key>
-			<false/>
-			<key>callbackChannel</key>
-			<dict>
-				<key>keyframes</key>
-				<array/>
-				<key>type</key>
-				<integer>12</integer>
-			</dict>
-			<key>chainedSequenceId</key>
-			<integer>-1</integer>
-			<key>length</key>
-			<real>0.3333333432674408</real>
-			<key>name</key>
-			<string>Out</string>
-			<key>offset</key>
-			<real>0.0</real>
-			<key>position</key>
-			<real>0.0</real>
-			<key>resolution</key>
-			<real>30</real>
-			<key>scale</key>
-			<real>128</real>
-			<key>sequenceId</key>
-			<integer>1</integer>
 			<key>soundChannel</key>
 			<dict>
 				<key>isExpanded</key>

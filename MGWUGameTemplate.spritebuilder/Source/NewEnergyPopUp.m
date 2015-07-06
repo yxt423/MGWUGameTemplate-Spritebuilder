@@ -26,7 +26,7 @@
 }
 
 - (void)ok {
-    [(MainScene*)self.parent addEnergy:10];
+    [(MainScene*)self.parent updateEnergyLabel:10];
     
     CCNode *energyAdd10 = [GameManager addCCNodeFromFile:@"Effects/EnergyAdd10" WithPosition:ccp(80, 20) Type:_gameManager.getPTUnitTopLeft To:self.parent];
     CCAnimationManager* animationManager = energyAdd10.userObject;
