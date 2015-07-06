@@ -60,7 +60,8 @@
         
         // veriables from local storage.
         
-        // tutorialProgress: 0, not started, 1, tutorial1 finished, 2, swipeUp enabled. 3, tutorial 2 (bubble) finished.
+        /* tutorialProgress: 0, not started, 1, tutorial1 finished,
+           2, swipeUp gesture enabled in game. 3, tutorial 2 (bubble) finished.  */
         tutorialProgress = (int)[_defaults integerForKey:@"tutorialProgress"];
         if (!tutorialProgress) {
             // only outside this class, setter will be automaticlly called when assigning value
@@ -261,19 +262,21 @@
     return node;
 }
 
-+ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
++ (CCParticleSystem *)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position Type: (CCPositionType)positionType To: (CCNode *)parentNode {
     CCParticleSystem *node = (CCParticleSystem *)[CCBReader load:fileName];
     node.autoRemoveOnFinish = TRUE;
     node.position = position;
     node.positionType = positionType;
     [parentNode addChild:node];
+    return node;
 }
 
-+ (void)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode {
++ (CCParticleSystem *)addParticleFromFile: (NSString *)fileName WithPosition: (CGPoint)position To: (CCNode *)parentNode {
     CCParticleSystem *node = (CCParticleSystem *)[CCBReader load:fileName];
     node.autoRemoveOnFinish = TRUE;
     node.position = position;
     [parentNode addChild:node];
+    return node;
 }
 
 + (void)playThenCleanUpAnimationOf: (CCNode *)node Named: (NSString *)name {

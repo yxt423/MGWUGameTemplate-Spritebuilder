@@ -64,4 +64,7 @@
 - (void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer;
 - (void)resume;
 
+- (void)startUserInteraction;
+- (void)stopUserInteraction;
+
 @end

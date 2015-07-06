@@ -25,10 +25,7 @@
     if (!self) return(nil);
     
     _tutorialState = 0;
-    
-    // 1, the bubble you have. 2, swipe up to use a bubble. 3, good job.
-    _gameManager.bubbleStartNum = 3;
-    [self updateBubbleNum];
+    // 1, the bubble you have. 2, swipe up to use a bubble. 3, good job. 4, tip of using bubble.
     
     // about loading new content.
     _objectsGroup.opacity = 0;
@@ -61,6 +58,24 @@
     }
 }
 
+- (void)updateAboutBubble:(CCTime)delta {
+    if (_inBubble) {
+        _timeInBubble += delta;
+        if (_timeInBubble > 2.0f) {
+            _inBubble = false;
+            _timeInBubble = 0.0f;
+            [_bubble removeFromParent];
+            
+            // show remove bubble animation.
+            [GameManager addParticleFromFile:@"Effects/BubbleVanish" WithPosition:ccp(0.5, 0.2) Type:_gameManager.getPTNormalizedTopLeft To:_character];
+            
+            if(_tutorialState == 3) {
+                [self tutorialStep4];
+            }
+        }
+    }
+}
+
 - (void)tapGesture:(UIGestureRecognizer *)gestureRecognizer  {
     CGPoint point = [gestureRecognizer locationInView:nil];
     point.x = point.x / _gameManager.tapUIScaleDifference;
@@ -71,6 +86,8 @@
     
     if (_tutorialState == 1) {
         [self tutorialStep2];
+    } else if (_tutorialState == 4) {
+        [self tutorialStep5];
     } else {
         [_character tapGestureCharacterMove:point];
     }
@@ -97,9 +114,9 @@
 }
 
 - (void)tutorialStep2 { // swipe up to use bubble.
-    _contentHeight = 300;
     _tutorialState = 2;
     _gameManager.tutorialProgress = 2;
+    _contentHeight = 300;
     
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
     [GameManager playThenCleanUpAnimationOf:pauseCover Named:@"Out"];
@@ -107,13 +124,29 @@
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTextBubble2" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.4) To:self];
 }
 
-- (void)tutorialStep3 {
+- (void)tutorialStep3 { // show "Good job!" after receiving swipe.
     _tutorialState = 3;
-    _gameManager.tutorialProgress = 3;
     
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
     _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialText4" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7) To:self];
     [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"In"];
+}
+
+- (void)tutorialStep4 { // pause, show tip of using bubble.
+    _tutorialState = 4;
+    
+    [self pauseAndCover];
+    
+    _tutorialText = [GameManager addCCNodeFromFile:@"Gadgets/TutorialTextBubble3" WithPosition:ccp(_gameManager.screenWidth / 2, _gameManager.screenHeight * 0.7) To:self];
+}
+
+- (void)tutorialStep5 { // resume from pause.
+    _tutorialState = 5;
+    _gameManager.tutorialProgress = 3;
+    
+    [self resume];
+    [GameManager playThenCleanUpAnimationOf:_tutorialText Named:@"Out"];
+    CCLOG(@"tutorialStep5");
 }
 
 @end
