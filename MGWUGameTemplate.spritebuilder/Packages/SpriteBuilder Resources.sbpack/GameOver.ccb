@@ -2376,7 +2376,7 @@
 				<key>displayName</key>
 				<string>Energy</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_energy</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class MainScene;
+@class BasicScene;
 
 @interface GameManager : NSObject {
     // device params.
@@ -21,6 +22,7 @@
     int mainSceneState;
     int tutorialProgress;
     int shopSceneNo;
+    int currentSceneNo;
     
     // for game play scene.
     bool muted;
@@ -43,10 +45,12 @@
     int energyNum;
     
     // constants
-    int TIMETOSHOWTUTORIAL1;
-    int TIMETOSHOWTUTORIAL2;
+    int TIMETO_SHOW_TUTORIAL1, TIMETO_SHOW_TUTORIAL2;
+    int TIMETO_START_ENERGY;
     int FREE_ENERGY_EVERYDAY;
     int FREE_STARTING_BUBBLE;
+    int MAINSCENE_NO, GAMEPLAYSCENE_NO, GAMEOVERSCENE_NO;
+    
 }
 
 // device params.
@@ -63,6 +67,7 @@
 @property (nonatomic, assign) int mainSceneState;
 @property (nonatomic, assign) int tutorialProgress;
 @property (nonatomic, assign) int shopSceneNo;
+@property (nonatomic, assign) int currentSceneNo;
 
 // for game play scene.
 @property (nonatomic, assign) bool muted;
@@ -85,16 +90,19 @@
 @property (nonatomic, assign) int energyNum;
 
 // constants
-@property (nonatomic, assign) int TIMETOSHOWTUTORIAL1;
-@property (nonatomic, assign) int TIMETOSHOWTUTORIAL2;
+@property (nonatomic, assign) int TIMETO_SHOW_TUTORIAL1, TIMETO_SHOW_TUTORIAL2;
+@property (nonatomic, assign) int TIMETO_START_ENERGY;
 @property (nonatomic, assign) int FREE_ENERGY_EVERYDAY;
 @property (nonatomic, assign) int FREE_STARTING_BUBBLE;
+@property (nonatomic, assign) int MAINSCENE_NO, GAMEPLAYSCENE_NO, GAMEOVERSCENE_NO;
 
 /* init functions */
 
 + (id)getGameManager;
 - (void)initDeviceParam: (MainScene *)mainScene;
+- (void)playButton: (BasicScene *)scene;
 - (void)startNewGame;
+- (bool)isNewGiftAvailable;
 
 /* parameters related */
 

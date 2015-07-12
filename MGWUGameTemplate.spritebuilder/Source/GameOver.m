@@ -10,6 +10,7 @@
 #import "GamePlay.h"
 #import "GameManager.h"
 #import "NewHighScore.h"
+#import "Energy.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
@@ -18,12 +19,14 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highScoreLabel;
     CCNode * _normalScore;
+    Energy *_energy;
     
     // game state flags.
     float _timeSinceLastAnimation;
 }
 
 - (void)didLoadFromCCB {
+    _gameManager.currentSceneNo = _gameManager.GAMEOVERSCENE_NO;
     _timeSinceLastAnimation = 0;
     
     // prevent the ground from being removed.
@@ -59,7 +62,8 @@
 }
 
 - (void)playAgain {
-    [_gameManager startNewGame];
+    [_gameManager playButton:self];
+//    [_gameManager startNewGame];
 }
 
 - (void)backToMainScene {
@@ -68,6 +72,10 @@
 
 - (void)scoreBoard {
     [GameManager pushSceneWithFadeTransition:@"SocreBoardScene"];
+}
+
+- (void)updateEnergyLabel {
+    [_energy updateEnergyNum];
 }
 
 - (void)facebookShare {

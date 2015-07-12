@@ -8,11 +8,11 @@
 
 #import "BasicScene.h"
 
-@interface GameOver : BasicScene <UITextFieldDelegate>
-
+@interface GameOver : BasicScene 
 
 @property (nonatomic, assign) int score;
 @property (nonatomic, assign) int highScore;
 
+- (void)updateEnergyLabel;
 
 @end

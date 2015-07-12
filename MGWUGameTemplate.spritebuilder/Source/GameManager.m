@@ -14,6 +14,7 @@
 #import "GameManager.h"
 #import "Mixpanel.h"
 #import "MainScene.h"
+#import "GameOver.h"
 
 @implementation GameManager {
     Mixpanel *_mixpanel;
@@ -24,7 +25,7 @@
 @synthesize screenHeightInPoints, screenWidthInPoints;
 @synthesize tapUIScaleDifference;
 
-@synthesize gamePlayState, mainSceneState, tutorialProgress;
+@synthesize gamePlayState, mainSceneState, tutorialProgress, currentSceneNo;
 @synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 
 @synthesize muted, cloudHit;
@@ -37,7 +38,8 @@
 
 @synthesize bubbleStartNum, energyNum;
 
-@synthesize TIMETOSHOWTUTORIAL1, TIMETOSHOWTUTORIAL2, FREE_ENERGY_EVERYDAY, FREE_STARTING_BUBBLE;
+@synthesize TIMETO_SHOW_TUTORIAL1, TIMETO_SHOW_TUTORIAL2, TIMETO_START_ENERGY, FREE_ENERGY_EVERYDAY, FREE_STARTING_BUBBLE;
+@synthesize MAINSCENE_NO, GAMEPLAYSCENE_NO, GAMEOVERSCENE_NO;
 
 /* init functions */
 
@@ -46,19 +48,28 @@
         CCLOG(@"Game Manager Init.");
         
         // constants init.
-        TIMETOSHOWTUTORIAL1 = 0;
-        TIMETOSHOWTUTORIAL2 = 3;
+        TIMETO_SHOW_TUTORIAL1 = 0;
+        TIMETO_SHOW_TUTORIAL2 = 3;
+        TIMETO_START_ENERGY = 5;
         FREE_ENERGY_EVERYDAY = 10;
         FREE_STARTING_BUBBLE = 1;
+        // currentSceneNo: 0, no init, 1, mainscene. 2, gameplay scene, 3, game over scene.
+        MAINSCENE_NO = 1, GAMEPLAYSCENE_NO = 2, GAMEOVERSCENE_NO = 3;
+        _defaults = [NSUserDefaults standardUserDefaults];
         
+        currentSceneNo = 0;
         // gamePlayState: 0, on going, 1 paused, 2 to be resumed, 3 to be restarted, 4 soumd setting to be reversed
         gamePlayState = 0;
         // mainSceneState: 0, on going, 1 paused. 
         mainSceneState = 0;
         characterHighest = 0;
-        _defaults = [NSUserDefaults standardUserDefaults];
         
         // veriables from local storage.
+        
+        // TO change to two sections.
+        if (gamePlayTimes == 0) {
+            [_defaults setObject:[NSDate date] forKey:@"lastGiftTime"];
+        }
         
         /* tutorialProgress: 0, not started, 1, tutorial1 finished,
            2, swipeUp gesture enabled in game. 3, tutorial 2 (bubble) finished.  */
@@ -80,12 +91,12 @@
         }
         bubbleStartNum = (int)[_defaults integerForKey:@"bubbleStartNum"];
         if (!bubbleStartNum) {
-            [self setBubbleStartNum:FREE_STARTING_BUBBLE];
+            [self setBubbleStartNum:0];
         }
         
         energyNum = (int)[_defaults integerForKey:@"energyNum"];
         if (!energyNum) {
-            [self setEnergyNum:0];
+            [self setEnergyNum:FREE_ENERGY_EVERYDAY];
         }
         
         audio = [OALSimpleAudio sharedInstance];
@@ -125,18 +136,62 @@
     CCLOG(@"tapUIScaleDifference %d", tapUIScaleDifference);
 }
 
-- (void)startNewGame {
-    gamePlayTimes = 3;
-    [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
+- (void)playButton: (BasicScene *)scene {
+    // new players got to play several times for free.
+    if (gamePlayTimes < TIMETO_START_ENERGY) {
+        [self startNewGame];
+        return;
+    }
     
-//    if (gamePlayTimes == TIMETOSHOWTUTORIAL1) {
-//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
-//    } else if (gamePlayTimes == TIMETOSHOWTUTORIAL2) {
-//        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
-//    } else {
-//        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
-//    }
+    if (gamePlayTimes == TIMETO_START_ENERGY) {
+        [GameManager addCCNodeFromFile:@"PopUp/EnergyStartPopUp" WithPosition:ccp(0.5, 0.5) Type:[self getPTNormalizedTopLeft] To:scene];
+        return;
+    }
+    
+    if ([self isNewGiftAvailable]) {
+        CCLOG(@"new 10 bubbles!");
+        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:[self getPTNormalizedTopLeft] To:scene];
+        [self setEnergyNum:energyNum + FREE_ENERGY_EVERYDAY];
+        [_defaults setObject:[NSDate date] forKey:@"lastGiftTime"];
+        return;
+    }
+    
+    [self setEnergyNum:energyNum - 1];
+    if (currentSceneNo == MAINSCENE_NO) {
+        [(MainScene *)scene updateEnergyLabel];
+    } else if (currentSceneNo == GAMEOVERSCENE_NO) {
+        [(GameOver *)scene updateEnergyLabel];
+    }
+    CCNode *energyMinus1 = [GameManager addCCNodeFromFile:@"Effects/EnergyMinus1" WithPosition:ccp(80, 20) Type:[self getPTUnitTopLeft] To:scene];
+    CCAnimationManager* animationManager = energyMinus1.userObject;
+    [animationManager runAnimationsForSequenceNamed:@"In"];
+    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+        [energyMinus1 removeFromParentAndCleanup:YES];
+        [self startNewGame];
+    }];
+}
+
+- (void)startNewGame {
+    if (gamePlayTimes == TIMETO_SHOW_TUTORIAL1) {
+        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial"];
+    } else if (gamePlayTimes == TIMETO_SHOW_TUTORIAL2) {
+        [GameManager replaceSceneWithFadeTransition:@"Scenes/Tutorial_bubble"];
+    } else {
+        [GameManager replaceSceneWithFadeTransition:@"GamePlay"];
+    }
     CCLOG(@"start new game!");
+}
+
+- (bool)isNewGiftAvailable {
+    NSDate *newTime = [NSDate date];
+    NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
+    CCLOG(@"newTime %@", newTime);
+    CCLOG(@"oldTime %@", oldTime);
+    if ([[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 - (void)updateScoreBoard: (int)score {

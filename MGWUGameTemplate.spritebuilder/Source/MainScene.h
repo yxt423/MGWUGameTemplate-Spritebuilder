@@ -10,6 +10,6 @@
 
 @interface MainScene : BasicScene <CCPhysicsCollisionDelegate>
 
-- (void)updateEnergyLabel: (int)num;
+- (void)updateEnergyLabel;
 
 @end

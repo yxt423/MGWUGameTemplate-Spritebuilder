@@ -59,9 +59,7 @@
 
 @synthesize _bubbleLimit;
 @synthesize _bubbleToUse;
-@synthesize _bubbleLife1;
-@synthesize _bubbleLife2;
-@synthesize _bubbleLife3;
+@synthesize _bubbleLife1, _bubbleLife2, _bubbleLife3;
 
 @synthesize _bubble;
 @synthesize _inBubble;
@@ -79,6 +77,7 @@
     // constants
     _bubbleLimit = 3;
     
+    _gameManager.currentSceneNo = _gameManager.GAMEPLAYSCENE_NO;
     _gameManager.gamePlayState = 0;
     _gameManager.characterHighest = 0;
     _gameManager.sharedObjectsGroup = _objectsGroup;
@@ -99,7 +98,7 @@
     // load game content
     CCLOG(@"gamePlayTimes: %d", _gameManager.gamePlayTimes);
     
-    if (_gameManager.gamePlayTimes != _gameManager.TIMETOSHOWTUTORIAL1 && _gameManager.gamePlayTimes != _gameManager.TIMETOSHOWTUTORIAL2) {
+    if (_gameManager.gamePlayTimes != _gameManager.TIMETO_SHOW_TUTORIAL1 && _gameManager.gamePlayTimes != _gameManager.TIMETO_SHOW_TUTORIAL2) {
         [self loadNewContent];
         [_mixpanel track:@"Game Start"];
     } else {

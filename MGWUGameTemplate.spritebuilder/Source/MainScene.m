@@ -42,6 +42,7 @@
 }
 
 - (void)didLoadFromCCB {
+    _gameManager.currentSceneNo = _gameManager.MAINSCENE_NO;
     _iapManager = [IAPManager getIAPManager];
     _physicsNode.collisionDelegate = self;
     _timeSinceUpdate = 0.f;
@@ -103,34 +104,37 @@
 }
 
 - (void)play {
-    // get 10 energy everyday.
-    NSDate *newTime = [NSDate date];
-    NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
-    CCLOG(@"newTime %@", newTime);
-    CCLOG(@"oldTime %@", oldTime);
-    
-//    [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-    
-    // new players got to play several times for free.
-    if (_gameManager.gamePlayTimes < 5) {
-        [_gameManager startNewGame];
-        return;
-    }
-    if (_gameManager.gamePlayTimes == 10) {
-        
-    }
-    
-    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
-        CCLOG(@"new 10 bubbles!");
-        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
-        _gameManager.energyNum += _gameManager.FREE_ENERGY_EVERYDAY;
-        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
-    } else {
-        [_gameManager startNewGame];
-    }
+    [_gameManager playButton:self];
+//    // get 10 energy everyday.
+//    NSDate *newTime = [NSDate date];
+//    NSDate *oldTime = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastGiftTime"];
+//    CCLOG(@"newTime %@", newTime);
+//    CCLOG(@"oldTime %@", oldTime);
+//    
+////    [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+//    
+//    // new players got to play several times for free.
+//    if (_gameManager.gamePlayTimes < _gameManager.TIMETO_START_ENERGY) {
+//        [_gameManager startNewGame];
+//        return;
+//    }
+//    if (_gameManager.gamePlayTimes == _gameManager.TIMETO_START_ENERGY) {
+//        [GameManager addCCNodeFromFile:@"PopUp/EnergyStartPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+//        _gameManager.energyNum -= 1;
+//        return;
+//    }
+//    
+//    if (!oldTime || [[oldTime dateByAddingTimeInterval:60*60*24*1] compare: newTime] == NSOrderedAscending) {
+//        CCLOG(@"new 10 bubbles!");
+//        [GameManager addCCNodeFromFile:@"PopUp/NewEnergyPopUp" WithPosition:ccp(0.5, 0.5) Type:_gameManager.getPTNormalizedTopLeft To:self];
+//        _gameManager.energyNum += _gameManager.FREE_ENERGY_EVERYDAY;
+//        [[NSUserDefaults standardUserDefaults] setObject:newTime forKey:@"lastGiftTime"];
+//    } else {
+//        [_gameManager startNewGame];
+//    }
 }
 
-- (void)updateEnergyLabel: (int)num {
+- (void)updateEnergyLabel{
     [_energy updateEnergyNum];
 }
 
@@ -165,12 +169,13 @@
     [GameManager pushSceneWithFadeTransition:@"SocreBoardScene"];
 }
 
+// invisible button
 - (void)reset {
     CCLOG(@".....just reset game.");
     _gameManager.highestScore = 0;
     _gameManager.gamePlayTimes = 0;
     _gameManager.bubbleStartNum = 0;
-    _gameManager.energyNum = 0;
+    _gameManager.energyNum = _gameManager.FREE_ENERGY_EVERYDAY;
     _gameManager.tutorialProgress = 0;
     
     _gameManager.scoreBoard = nil;
@@ -179,6 +184,7 @@
     _gameManager.scoreBoard = [[NSMutableArray alloc] init];
 }
 
+// invisible button
 - (void)addEnergy {
     _gameManager.energyNum += 10;
 }

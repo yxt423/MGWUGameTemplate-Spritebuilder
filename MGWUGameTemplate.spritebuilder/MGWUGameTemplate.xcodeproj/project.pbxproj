@@ -23,7 +23,7 @@
 		B68BBF561AEAF10C00555618 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = B68BBF551AEAF10C00555618 /* Shop.m */; };
 		B68BBF5B1AEC5A4700555618 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B68BBF5A1AEC5A4700555618 /* StoreKit.framework */; };
 		B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555331AD9F9F100E3FC7C /* BasicObject.m */; };
-		B6A5554A1ADF6BC600E3FC7C /* BubbleLimitPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */; };
+		B6C1F8A11B4A7926004104CF /* EnergyStartPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C1F8A01B4A7926004104CF /* EnergyStartPopUp.m */; };
 		B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD67D1A9BF65100859D79 /* GameOver.m */; };
 		B6CBD6811A9BF97200859D79 /* Groud.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CBD6801A9BF97200859D79 /* Groud.m */; };
 		B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D211D21AD3A304001055DE /* PausePopUp.m */; };
@@ -134,8 +134,8 @@
 		B68BBF5A1AEC5A4700555618 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B6A555321AD9F9F100E3FC7C /* BasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicObject.h; path = Source/BasicObject.h; sourceTree = "<group>"; };
 		B6A555331AD9F9F100E3FC7C /* BasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicObject.m; path = Source/BasicObject.m; sourceTree = "<group>"; };
-		B6A555481ADF6BC600E3FC7C /* BubbleLimitPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleLimitPopUp.h; path = Source/BubbleLimitPopUp.h; sourceTree = "<group>"; };
-		B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleLimitPopUp.m; path = Source/BubbleLimitPopUp.m; sourceTree = "<group>"; };
+		B6C1F89F1B4A7926004104CF /* EnergyStartPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnergyStartPopUp.h; path = Source/EnergyStartPopUp.h; sourceTree = "<group>"; };
+		B6C1F8A01B4A7926004104CF /* EnergyStartPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnergyStartPopUp.m; path = Source/EnergyStartPopUp.m; sourceTree = "<group>"; };
 		B6CBD67C1A9BF65100859D79 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOver.h; path = Source/GameOver.h; sourceTree = "<group>"; };
 		B6CBD67D1A9BF65100859D79 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOver.m; path = Source/GameOver.m; sourceTree = "<group>"; };
 		B6CBD67F1A9BF97200859D79 /* Groud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groud.h; path = Source/Groud.h; sourceTree = "<group>"; };
@@ -285,12 +285,12 @@
 		B6A555411ADF656B00E3FC7C /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
-				B63A4AE21B48317800B4EEBD /* NewEnergyPopUp.h */,
-				B63A4AE31B48317800B4EEBD /* NewEnergyPopUp.m */,
 				B6D211D11AD3A304001055DE /* PausePopUp.h */,
 				B6D211D21AD3A304001055DE /* PausePopUp.m */,
-				B6A555481ADF6BC600E3FC7C /* BubbleLimitPopUp.h */,
-				B6A555491ADF6BC600E3FC7C /* BubbleLimitPopUp.m */,
+				B63A4AE21B48317800B4EEBD /* NewEnergyPopUp.h */,
+				B63A4AE31B48317800B4EEBD /* NewEnergyPopUp.m */,
+				B6C1F89F1B4A7926004104CF /* EnergyStartPopUp.h */,
+				B6C1F8A01B4A7926004104CF /* EnergyStartPopUp.m */,
 				B68BBF541AEAF10C00555618 /* Shop.h */,
 				B68BBF551AEAF10C00555618 /* Shop.m */,
 				B657E0101AFB104D00523CBF /* IAPManager.h */,
@@ -614,6 +614,7 @@
 				B65BDDA01AEE03D1007EA982 /* CloudBlack.m in Sources */,
 				B6D211D31AD3A304001055DE /* PausePopUp.m in Sources */,
 				B6CBD6811A9BF97200859D79 /* Groud.m in Sources */,
+				B6C1F8A11B4A7926004104CF /* EnergyStartPopUp.m in Sources */,
 				B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */,
 				B63A4AE41B48317800B4EEBD /* NewEnergyPopUp.m in Sources */,
 				B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */,
@@ -622,7 +623,6 @@
 				B6CBD67E1A9BF65100859D79 /* GameOver.m in Sources */,
 				B6A555341AD9F9F100E3FC7C /* BasicObject.m in Sources */,
 				B61CE7311AE8537F00FF99CB /* NewHighScore.m in Sources */,
-				B6A5554A1ADF6BC600E3FC7C /* BubbleLimitPopUp.m in Sources */,
 				B6D211E21AD61418001055DE /* GameManager.m in Sources */,
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B68BBF561AEAF10C00555618 /* Shop.m in Sources */,

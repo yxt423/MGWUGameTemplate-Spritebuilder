@@ -11,8 +11,6 @@
 #import "GamePlay+UIUtils.h"
 #import "GameManager.h"
 #import "Character.h"
-//#import "Star.h"
-//#import "Cloud.h"
 
 @implementation Tutorial_bubble {
     int _tutorialState;
@@ -24,8 +22,11 @@
     self = [super init];
     if (!self) return(nil);
     
+    /* 1, the bubble you have. 2, swipe up to use a bubble. 3, good job. 
+     4, tip of using bubble. 5, resume and continue the game */
     _tutorialState = 0;
-    // 1, the bubble you have. 2, swipe up to use a bubble. 3, good job. 4, tip of using bubble.
+    _gameManager.tutorialProgress = 0;
+    _gameManager.bubbleStartNum = _gameManager.FREE_STARTING_BUBBLE;
     
     // about loading new content.
     _objectsGroup.opacity = 0;
