@@ -430,9 +430,8 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>Author: Xintong Yu
-
-April 2015</string>
+							<string>Shop Scene
+</string>
 							<false/>
 						</array>
 					</dict>
@@ -568,6 +567,8 @@ April 2015</string>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -902,7 +903,7 @@ April 2015</string>
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>InfoScene</string>
+		<string>ShopScene</string>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
@@ -971,8 +972,6 @@ April 2015</string>
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

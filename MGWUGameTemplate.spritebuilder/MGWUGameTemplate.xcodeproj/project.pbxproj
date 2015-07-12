@@ -39,6 +39,8 @@
 		B6FDE02D1ADF842500C7396A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */; };
 		B6FDE02E1ADF842500C7396A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02C1ADF842500C7396A /* FBSDKLoginKit.framework */; };
 		B6FDE0301ADF843000C7396A /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6FDE02F1ADF843000C7396A /* FBSDKShareKit.framework */; };
+		B6FF598E1B525A0E0071239F /* EnergyUsedUpPopUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FF598D1B525A0E0071239F /* EnergyUsedUpPopUp.m */; };
+		B6FF59941B525BD30071239F /* ShopScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FF59931B525BD30071239F /* ShopScene.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -160,6 +162,10 @@
 		B6FDE02B1ADF842500C7396A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B6FDE02C1ADF842500C7396A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B6FDE02F1ADF843000C7396A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		B6FF598C1B525A0E0071239F /* EnergyUsedUpPopUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnergyUsedUpPopUp.h; path = Source/EnergyUsedUpPopUp.h; sourceTree = "<group>"; };
+		B6FF598D1B525A0E0071239F /* EnergyUsedUpPopUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnergyUsedUpPopUp.m; path = Source/EnergyUsedUpPopUp.m; sourceTree = "<group>"; };
+		B6FF59921B525BD30071239F /* ShopScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopScene.h; path = Source/ShopScene.h; sourceTree = "<group>"; };
+		B6FF59931B525BD30071239F /* ShopScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopScene.m; path = Source/ShopScene.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -297,6 +303,8 @@
 				B657E0111AFB104D00523CBF /* IAPManager.m */,
 				B63A4AD91B47EC4D00B4EEBD /* Energy.h */,
 				B63A4ADA1B47EC4D00B4EEBD /* Energy.m */,
+				B6FF598C1B525A0E0071239F /* EnergyUsedUpPopUp.h */,
+				B6FF598D1B525A0E0071239F /* EnergyUsedUpPopUp.m */,
 			);
 			name = PopUp;
 			sourceTree = "<group>";
@@ -325,6 +333,8 @@
 				B63CEE241B2EDF0100E1DC5A /* Tutorial_bubble.m */,
 				B6CBD67C1A9BF65100859D79 /* GameOver.h */,
 				B6CBD67D1A9BF65100859D79 /* GameOver.m */,
+				B6FF59921B525BD30071239F /* ShopScene.h */,
+				B6FF59931B525BD30071239F /* ShopScene.m */,
 				B6D211F71AD72479001055DE /* InfoScene.h */,
 				B6D211F81AD72479001055DE /* InfoScene.m */,
 				B63A43581AF322C0009A107B /* SocreBoardScene.h */,
@@ -617,6 +627,7 @@
 				B6C1F8A11B4A7926004104CF /* EnergyStartPopUp.m in Sources */,
 				B63A435A1AF322C0009A107B /* SocreBoardScene.m in Sources */,
 				B63A4AE41B48317800B4EEBD /* NewEnergyPopUp.m in Sources */,
+				B6FF59941B525BD30071239F /* ShopScene.m in Sources */,
 				B63CEE251B2EDF0100E1DC5A /* Tutorial_bubble.m in Sources */,
 				B6F36B2A1AA3BB030050F36E /* Star.m in Sources */,
 				B63A4ADB1B47EC4D00B4EEBD /* Energy.m in Sources */,
@@ -627,6 +638,7 @@
 				B6350E031A97F82B00B4867C /* Cloud.m in Sources */,
 				B68BBF561AEAF10C00555618 /* Shop.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				B6FF598E1B525A0E0071239F /* EnergyUsedUpPopUp.m in Sources */,
 				B6350E061A97F83900B4867C /* Character.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

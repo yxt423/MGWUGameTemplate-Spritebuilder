@@ -21,7 +21,6 @@
     int gamePlayState;
     int mainSceneState;
     int tutorialProgress;
-    int shopSceneNo;
     int currentSceneNo;
     
     // for game play scene.
@@ -66,7 +65,6 @@
 @property (nonatomic, assign) int gamePlayState;
 @property (nonatomic, assign) int mainSceneState;
 @property (nonatomic, assign) int tutorialProgress;
-@property (nonatomic, assign) int shopSceneNo;
 @property (nonatomic, assign) int currentSceneNo;
 
 // for game play scene.
@@ -100,13 +98,15 @@
 
 + (id)getGameManager;
 - (void)initDeviceParam: (MainScene *)mainScene;
+
+/* func about starting new game */
 - (void)playButton: (BasicScene *)scene;
+- (void)energyMinusOneAndStartGame: (BasicScene *)scene;
 - (void)startNewGame;
 - (bool)isNewGiftAvailable;
 
 /* parameters related */
 
-- (void)updateScoreBoard: (int)score;
 
 // get CCPositionType.
 - (CCPositionType)getPTNormalizedTopLeft;
@@ -129,6 +129,9 @@
 + (void)pushSceneWithFadeTransition: (NSString*)newSceneName;
 + (void)popSceneWithFadeTransition;
 
+
+/* UI utilities. */
 + (NSString *)scoreWithComma: (int)s;
+- (void)updateScoreBoard: (int)score;
 
 @end

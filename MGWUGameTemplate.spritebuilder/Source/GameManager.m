@@ -26,7 +26,6 @@
 @synthesize tapUIScaleDifference;
 
 @synthesize gamePlayState, mainSceneState, tutorialProgress, currentSceneNo;
-@synthesize shopSceneNo; // 1, mainscene. 2, gameplay.
 
 @synthesize muted, cloudHit;
 @synthesize characterHighest;  //the highest position the character ever been to
@@ -51,7 +50,7 @@
         TIMETO_SHOW_TUTORIAL1 = 0;
         TIMETO_SHOW_TUTORIAL2 = 3;
         TIMETO_START_ENERGY = 5;
-        FREE_ENERGY_EVERYDAY = 10;
+        FREE_ENERGY_EVERYDAY = 3;
         FREE_STARTING_BUBBLE = 1;
         // currentSceneNo: 0, no init, 1, mainscene. 2, gameplay scene, 3, game over scene.
         MAINSCENE_NO = 1, GAMEPLAYSCENE_NO = 2, GAMEOVERSCENE_NO = 3;
@@ -136,6 +135,8 @@
     CCLOG(@"tapUIScaleDifference %d", tapUIScaleDifference);
 }
 
+/* func about starting a new game */
+
 - (void)playButton: (BasicScene *)scene {
     // new players got to play several times for free.
     if (gamePlayTimes < TIMETO_START_ENERGY) {
@@ -156,19 +157,28 @@
         return;
     }
     
-    [self setEnergyNum:energyNum - 1];
-    if (currentSceneNo == MAINSCENE_NO) {
-        [(MainScene *)scene updateEnergyLabel];
-    } else if (currentSceneNo == GAMEOVERSCENE_NO) {
-        [(GameOver *)scene updateEnergyLabel];
+    [self energyMinusOneAndStartGame:scene];
+}
+
+- (void)energyMinusOneAndStartGame: (BasicScene *)scene {
+    if (energyNum > 0) { // energyMinusOneAndStartGame
+        [self setEnergyNum:energyNum - 1];
+        if (currentSceneNo == MAINSCENE_NO) {
+            [(MainScene *)scene updateEnergyLabel];
+        } else if (currentSceneNo == GAMEOVERSCENE_NO) {
+            [(GameOver *)scene updateEnergyLabel];
+        }
+        
+        CCNode *energyMinus1 = [GameManager addCCNodeFromFile:@"Effects/EnergyMinus1" WithPosition:ccp(80, 20) Type:[self getPTUnitTopLeft] To:scene];
+        CCAnimationManager* animationManager = energyMinus1.userObject;
+        [animationManager runAnimationsForSequenceNamed:@"In"];
+        [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
+            [energyMinus1 removeFromParentAndCleanup:YES];
+            [self startNewGame];
+        }];
+    } else { // show EnergyUsedUpPopUp
+        [GameManager addCCNodeFromFile:@"PopUp/EnergyUsedUpPopUp" WithPosition:ccp(0.5, 0.5) Type:[self getPTNormalizedTopLeft] To:scene];
     }
-    CCNode *energyMinus1 = [GameManager addCCNodeFromFile:@"Effects/EnergyMinus1" WithPosition:ccp(80, 20) Type:[self getPTUnitTopLeft] To:scene];
-    CCAnimationManager* animationManager = energyMinus1.userObject;
-    [animationManager runAnimationsForSequenceNamed:@"In"];
-    [animationManager setCompletedAnimationCallbackBlock:^(id sender) {
-        [energyMinus1 removeFromParentAndCleanup:YES];
-        [self startNewGame];
-    }];
 }
 
 - (void)startNewGame {
@@ -191,34 +201,6 @@
         return true;
     } else {
         return false;
-    }
-}
-
-- (void)updateScoreBoard: (int)score {
-    if ([scoreBoard count] == 0) {
-        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:0];
-        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
-        [_defaults synchronize];
-        return;
-    }
-    
-    for (int i = 0; i < [scoreBoard count]; i++) {
-        if (score >= [[scoreBoard objectAtIndex:i] intValue]) {
-            [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:i];
-            if ([scoreBoard count] > 5) {
-                [scoreBoard removeLastObject];
-            }
-            
-            [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
-            [_defaults synchronize];
-            return;
-        }
-    }
-    
-    if ([scoreBoard count] < 5) {
-        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:[scoreBoard count]];
-        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
-        [_defaults synchronize];
     }
 }
 
@@ -365,6 +347,34 @@
     }
     
     return result;
+}
+
+- (void)updateScoreBoard: (int)score {
+    if ([scoreBoard count] == 0) {
+        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:0];
+        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+        [_defaults synchronize];
+        return;
+    }
+    
+    for (int i = 0; i < [scoreBoard count]; i++) {
+        if (score >= [[scoreBoard objectAtIndex:i] intValue]) {
+            [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:i];
+            if ([scoreBoard count] > 5) {
+                [scoreBoard removeLastObject];
+            }
+            
+            [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+            [_defaults synchronize];
+            return;
+        }
+    }
+    
+    if ([scoreBoard count] < 5) {
+        [scoreBoard insertObject:[NSNumber numberWithInt:score] atIndex:[scoreBoard count]];
+        [_defaults setObject:scoreBoard forKey:@"scoreBoard"];
+        [_defaults synchronize];
+    }
 }
 
 @end
